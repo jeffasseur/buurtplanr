@@ -1,9 +1,7 @@
-import Toolbar from '../../components/3d/Toolbar'
+import { Map } from '@/components/molecule/Map'
 const Builder = () => {
     return (
-        <div>
-            <Toolbar />
-        </div>
+        <Map />
     )
 }
 
