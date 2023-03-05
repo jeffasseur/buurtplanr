@@ -13,7 +13,7 @@ const mapOptions = {
   keyboardShortcuts: false
 }
 
-export const Map = () => {
+const Map = () => {
   return (
     <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <BuurtMap />
@@ -37,3 +37,5 @@ const BuurtMap = () => {
     </div>
   )
 }
+
+export default Map
