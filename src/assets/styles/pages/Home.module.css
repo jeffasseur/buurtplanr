@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: var(--spacing-64);
+  color: var(--color-primary);
+  background: var(--color-secondary);
+}
+
+.logos {
+  display: flex;
+  gap: var(--spacing-14);
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  font-size: var(--font-size-7);
+}

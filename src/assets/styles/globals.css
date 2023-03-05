@@ -1,0 +1,21 @@
+:root {
+  scroll-behavior: smooth;
+
+  --outline-focus-offset: 1px;
+  --outline-focus-width: 3px;
+}
+
+main {
+  height: 100vh;
+}
+
+:focus {
+  outline-style: solid;
+  outline-color: transparent;
+}
+
+:focus-visible {
+  outline-width: var(--outline-focus-width);
+  outline-color: var(--color-primary);
+  outline-offset: var(--outline-focus-offset);
+}

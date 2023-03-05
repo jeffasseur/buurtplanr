@@ -1,0 +1,16 @@
+/* stylelint-disable */
+
+/* Reset */
+@import "the-new-css-reset/css/reset.css";
+
+/* Media-queries */
+@import "media-queries.css";
+
+/* Variables */
+@import "variables.css";
+
+/* Utilities */
+@import "utilities.css";
+
+/* Global CSS */
+@import "globals.css";
