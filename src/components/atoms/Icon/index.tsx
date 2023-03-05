@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 
-import styles from './stlyes.module.css'
+import styles from './styles.module.css'
 
 const icons = [
   'chevron-down'
