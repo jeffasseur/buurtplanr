@@ -1,0 +1,142 @@
+{
+  // React
+  "import React": {
+    "prefix": "ir",
+    "body": ["import * as React from 'react'"]
+  },
+  "React.useState": {
+    "prefix": "us",
+    "body": [
+      "const [${1}, set${1/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}] = React.useState<$1>(${2:initial${1/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}})$0"
+    ]
+  },
+  "React.useEffect": {
+    "prefix": "uf",
+    "body": ["React.useEffect(() => {", "  $0", "}, [])"]
+  },
+  "React.useReducer": {
+    "prefix": "ur",
+    "body": [
+      "const [state, dispatch] = React.useReducer(${0:someReducer}, {",
+      "  ",
+      "})"
+    ]
+  },
+  "React.useRef": {
+    "prefix": "urf",
+    "body": ["const ${1:someRef} = React.useRef($0)"]
+  },
+  "Create Typescript React Functional Component":{
+    "prefix": ["nc"], // new component
+    "body": [
+      "interface ${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}}Props {",
+      "}",
+      "",
+      "/**",
+      "* General component description in JSDoc format. Markdown is *supported*.",
+      "*/",
+      "const ${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}} = ({}: ${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}}Props) => {",
+      "  return (",
+      "    <div>${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}}</div>",
+      "  )",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}}",
+      ""
+    ],
+    "description": "Create a TypeScript React Functional Component",
+    "scope": "typescriptreact"
+  },
+  // Next JS
+  "Next Pages": {
+    "prefix": "np",
+    "body": [
+      "import type { NextPage } from 'next'",
+      "",
+      "const ${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}}Page: NextPage = () => {",
+      "  return (",
+      "    <section>",
+      "      <div>",
+      "        $0",
+      "      </div>",
+      "    </section>",
+      "  )",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}}Page",
+      ""
+    ]
+  },
+  "Next API": {
+    "prefix": "napi",
+    "body": [
+      "import { NextApiRequest, NextApiResponse } from 'next'\n",
+      "export default function ${1:${TM_FILENAME_BASE}}(req: NextApiRequest, res: NextApiResponse) {",
+      "  if (req.method === 'GET') {",
+      "    res.status(200).json({ name: 'Bambang' })",
+      "  } else {",
+      "    res.status(405).json({ message: 'Method Not Allowed' })",
+      "  }",
+      "}"
+    ]
+  },
+  "Get Static Props": {
+    "prefix": "gsp",
+    "body": [
+      "export const getStaticProps: GetStaticProps = async (context) => {",
+      "  return {",
+      "    props: {}",
+      "  }",
+      "}"
+    ]
+  },
+  "Get Static Paths": {
+    "prefix": "gspa",
+    "body": [
+      "export const getStaticPaths: GetStaticPaths = async () => {",
+      "  return {",
+      "    paths: [",
+      "      { params: { $1 }}",
+      "    ],",
+      "    fallback: true",
+      "  }",
+      "}"
+    ]
+  },
+  "Get Server Side Props": {
+    "prefix": "gssp",
+    "body": [
+      "export const getServerSideProps: GetServerSideProps = async (context) => {",
+      "  return {",
+      "    props: {}",
+      "  }",
+      "}"
+    ]
+  },
+  "Import useRouter": {
+    "prefix": "imurtr",
+    "body": ["import { useRouter } from 'next/router'"]
+  },
+  "Import Next Image": {
+    "prefix": "imimg",
+    "body": ["import Image from 'next/image'"]
+  },
+  "Import Next Link": {
+    "prefix": "iml",
+    "body": ["import Link from 'next/link'"]
+  },
+  // Wrap
+  "Wrap with Fragment": {
+    "prefix": "ff",
+    "body": ["<>", "\t${TM_SELECTED_TEXT}", "</>"],
+    "scope": "typescriptreact, javascriptreact"
+  },
+  "Wrap with Element": {
+    "prefix": "wrap",
+    "body": ["<$1>", "\t${TM_SELECTED_TEXT}", "</$1>"]
+  },
+  "Wrap with clsx": {
+    "prefix": "cx",
+    "body": ["{clsx(${TM_SELECTED_TEXT})}"]
+  }
+}

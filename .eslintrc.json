@@ -9,14 +9,14 @@
   "parser": "@typescript-eslint/parser",
   "overrides": [
     {
-      "files": [".ts", ".tsx"], // Your TypeScript files extension
+      "files": ["*.ts", "*.tsx"], // Your TypeScript files extension
 
       "parserOptions": {
         "project": "./tsconfig.json"
       },
       "rules": {
     /* ---- TypeScript rules ---- */
-    // Disable no-undef rule because it is handled by typescript 
+    // Disable no-undef rule because it is handled by typescript
     "no-undef": "off",
 
     // Disable triple-slash-reference to have access to Next definitions
@@ -25,14 +25,14 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     // Disable explicit function return type
     "@typescript-eslint/explicit-function-return-type": "off",
-    // Force add type when importing/exporting types
+    // Force add `type` when importing/exporting types
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/consistent-type-exports": "warn"
       }
     }
   ],
   "rules": {
-    /* --- Regular rules --- */
+    /* --- Regular rules ---*/
     "no-console": "warn",
 
     /* ---- React rules ---- */

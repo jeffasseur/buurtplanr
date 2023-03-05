@@ -1,0 +1,24 @@
+ {
+  "Create Typescript Component Story":{
+    "prefix": ["nsbc", "storybookTSComponent"], // new component
+    "body": [
+      "import ${ComponentName} from './index'",
+      "",
+      "import type { Meta, StoryObj } from '@storybook/react'",
+      "",
+      "const meta: Meta<typeof ${ComponentName}> = {",
+      "   component: ${ComponentName}",
+      "}",
+      "",
+      "export default meta",
+      "type Story = StoryObj<typeof ${ComponentName}>",
+      "",
+      "export const Default: Story = {",
+      "  args: {}",
+      "}",
+      ""
+    ],
+    "description": "Create a TypeScript Storybook story for a React Component",
+    "scope": "typescript,typescriptreact"
+  }
+}
