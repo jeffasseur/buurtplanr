@@ -1,4 +1,4 @@
-import { Map } from '@/components/molecule/Map'
+import Map from '@/components/molecule/Map'
 
 const Builder = () => {
   return (
