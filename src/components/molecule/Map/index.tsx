@@ -35,7 +35,7 @@ const MapBlueprint = () => {
 
   return (
     <div ref={mapContainer} id='map' className={styles.map}>
-      <h1>not a title</h1>
+
     </div>
   )
 }
