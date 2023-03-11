@@ -18,29 +18,24 @@ const projects = [
   },
   {
     id: 2,
-    name: "kruidtuin",
+    name: "not kruidtuin",
     info: {
       description: "lorem ipsummed lorem",
 
     },
     coordinates: {
-      lat: 51.03342,
+      lat: 54.03482,
       lng: 4.4841925,
     }
   }
 ]
 
-const mapCoord = {
-  lat: 51.0259,
-  lng: 4.4776
-}
-
 {/* send coordinates as props to mapblueprint so that the map is reusable */ }
 export const MapWrapper = () => {
   return (
     <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <ProjectCard />
-      <MapBlueprint />
+      <ProjectCard projectData={projects} />
+      <MapBlueprint projectData={projects} />
     </Wrapper>
   )
 }

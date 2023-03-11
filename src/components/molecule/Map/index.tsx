@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from 'three'
 
 import styles from './styles.module.css'
+
+interface MapProps {
+  projectData: array
+}
 
 const mapOptions = {
   tilt: 50,
@@ -13,7 +18,8 @@ const mapOptions = {
   keyboardShortcuts: false
 }
 
-const MapBlueprint = () => {
+const MapBlueprint = ({ projectData }: MapProps) => {
+  console.log(projectData)
   const mapContainer = useRef<HTMLDivElement>(null)
   const overlay = useRef(null)
   const [map, setMap] = useState<Object>()
@@ -41,6 +47,18 @@ const MapBlueprint = () => {
       camera = new THREE.PerspectiveCamera();
       const light = new THREE.AmbientLight(0xffffff, 0.9);
       scene.add(light);
+
+      //create markers for each project
+      loader = new GLTFLoader();
+      loader.load("/models/marker.glb", (gltf) => {
+        gltf.scene.projectId = projectData[1].id;
+        gltf.scene.scale.set(20, 20, 20);
+        gltf.scene.position.set(projectData[1].coordinates.lat, projectData[1].coordinates.lng, 0)
+        gltf.scene.rotation.x = Math.PI / 2;
+        scene.add(gltf.scene);
+      });
+      // projectData.forEach(el => {
+      // });
     }
 
     glOverlay.onContextRestored = ({ gl }) => {
@@ -49,7 +67,6 @@ const MapBlueprint = () => {
         context: gl,
         ...gl.getContextAttributes()
       });
-
       renderer.autoClear = false;
       renderer.autoClearDepth = false;
     }
@@ -60,6 +77,11 @@ const MapBlueprint = () => {
         lng: mapOptions.center.lng,
         altitude: 0
       })
+      camera.projectionMatrix = new THREE.Matrix4().fromArray(matrix);
+
+      glOverlay.requestRedraw();
+      renderer.render(scene, camera);
+      renderer.resetState();
     }
     glOverlay.setMap(map)
     return glOverlay

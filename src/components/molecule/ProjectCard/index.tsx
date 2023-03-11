@@ -1,7 +1,11 @@
 import styles from "./styles.module.css"
 
+interface MapProps {
+  projectData: array
+}
+
 {/* send coordinates as props to mapblueprint so that the map is reusable */ }
-export const ProjectCard = () => {
+export const ProjectCard = ({ projectData }: MapProps) => {
   return (
     <div className={`${styles.cardContainer} ${styles.hidden}`}>
       <div className={styles.cardHeader}>
