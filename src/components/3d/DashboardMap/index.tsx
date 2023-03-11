@@ -18,14 +18,14 @@ const projects = [
   },
   {
     id: 2,
-    name: "not kruidtuin",
+    name: "vleeshalle",
     info: {
       description: "lorem ipsummed lorem",
 
     },
     coordinates: {
-      lat: 54.03482,
-      lng: 4.4841925,
+      lat: 51.026431091650224,
+      lng: 4.484253696734126,
     }
   }
 ]

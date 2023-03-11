@@ -37,6 +37,7 @@
     "@types/three": "^0.149.0",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
+    "@ubilabs/threejs-overlay-view": "^0.7.1",
     "clsx": "^1.2.1",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
