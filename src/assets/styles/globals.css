@@ -3,6 +3,7 @@
 
   --outline-focus-offset: 1px;
   --outline-focus-width: 3px;
+
 }
 
 main {
@@ -18,4 +19,8 @@ main {
   outline-width: var(--outline-focus-width);
   outline-color: var(--color-primary);
   outline-offset: var(--outline-focus-offset);
+}
+
+body {
+  margin: 0; 
 }
