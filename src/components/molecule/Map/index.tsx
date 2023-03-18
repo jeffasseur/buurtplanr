@@ -24,7 +24,6 @@ const mapOptions = {
   keyboardShortcuts: false
 }
 
-
 const MapBlueprint = ({ projectData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
@@ -33,7 +32,6 @@ const MapBlueprint = ({ projectData }: MapProps) => {
     mousePosition = new THREE.Vector2(),
     scene = threeOverlay.getScene(),
     markers: markersObj[] = [];
-
 
   useEffect(() => {
     if (!map) {
@@ -84,7 +82,6 @@ const MapBlueprint = ({ projectData }: MapProps) => {
   const bindMapEvents = () => {
     const updateMousePosition = (e) => {
       const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
-
       const x = e.domEvent.clientX - left;
       const y = e.domEvent.clientY - top;
 
@@ -98,19 +95,25 @@ const MapBlueprint = ({ projectData }: MapProps) => {
     })
   }
 
+  //reset marker color
+  const resetMarkerColor = () => {
+    markers.forEach(el => {
+      el.children[0].material.color.setHex(0xff0000);
+    })
+  }
+
   //overlay update lifecycle
   threeOverlay.update = () => {
     let highlightedObject;
     const intersections = threeOverlay.raycast(mousePosition);
 
     if (intersections.length) {
+      resetMarkerColor();
       highlightedObject = intersections[0].object;
       highlightedObject.material.color.setHex(0xffffff);
       setActiveProject(highlightedObject.parent.projectId)
     } else {
-      markers.forEach(el => {
-        el.children[0].material.color.setHex(0xff0000);
-      })
+      resetMarkerColor();
       setActiveProject(null)
     }
   }
