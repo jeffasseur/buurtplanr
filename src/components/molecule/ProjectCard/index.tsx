@@ -1,22 +1,21 @@
 import styles from "./styles.module.css"
 
-interface MapProps {
-  projectData: array
+interface ProjectProps {
+  project: object | null | undefined
 }
 
-{/* send coordinates as props to mapblueprint so that the map is reusable */ }
-export const ProjectCard = ({ projectData }: MapProps) => {
+export const ProjectCard = ({ project }: ProjectProps) => {
   return (
-    <div className={`${styles.cardContainer} ${styles.hidden}`}>
+    <div className={`${styles.cardContainer} `}>
       <div className={styles.cardHeader}>
-        <h3>kruidtuin</h3>
+        <h3>{project.name}</h3>
         <p>thema: parkinrichting</p>
       </div>
       <div className={styles.cardImg}>
         <img src="" alt="image" className={styles.cardImg} />
       </div>
       <div className={styles.cardDescription}>
-        <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
+        <p>{project.info.description}</p>
       </div>
       <div className={styles.cardButton}>
         <p>start building</p>

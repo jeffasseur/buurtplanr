@@ -1,7 +1,6 @@
 import { Wrapper } from '@googlemaps/react-wrapper';
 
 import MapBlueprint from '@/components/molecule/Map';
-import { ProjectCard } from '@/components/molecule/ProjectCard';
 
 const projects = [
   {
@@ -34,7 +33,6 @@ const projects = [
 export const MapWrapper = () => {
   return (
     <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-      <ProjectCard projectData={projects} />
       <MapBlueprint projectData={projects} />
     </Wrapper>
   )

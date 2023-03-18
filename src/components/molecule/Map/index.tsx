@@ -4,6 +4,7 @@ import ThreejsOverlayView from '@ubilabs/threejs-overlay-view';
 import * as THREE from 'three'
 
 import styles from './styles.module.css'
+import { ProjectCard } from '../ProjectCard';
 
 interface MapProps {
   projectData: Array<Object>;
@@ -27,10 +28,12 @@ const mapOptions = {
 const MapBlueprint = ({ projectData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
+    [ActiveProject, setActiveProject] = useState<object | null>(null),
     threeOverlay = new ThreejsOverlayView(mapOptions.center),
     mousePosition = new THREE.Vector2(),
     scene = threeOverlay.getScene(),
     markers: markersObj[] = [];
+
 
   useEffect(() => {
     if (!map) {
@@ -72,7 +75,6 @@ const MapBlueprint = ({ projectData }: MapProps) => {
     scene.children.find(el => {
       if ("projectId" in el) {
         let admit = markers.findIndex(markers => markers.projectId == el.projectId)
-        console.log(typeof el.projectId)
         admit === -1 ? markers.push(el) : console.log("object already exists")
       }
     })
@@ -104,15 +106,21 @@ const MapBlueprint = ({ projectData }: MapProps) => {
     if (intersections.length) {
       highlightedObject = intersections[0].object;
       highlightedObject.material.color.setHex(0xffffff);
+      setActiveProject(highlightedObject.parent.projectId)
     } else {
       markers.forEach(el => {
         el.children[0].material.color.setHex(0xff0000);
       })
+      setActiveProject(null)
     }
   }
 
   return (
-    <div ref={mapContainer} id='map' className={styles.map}></div>
+    <div ref={mapContainer} id='map' className={styles.map}>
+      {typeof ActiveProject === "number" &&
+        <ProjectCard project={projectData.find(el => el.id == ActiveProject)} />
+      }
+    </div>
   )
 }
 
