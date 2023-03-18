@@ -6,7 +6,11 @@ import * as THREE from 'three'
 import styles from './styles.module.css'
 
 interface MapProps {
-  projectData: array
+  projectData: Array<Object>;
+}
+
+interface markersObj {
+  [key: string]: any;
 }
 
 const mapOptions = {
@@ -19,29 +23,28 @@ const mapOptions = {
   keyboardShortcuts: false
 }
 
+
 const MapBlueprint = ({ projectData }: MapProps) => {
-  console.log(projectData)
-  const mapContainer = useRef<HTMLDivElement>(null)
-  const overlay = useRef(null)
-  const [map, setMap] = useState<Object>()
-  const threeOverlay = new ThreejsOverlayView(mapOptions.center);
-  const scene = threeOverlay.getScene()
+  const mapContainer = useRef<HTMLDivElement>(null),
+    [map, setMap] = useState<google.maps.Map>(),
+    threeOverlay = new ThreejsOverlayView(mapOptions.center),
+    mousePosition = new THREE.Vector2(),
+    scene = threeOverlay.getScene(),
+    markers: markersObj[] = [];
 
   useEffect(() => {
-    if (!overlay.current) {
+    if (!map) {
       const mapInstance = new window.google.maps.Map(mapContainer.current!, mapOptions)
-
-      // clickevent retrieving data like latlng on user click
-      // mapInstance.addListener("click", (e) => {
-      //   console.log(e)
-      // })
-
       setMap(mapInstance)
-      overlay.current = createOverlay(mapInstance)
     }
-  }, [])
+    if (map) {
+      createOverlay()
+      bindMapEvents()
+    }
+  }, [map])
 
-  const createOverlay = (map) => {
+  //create 3d overlay
+  const createOverlay = () => {
     //create markers for each project
     projectData.forEach(el => {
       const loader = new GLTFLoader();
@@ -50,21 +53,62 @@ const MapBlueprint = ({ projectData }: MapProps) => {
     threeOverlay.setMap(map);
   }
 
-  threeOverlay.update = () => {
-    const time = performance.now();
-    threeOverlay.requestRedraw();
-  };
-
+  //append markers on scene
   const createMarkers = (loader, el) => {
     loader.load("/models/marker.glb", (gltf) => {
       gltf.scene.projectId = el.id;
       gltf.scene.scale.set(20, 20, 20);
       gltf.scene.rotation.x = Math.PI / 2;
-      const lat = el.coordinates.lat
-      const lng = el.coordinates.lng
+      const lat = el.coordinates.lat;
+      const lng = el.coordinates.lng;
       threeOverlay.latLngAltToVector3({ lat, lng }, gltf.scene.position);
       scene.add(gltf.scene);
+      getAllMarkers()
     });
+  }
+
+  //collect all marker in scene into an array 
+  const getAllMarkers = () => {
+    scene.children.find(el => {
+      if ("projectId" in el) {
+        let admit = markers.findIndex(markers => markers.projectId == el.projectId)
+        console.log(typeof el.projectId)
+        admit === -1 ? markers.push(el) : console.log("object already exists")
+      }
+    })
+  }
+
+  //initialize eventlisteners for user inputs
+  const bindMapEvents = () => {
+    const updateMousePosition = (e) => {
+      const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+
+      const x = e.domEvent.clientX - left;
+      const y = e.domEvent.clientY - top;
+
+      mousePosition.x = 2 * (x / width) - 1;
+      mousePosition.y = 1 - 2 * (y / height);
+    }
+
+    map.addListener("click", (e: google.maps.MapMouseEvent) => {
+      updateMousePosition(e);
+      threeOverlay.requestRedraw();
+    })
+  }
+
+  //overlay update lifecycle
+  threeOverlay.update = () => {
+    let highlightedObject;
+    const intersections = threeOverlay.raycast(mousePosition);
+
+    if (intersections.length) {
+      highlightedObject = intersections[0].object;
+      highlightedObject.material.color.setHex(0xffffff);
+    } else {
+      markers.forEach(el => {
+        el.children[0].material.color.setHex(0xff0000);
+      })
+    }
   }
 
   return (

@@ -33,7 +33,7 @@ const projects = [
 {/* send coordinates as props to mapblueprint so that the map is reusable */ }
 export const MapWrapper = () => {
   return (
-    <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+    <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <ProjectCard projectData={projects} />
       <MapBlueprint projectData={projects} />
     </Wrapper>
