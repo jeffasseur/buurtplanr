@@ -7,7 +7,7 @@ interface ProjectProps {
 
 export const ProjectCard = ({ project }: ProjectProps) => {
   return (
-    <div className={`${styles.cardContainer} `}>
+    <div className={styles.cardContainer}>
       <div className={styles.cardHeader}>
         <h3>{project.name}</h3>
         <p>thema: parkinrichting</p>

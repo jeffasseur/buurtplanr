@@ -1,6 +1,11 @@
 import { Wrapper } from '@googlemaps/react-wrapper';
 
-import MapBlueprint from '@/components/molecule/Map';
+import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap';
+import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap';
+
+interface MapProps {
+  mapType: string;
+}
 
 const projects = [
   {
@@ -30,10 +35,11 @@ const projects = [
 ]
 
 {/* send coordinates as props to mapblueprint so that the map is reusable */ }
-export const MapWrapper = () => {
+export const MapWrapper = ({ mapType }: MapProps) => {
   return (
     <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-      <MapBlueprint projectData={projects} />
+      {mapType === "overview" && <OverviewMapBlueprint projectData={projects} />}
+      {/* {mapType === "builder" && <BuilderMapBlueprint projectData={projects} />} */}
     </Wrapper>
   )
 }

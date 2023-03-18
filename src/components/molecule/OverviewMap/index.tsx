@@ -24,7 +24,7 @@ const mapOptions = {
   keyboardShortcuts: false
 }
 
-const MapBlueprint = ({ projectData }: MapProps) => {
+export const OverviewMapBlueprint = ({ projectData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
     [ActiveProject, setActiveProject] = useState<object | null>(null),
@@ -126,5 +126,3 @@ const MapBlueprint = ({ projectData }: MapProps) => {
     </div>
   )
 }
-
-export default MapBlueprint
