@@ -1,3 +1,4 @@
+import Link from "next/link"
 import styles from "./styles.module.css"
 
 interface ProjectProps {
@@ -17,9 +18,9 @@ export const ProjectCard = ({ project }: ProjectProps) => {
       <div className={styles.cardDescription}>
         <p>{project.info.description}</p>
       </div>
-      <div className={styles.cardButton}>
-        <p>start building</p>
-      </div>
-    </div >
+      <Link className={styles.cardButton} href={`/builder/${project.id}`} >
+        <p> start building </p>
+      </Link>
+    </div>
   )
 }
