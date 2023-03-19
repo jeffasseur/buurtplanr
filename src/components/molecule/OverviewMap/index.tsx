@@ -8,34 +8,25 @@ import { ProjectCard } from '../ProjectCard';
 
 interface MapProps {
   projectData: Array<Object>;
+  mapData: Object;
 }
 
 interface markersObj {
   [key: string]: any;
 }
 
-const mapOptions = {
-  tilt: 50,
-  heading: 0,
-  zoom: 18,
-  center: { lat: 51.02342, lng: 4.4841925 },
-  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID,
-  disableDefaultUI: true,
-  keyboardShortcuts: false
-}
-
-export const OverviewMapBlueprint = ({ projectData }: MapProps) => {
+export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
     [ActiveProject, setActiveProject] = useState<object | null>(null),
-    threeOverlay = new ThreejsOverlayView(mapOptions.center),
+    threeOverlay = new ThreejsOverlayView(mapData.center),
     mousePosition = new THREE.Vector2(),
     scene = threeOverlay.getScene(),
     markers: markersObj[] = [];
 
   useEffect(() => {
     if (!map) {
-      const mapInstance = new window.google.maps.Map(mapContainer.current!, mapOptions)
+      const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
       setMap(mapInstance)
     }
     if (map) {
