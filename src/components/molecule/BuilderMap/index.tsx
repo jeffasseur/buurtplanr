@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 import { ProjectCard } from '../ProjectCard';
 
 interface MapProps {
-  projectData: Array<Object>;
+  projectData: Object;
   mapData: Array<Object>;
 }
 
@@ -24,6 +24,8 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     scene = threeOverlay.getScene(),
     markers: markersObj[] = [];
 
+  mapData.center = projectData.coordinates
+
   useEffect(() => {
     if (!map) {
       const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
@@ -37,11 +39,12 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   //create 3d overlay
   const createOverlay = () => {
+    console.log(projectData)
     //create markers for each project
-    projectData.forEach(el => {
-      const loader = new GLTFLoader();
-      createMarkers(loader, el);
-    });
+    // projectData.forEach(el => {
+    //   const loader = new GLTFLoader();
+    //   createMarkers(loader, el);
+    // });
     threeOverlay.setMap(map);
   }
 

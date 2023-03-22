@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 interface MapProps {
   mapType: string;
+  projectId?: number;
 }
 
 const projects = [
@@ -36,7 +37,7 @@ const projects = [
 ]
 
 {/* send coordinates as props to mapblueprint so that the map is reusable */ }
-export const MapWrapper = ({ mapType }: MapProps) => {
+export const MapWrapper = ({ mapType, projectId }: MapProps) => {
   // const [latlng, setLatLng] = useState<object | null>(null);
   const [mapData, setMapData] = useState<object | null>(null);
 
@@ -62,7 +63,7 @@ export const MapWrapper = ({ mapType }: MapProps) => {
     {mapData && (
       <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
         {mapType === "overview" && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
-        {mapType === "builder" && <BuilderMapBlueprint mapData={mapData} projectData={projects} />}
+        {mapType === "builder" && <BuilderMapBlueprint mapData={mapData} projectData={projects.find(el => el.id == projectId)} />}
       </Wrapper>
     )}
   </>
