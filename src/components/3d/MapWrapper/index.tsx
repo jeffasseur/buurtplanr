@@ -9,7 +9,33 @@ interface MapProps {
   projectId?: number;
 }
 
-const projects = [
+export interface mapOptions {
+  tilt: number,
+  heading: number,
+  zoom: number,
+  center: {
+    lat: number,
+    lng: number
+  },
+  mapId: string | undefined,
+  disableDefaultUI: boolean,
+  keyboardShortcuts: boolean
+}
+
+export interface project {
+  id: number,
+  name: string,
+  info: {
+    description: string,
+
+  },
+  coordinates: {
+    lat: number,
+    lng: number,
+  }
+}
+
+const projects: project[] = [
   {
     id: 1,
     name: "kruidtuin",
@@ -38,18 +64,17 @@ const projects = [
 
 {/* send coordinates as props to mapblueprint so that the map is reusable */ }
 export const MapWrapper = ({ mapType, projectId }: MapProps) => {
-  // const [latlng, setLatLng] = useState<object | null>(null);
-  const [mapData, setMapData] = useState<object | null>(null);
+  const [mapData, setMapData] = useState<mapOptions | null>(null);
 
   useEffect(() => {
     if (!mapData) {
       //get user coordinates to send in map blueprint to set map camera to user location
       navigator.geolocation.getCurrentPosition((e) => {
-        const mapOptions = {
+        const mapOptions: mapOptions = {
           tilt: 50,
           heading: 0,
           zoom: 18,
-          center: { lat: e.coords.latitude, lng: e.coords.longitude },
+          center: { lat: 51.026431091650224, lng: 4.484253696734126 },
           mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID,
           disableDefaultUI: true,
           keyboardShortcuts: false
@@ -57,6 +82,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
         setMapData(mapOptions)
       })
     }
+    console.log()
   })
 
   return <>
