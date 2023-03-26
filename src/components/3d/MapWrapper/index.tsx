@@ -82,7 +82,6 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
         setMapData(mapOptions)
       })
     }
-    console.log()
   })
 
   return <>

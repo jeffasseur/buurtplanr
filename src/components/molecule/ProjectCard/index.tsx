@@ -1,8 +1,9 @@
 import Link from "next/link"
 import styles from "./styles.module.css"
+import { project } from '@/components/3d/MapWrapper';
 
 interface ProjectProps {
-  project: object | null | undefined
+  project: project | undefined
 }
 
 export const ProjectCard = ({ project }: ProjectProps) => {

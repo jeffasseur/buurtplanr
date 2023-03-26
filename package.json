@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "tsc -p tsconfig.json --noEmit && prettier -c './src/**/*.{ts,js}' && npm run test --workspaces",
     "storybook": "storybook dev -p 6006",
     "lint": "next lint && stylelint src/**/*.css",
     "lint-fix": "next lint --fix && stylelint --fix src/**/*.css",
@@ -63,6 +64,7 @@
     "stylelint-config-standard": "^30.0.1",
     "the-new-css-reset": "^1.8.4",
     "three": "^0.150.1",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "zustand": "^4.3.6"
   }
 }

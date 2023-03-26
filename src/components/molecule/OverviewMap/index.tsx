@@ -4,11 +4,12 @@ import ThreejsOverlayView from '@ubilabs/threejs-overlay-view';
 import * as THREE from 'three'
 
 import styles from './styles.module.css'
+import { mapOptions, project } from '@/components/3d/MapWrapper';
 import { ProjectCard } from '../ProjectCard';
 
 interface MapProps {
-  projectData: Array<Object>;
-  mapData: Object;
+  projectData: project[];
+  mapData: mapOptions;
 }
 
 interface markersObj {
@@ -18,7 +19,7 @@ interface markersObj {
 export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
-    [ActiveProject, setActiveProject] = useState<object | null>(null),
+    [ActiveProject, setActiveProject] = useState<project | undefined>(undefined),
     threeOverlay = new ThreejsOverlayView(mapData.center),
     mousePosition = new THREE.Vector2(),
     scene = threeOverlay.getScene(),
@@ -72,18 +73,21 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   //initialize eventlisteners for user inputs
   const bindMapEvents = () => {
     const updateMousePosition = (e) => {
-      const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
-      const x = e.domEvent.clientX - left;
-      const y = e.domEvent.clientY - top;
+      if (mapContainer.current) {
+        const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+        const x = e.domEvent.clientX - left;
+        const y = e.domEvent.clientY - top;
 
-      mousePosition.x = 2 * (x / width) - 1;
-      mousePosition.y = 1 - 2 * (y / height);
+        mousePosition.x = 2 * (x / width) - 1;
+        mousePosition.y = 1 - 2 * (y / height);
+      }
     }
 
-    map.addListener("click", (e: google.maps.MapMouseEvent) => {
-      updateMousePosition(e);
-      threeOverlay.requestRedraw();
-    })
+    if (map)
+      map.addListener("click", (e: google.maps.MapMouseEvent) => {
+        updateMousePosition(e);
+        threeOverlay.requestRedraw();
+      })
   }
 
   //reset marker color
