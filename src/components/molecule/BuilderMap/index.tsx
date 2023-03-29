@@ -11,20 +11,20 @@ import { LatLngAltitudeLiteral } from '@ubilabs/threejs-overlay-view/dist/types'
 
 interface MapProps {
   mapData: mapOptions;
-  projectData: project | undefined;
+  projectData: project;
 }
 
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
-    threeOverlay = new ThreejsOverlayView(mapData.center),
+    threeOverlay = new ThreejsOverlayView(projectData.coordinates),
     scene = threeOverlay.getScene(),
-    model = useDroppedModel(state => state.model),
-    loader = new GLTFLoader();
-  let newPosition: LatLngAltitudeLiteral = { lat: 0, lng: 0, altitude: 0.5 };
-
-  if (projectData)
-    mapData.center = projectData.coordinates
+    modelType = useDroppedModel(state => state.model),
+    loader = new GLTFLoader()
+  let mousePosition: LatLngAltitudeLiteral = ({
+    ...projectData.coordinates, altitude: 0.5
+  }),
+    modelPos: THREE.Vector3
 
   useEffect(() => {
     if (!map) {
@@ -32,49 +32,43 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       setMap(mapInstance)
     }
     if (map) {
-      createOverlay()
-      bindMapEvents()
+      threeOverlay.setMap(map);
+      initScene()
     }
   }, [map])
 
-  //create 3d overlay
-  const createOverlay = () => {
-    threeOverlay.setMap(map);
-  }
-
-  //append new model on scene
-  const appendModel = (loader, el) => {
-    loader.load(`/models/${el}.glb`, (gltf) => {
-      gltf.scene.scale.set(20, 20, 20);
-      gltf.scene.rotation.x = Math.PI / 2;
-      threeOverlay.latLngAltToVector3(newPosition, gltf.scene.position)
-      scene.add(gltf.scene);
-      console.log(scene)
+  const initScene = () => {
+    console.log(mousePosition)
+    threeOverlay.update = () => {
+      modelPos = threeOverlay.latLngAltToVector3(mousePosition);
       threeOverlay.requestRedraw();
-    });
-  }
+    }
 
-  //initialize eventlisteners for user inputs
-  const bindMapEvents = () => {
+    //initialize eventlisteners for user inputs
     if (map) {
       map.addListener("mousemove", (e: google.maps.MapMouseEvent) => {
-        const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
-        latlng.z = 0.5
-        newPosition = { ...latlng }
-        console.log(newPosition)
-        threeOverlay.requestRedraw();
+        const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()));
+        latlng.z = 0.5;
+        mousePosition = { ...latlng }
       })
     }
   }
 
-  //overlay update lifecycle
-  threeOverlay.update = () => {
-    threeOverlay.requestRedraw();
+  const getModel = (model) => {
+    loader.load(`/models/${model}.glb`, (gltf) => {
+      const model = gltf.scene;
+      model.scale.setScalar(25);
+      model.rotation.set(Math.PI / 2, 0, 0);
+      model.position.set(modelPos.x, modelPos.y, modelPos.z);
+      console.log(model);
+      scene.add(model);
+    })
   }
 
-  const onDrop = (e) => {
-    appendModel(loader, model);
+  const onDrop = () => {
+    getModel(modelType)
   }
+
   const onDragOver = (e) => {
     e.preventDefault();
   }
