@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import ThreejsOverlayView from '@ubilabs/threejs-overlay-view';
 import * as THREE from 'three'
+import { ThreeJSOverlayView } from "@googlemaps/three";
 
 import styles from './styles.module.css'
 import { mapOptions, project } from '@/components/3d/MapWrapper';
@@ -20,9 +20,8 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
     [ActiveProject, setActiveProject] = useState<project | undefined>(undefined),
-    threeOverlay = new ThreejsOverlayView(mapData.center),
+    threeOverlay = new ThreeJSOverlayView(),
     mousePosition = new THREE.Vector2(),
-    scene = threeOverlay.getScene(),
     markers: markersObj[] = [];
 
   useEffect(() => {
@@ -54,15 +53,15 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
       gltf.scene.rotation.x = Math.PI / 2;
       const lat = el.coordinates.lat;
       const lng = el.coordinates.lng;
-      threeOverlay.latLngAltToVector3({ lat, lng }, gltf.scene.position);
-      scene.add(gltf.scene);
+      threeOverlay.latLngAltitudeToVector3({ lat, lng }, gltf.scene.position);
+      threeOverlay.scene.add(gltf.scene);
       getAllMarkers()
     });
   }
 
   //collect all marker in scene into an array 
   const getAllMarkers = () => {
-    scene.children.find(el => {
+    threeOverlay.scene.children.find(el => {
       if ("projectId" in el) {
         let admit = markers.findIndex(markers => markers.projectId == el.projectId)
         admit === -1 ? markers.push(el) : console.log("object already exists")
@@ -98,7 +97,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   }
 
   //overlay update lifecycle
-  threeOverlay.update = () => {
+  threeOverlay.onBeforeDraw = () => {
     let highlightedObject;
     const intersections = threeOverlay.raycast(mousePosition);
 
@@ -109,7 +108,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
       setActiveProject(highlightedObject.parent.projectId)
     } else {
       resetMarkerColor();
-      setActiveProject(null)
+      setActiveProject(undefined)
     }
   }
 
