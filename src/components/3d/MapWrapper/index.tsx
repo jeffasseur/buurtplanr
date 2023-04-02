@@ -3,6 +3,7 @@ import { Wrapper } from '@googlemaps/react-wrapper';
 import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap';
 import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap';
 import { useEffect, useState } from 'react';
+import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap';
 
 interface MapProps {
   mapType: string;
@@ -74,7 +75,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
           tilt: 50,
           heading: 0,
           zoom: 18,
-          center: { lat: 51.026431091650224, lng: 4.484253696734126 },
+          center: { lat: e.coords.latitude, lng: e.coords.longitude },
           mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_DEFAULT_MAP_ID,
           disableDefaultUI: true,
           keyboardShortcuts: false
@@ -89,6 +90,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
       <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
         {mapType === "overview" && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
         {mapType === "builder" && <BuilderMapBlueprint mapData={mapData} projectData={projects.find(el => el.id == projectId)} />}
+        {mapType === "creator" && <ParamsMapBlueprint mapData={mapData} />}
       </Wrapper>
     )}
   </>
