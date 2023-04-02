@@ -75,7 +75,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
           heading: 0,
           zoom: 18,
           center: { lat: 51.026431091650224, lng: 4.484253696734126 },
-          mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID,
+          mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_DEFAULT_MAP_ID,
           disableDefaultUI: true,
           keyboardShortcuts: false
         }
