@@ -16,7 +16,8 @@ export interface mapOptions {
   zoom: number,
   center: {
     lat: number,
-    lng: number
+    lng: number,
+    altitude: number
   },
   mapId: string | undefined,
   disableDefaultUI: boolean,
@@ -33,6 +34,7 @@ export interface project {
   coordinates: {
     lat: number,
     lng: number,
+    altitude: number
   }
 }
 
@@ -47,6 +49,7 @@ const projects: project[] = [
     coordinates: {
       lat: 51.02342,
       lng: 4.4841925,
+      altitude: 1
     }
   },
   {
@@ -59,6 +62,7 @@ const projects: project[] = [
     coordinates: {
       lat: 51.026431091650224,
       lng: 4.484253696734126,
+      altitude: 1
     }
   }
 ]
@@ -75,7 +79,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
           tilt: 50,
           heading: 0,
           zoom: 18,
-          center: { lat: projects[1].coordinates.lat, lng: projects[1].coordinates.lng },
+          center: { lat: projects[1].coordinates.lat, lng: projects[1].coordinates.lng, altitude: 1 },
           mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_DEFAULT_MAP_ID,
           disableDefaultUI: true,
           keyboardShortcuts: false

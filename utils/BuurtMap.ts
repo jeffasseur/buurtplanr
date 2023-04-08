@@ -2,6 +2,8 @@ import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
 import { Vector3 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
+import { type project } from '@/components/3d/MapWrapper'
+
 export class BuurtMap {
   threeOverlay: ThreeJSOverlayView
   loader: GLTFLoader
@@ -9,7 +11,7 @@ export class BuurtMap {
   mousePosition: Vector3
 
   constructor() {
-    this.threeOverlay = new ThreeJSOverlayView({ animationMode: 'always' })
+    this.threeOverlay = new ThreeJSOverlayView({ animationMode: 'always', upAxis: 'Z' })
     this.loader = new GLTFLoader()
     this.scene = this.threeOverlay.scene
     this.mousePosition = new Vector3()
@@ -25,7 +27,7 @@ export class BuurtMap {
     return await Promise.resolve(this.mousePosition)
   }
 
-  appendModel = (el) => {
+  appendModel = (el: project) => {
     this.loader.load('/models/marker.glb', (gltf) => {
       gltf.scene.projectId = el.id
       gltf.scene.scale.set(20, 20, 20)

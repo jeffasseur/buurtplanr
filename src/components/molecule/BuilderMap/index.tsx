@@ -28,11 +28,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (map) {
       map.addListener("mousemove", (e: google.maps.MapMouseEvent) => {
         const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
-        latlng.z = 0.5
+        latlng.z = 1
         mousePosition = { ...latlng }
         BUURTMAP.threeOverlay.requestRedraw()
       })
-      BUURTMAP.BuildMap(map, mapData.center)
+      BUURTMAP.BuildMap(map, projectData.coordinates)
     }
   }, [map])
 
