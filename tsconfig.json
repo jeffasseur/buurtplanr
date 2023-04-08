@@ -32,6 +32,9 @@
       ],
       "@/hooks/*": [
         "./src/lib/hooks/*"
+      ],
+      "@/utils/*": [
+        "./utils/*"
       ]
     },
     "plugins": [

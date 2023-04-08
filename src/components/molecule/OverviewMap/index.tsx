@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from 'three'
-import { ThreeJSOverlayView } from "@googlemaps/three";
 
 import styles from './styles.module.css'
 import { mapOptions, project } from '@/components/3d/MapWrapper';
 import { ProjectCard } from '../ProjectCard';
+import { BuurtMap } from '@/utils/BuurtMap';
 
 interface MapProps {
   projectData: project[];
@@ -19,8 +18,8 @@ interface markersObj {
 export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
+    BUURTMAP = new BuurtMap(),
     [ActiveProject, setActiveProject] = useState<project | undefined>(undefined),
-    threeOverlay = new ThreeJSOverlayView(),
     mousePosition = new THREE.Vector2(),
     markers: markersObj[] = [];
 
@@ -35,41 +34,28 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
     }
   }, [map])
 
-  //create 3d overlay
   const createOverlay = () => {
-    //create markers for each project
-    projectData.forEach(el => {
-      const loader = new GLTFLoader();
-      createMarkers(loader, el);
-    });
-    threeOverlay.setMap(map);
-  }
+    //create 3d overlay
+    BUURTMAP.BuildMap(map, mapData.center)
 
-  //append markers on scene
-  const createMarkers = (loader, el) => {
-    loader.load("/models/marker.glb", (gltf) => {
-      gltf.scene.projectId = el.id;
-      gltf.scene.scale.set(20, 20, 20);
-      gltf.scene.rotation.x = Math.PI / 2;
-      const lat = el.coordinates.lat;
-      const lng = el.coordinates.lng;
-      threeOverlay.latLngAltitudeToVector3({ lat, lng }, gltf.scene.position);
-      threeOverlay.scene.add(gltf.scene);
+    //create markers for each project ++ append to three-js-overlayview
+    projectData.forEach(el => {
+      BUURTMAP.appendModel(el);
       getAllMarkers()
     });
   }
 
   //collect all marker in scene into an array 
   const getAllMarkers = () => {
-    threeOverlay.scene.children.find(el => {
+    BUURTMAP.scene.children.find(el => {
       if ("projectId" in el) {
         let admit = markers.findIndex(markers => markers.projectId == el.projectId)
-        admit === -1 ? markers.push(el) : console.log("object already exists")
+        if (admit === -1) markers.push(el)
       }
     })
   }
 
-  //initialize eventlisteners for user inputs
+  //initialize eventlisteners for user inputs ++ raycaster
   const bindMapEvents = () => {
     const updateMousePosition = (e) => {
       if (mapContainer.current) {
@@ -85,7 +71,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (map)
       map.addListener("click", (e: google.maps.MapMouseEvent) => {
         updateMousePosition(e);
-        threeOverlay.requestRedraw();
+        BUURTMAP.threeOverlay.requestRedraw();
       })
   }
 
@@ -97,9 +83,9 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   }
 
   //overlay update lifecycle
-  threeOverlay.onBeforeDraw = () => {
+  BUURTMAP.threeOverlay.onBeforeDraw = () => {
     let highlightedObject;
-    const intersections = threeOverlay.raycast(mousePosition);
+    const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
 
     if (intersections.length) {
       resetMarkerColor();
