@@ -16,7 +16,7 @@ let mousePosition: google.maps.LatLngAltitudeLiteral;
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
-    BUURTMAP = new BuurtMap(),
+    [BUURTMAP, setBUURTMAP] = useState<BuurtMap>(),
     modelType = useDroppedModel(state => state.model);
 
   useEffect(() => {
@@ -24,21 +24,21 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       mapData.mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_FLAT_MAP_ID
       const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
       setMap(mapInstance)
+      setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
     }
-    if (map) {
+    if (map && BUURTMAP) {
       map.addListener("mousemove", (e: google.maps.MapMouseEvent) => {
         const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
         latlng.z = 1
         mousePosition = { ...latlng }
         BUURTMAP.threeOverlay.requestRedraw()
       })
-      BUURTMAP.BuildMap(map, projectData.coordinates)
     }
   }, [map])
 
   const initProduct = async () => {
-    if (modelType && mousePosition) {
-      BUURTMAP.updateMousePos(mousePosition).then((res) => {
+    if (BUURTMAP && modelType) {
+      BUURTMAP.updateMousePosition(mousePosition).then((res) => {
         BUURTMAP.appendProducts(modelType)
       })
     }

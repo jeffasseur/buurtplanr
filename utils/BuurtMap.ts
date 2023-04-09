@@ -10,19 +10,14 @@ export class BuurtMap {
   scene: THREE.Scene
   mousePosition: Vector3
 
-  constructor() {
-    this.threeOverlay = new ThreeJSOverlayView({ animationMode: 'always', upAxis: 'Z' })
-    this.loader = new GLTFLoader()
+  constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
+    this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
+    this.loader = new GLTFLoader()
     this.mousePosition = new Vector3()
   }
 
-  BuildMap = (map: google.maps.Map, anchorPoint: LatLngTypes) => {
-    this.threeOverlay.setMap(map)
-    this.threeOverlay.setAnchor(anchorPoint)
-  }
-
-  updateMousePos = async (mousePosition: LatLngTypes) => {
+  updateMousePosition = async (mousePosition: LatLngTypes) => {
     this.mousePosition.copy(this.threeOverlay.latLngAltitudeToVector3(mousePosition))
     return await Promise.resolve(this.mousePosition)
   }
@@ -40,6 +35,8 @@ export class BuurtMap {
   }
 
   appendProducts = (modelType: string) => {
+    console.log(this.threeOverlay.anchor)
+    console.log(this.mousePosition)
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
       gltf.scene.scale.set(80, 80, 80)
       gltf.scene.rotation.x = Math.PI / 2

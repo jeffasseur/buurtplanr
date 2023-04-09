@@ -18,7 +18,7 @@ interface markersObj {
 export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
-    BUURTMAP = new BuurtMap(),
+    [BUURTMAP, setBUURTMAP] = useState<BuurtMap>(),
     [ActiveProject, setActiveProject] = useState<project | undefined>(undefined),
     mousePosition = new THREE.Vector2(),
     markers: markersObj[] = [];
@@ -27,32 +27,32 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (!map) {
       const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
       setMap(mapInstance)
+      setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
     }
     if (map) {
-      createOverlay()
+      appendMarkers()
       bindMapEvents()
     }
   }, [map])
 
-  const createOverlay = () => {
-    //create 3d overlay
-    BUURTMAP.BuildMap(map, mapData.center)
-
+  const appendMarkers = () => {
     //create markers for each project ++ append to three-js-overlayview
     projectData.forEach(el => {
-      BUURTMAP.appendModel(el);
+      if (BUURTMAP)
+        BUURTMAP.appendModel(el);
       getAllMarkers()
     });
   }
 
   //collect all marker in scene into an array 
   const getAllMarkers = () => {
-    BUURTMAP.scene.children.find(el => {
-      if ("projectId" in el) {
-        let admit = markers.findIndex(markers => markers.projectId == el.projectId)
-        if (admit === -1) markers.push(el)
-      }
-    })
+    if (BUURTMAP)
+      BUURTMAP.scene.children.find(el => {
+        if ("projectId" in el) {
+          let admit = markers.findIndex(markers => markers.projectId == el.projectId)
+          if (admit === -1) markers.push(el)
+        }
+      })
   }
 
   //initialize eventlisteners for user inputs ++ raycaster
@@ -71,7 +71,8 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (map)
       map.addListener("click", (e: google.maps.MapMouseEvent) => {
         updateMousePosition(e);
-        BUURTMAP.threeOverlay.requestRedraw();
+        if (BUURTMAP)
+          BUURTMAP.threeOverlay.requestRedraw();
       })
   }
 
@@ -83,20 +84,21 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   }
 
   //overlay update lifecycle
-  BUURTMAP.threeOverlay.onBeforeDraw = () => {
-    let highlightedObject;
-    const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
+  if (BUURTMAP)
+    BUURTMAP.threeOverlay.onBeforeDraw = () => {
+      let highlightedObject;
+      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
 
-    if (intersections.length) {
-      resetMarkerColor();
-      highlightedObject = intersections[0].object;
-      highlightedObject.material.color.setHex(0xffffff);
-      setActiveProject(highlightedObject.parent.projectId)
-    } else {
-      resetMarkerColor();
-      setActiveProject(undefined)
+      if (intersections.length) {
+        resetMarkerColor();
+        highlightedObject = intersections[0].object;
+        highlightedObject.material.color.setHex(0xffffff);
+        setActiveProject(highlightedObject.parent.projectId)
+      } else {
+        resetMarkerColor();
+        setActiveProject(undefined)
+      }
     }
-  }
 
   return (
     <div ref={mapContainer} id='map' className={styles.map}>
