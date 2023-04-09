@@ -35,14 +35,11 @@ export class BuurtMap {
   }
 
   appendProducts = (modelType: string) => {
-    console.log(this.threeOverlay.anchor)
-    console.log(this.mousePosition)
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
       gltf.scene.scale.set(80, 80, 80)
       gltf.scene.rotation.x = Math.PI / 2
       gltf.scene.position.copy(this.mousePosition)
       this.scene.add(gltf.scene)
-      console.log(this.scene)
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
