@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import styles from './styles.module.css'
 import Toolbar from '@/components/molecule/Toolbar';
+import { Editor } from '@/components/atoms/Editor';
 import { mapOptions, project } from '@/components/3d/MapWrapper';
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext';
 import { BuurtMap } from '@/utils/BuurtMap';
@@ -18,6 +19,9 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     [map, setMap] = useState<google.maps.Map>(),
     [BUURTMAP, setBUURTMAP] = useState<BuurtMap>(),
     modelType = useDroppedModel(state => state.model);
+
+  let activeModel: boolean = false,
+    activeProductID: number | null = null;
 
   useEffect(() => {
     if (!map) {
@@ -45,7 +49,6 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   }
 
   const onDrop = (e) => {
-    console.log(e)
     initProduct()
   }
 
@@ -55,7 +58,8 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   return (
     <div ref={mapContainer} id='map' className={styles.map} onDragOver={onDragOver} onDrop={onDrop}>
+      {map && BUURTMAP && <Editor disabled={activeModel} activeProductID={activeProductID} BUURTMAP={BUURTMAP} />}
       {map && <Toolbar />}
-    </div >
+    </div>
   )
 }

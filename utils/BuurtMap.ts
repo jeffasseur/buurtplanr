@@ -36,6 +36,7 @@ export class BuurtMap {
 
   appendProducts = (modelType: string) => {
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
+      gltf.scene.modelId = Math.floor(Math.random() * Date.now() * Math.PI)
       gltf.scene.scale.set(80, 80, 80)
       gltf.scene.rotation.x = Math.PI / 2
       gltf.scene.position.copy(this.mousePosition)
@@ -43,5 +44,8 @@ export class BuurtMap {
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
+  }
+
+  removeProductById = (productID) => {
   }
 }
