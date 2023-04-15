@@ -3,9 +3,10 @@
   background-color: whitesmoke;
   position: absolute;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  padding: 0em 2em;
+  gap: 2em;
   height: 180px;
   width: 100%;
   z-index: 10;

@@ -44,7 +44,8 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     }
   }
 
-  const onDrop = () => {
+  const onDrop = (e) => {
+    console.log(e)
     initProduct()
   }
 
