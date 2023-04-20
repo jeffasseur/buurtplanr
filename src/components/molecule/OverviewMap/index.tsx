@@ -5,7 +5,6 @@ import styles from './styles.module.css'
 import { mapOptions, project } from '@/components/3d/MapWrapper';
 import { ProjectCard } from '../ProjectCard';
 import { BuurtMap } from '@/utils/BuurtMap';
-import { useActiveProject } from '@/components/zustand/buurtplanrContext';
 
 interface MapProps {
   projectData: project[];
