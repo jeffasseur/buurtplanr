@@ -5,14 +5,11 @@ import styles from './styles.module.css'
 import { mapOptions, project } from '@/components/3d/MapWrapper';
 import { ProjectCard } from '../ProjectCard';
 import { BuurtMap } from '@/utils/BuurtMap';
+import { useActiveProject } from '@/components/zustand/buurtplanrContext';
 
 interface MapProps {
   projectData: project[];
   mapData: mapOptions;
-}
-
-interface markersObj {
-  [key: string]: any;
 }
 
 export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
@@ -21,7 +18,8 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
     [BUURTMAP, setBUURTMAP] = useState<BuurtMap>(),
     [ActiveProject, setActiveProject] = useState<project | undefined>(undefined),
     mousePosition = new THREE.Vector2(),
-    markers: markersObj[] = [];
+    markers: THREE.Object3D[] = [];
+  let highlightedObject: THREE.Object3D<THREE.Event> | null = null
 
   useEffect(() => {
     if (!map) {
@@ -29,11 +27,39 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
     }
+
     if (map) {
       appendMarkers()
       bindMapEvents()
     }
   }, [map])
+
+  const bindMapEvents = () => {
+    const updateMousePosition = (e) => {
+      const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+      const x = e.domEvent.clientX - left;
+      const y = e.domEvent.clientY - top;
+
+      mousePosition.x = 2 * (x / width) - 1;
+      mousePosition.y = 1 - 2 * (y / height);
+    }
+    map.addListener("click", (e: google.maps.MapMouseEvent) => {
+      updateMousePosition(e);
+
+      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
+      setActiveProject(undefined);
+      // console.log(intersections);
+      if (highlightedObject) highlightedObject.material.color.setHex(0xff0000);
+
+      if (intersections.length === 0) return;
+
+      highlightedObject = intersections[0].object;
+      setActiveProject(projectData.find(pr => pr.id === highlightedObject.parent.projectId));
+      highlightedObject.material.color.setHex(0xffffff);
+
+      BUURTMAP.threeOverlay.requestRedraw();
+    })
+  }
 
   const appendMarkers = () => {
     //create markers for each project ++ append to three-js-overlayview
@@ -55,56 +81,9 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
       })
   }
 
-  //initialize eventlisteners for user inputs ++ raycaster
-  const bindMapEvents = () => {
-    const updateMousePosition = (e) => {
-      if (mapContainer.current) {
-        const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
-        const x = e.domEvent.clientX - left;
-        const y = e.domEvent.clientY - top;
-
-        mousePosition.x = 2 * (x / width) - 1;
-        mousePosition.y = 1 - 2 * (y / height);
-      }
-    }
-
-    if (map)
-      map.addListener("click", (e: google.maps.MapMouseEvent) => {
-        updateMousePosition(e);
-        if (BUURTMAP)
-          BUURTMAP.threeOverlay.requestRedraw();
-      })
-  }
-
-  //reset marker color
-  const resetMarkerColor = () => {
-    markers.forEach(el => {
-      el.children[0].material.color.setHex(0xff0000);
-    })
-  }
-
-  //overlay update lifecycle
-  if (BUURTMAP)
-    BUURTMAP.threeOverlay.onBeforeDraw = () => {
-      let highlightedObject;
-      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
-
-      if (intersections.length) {
-        resetMarkerColor();
-        highlightedObject = intersections[0].object;
-        highlightedObject.material.color.setHex(0xffffff);
-        setActiveProject(highlightedObject.parent.projectId)
-      } else {
-        resetMarkerColor();
-        setActiveProject(undefined)
-      }
-    }
-
   return (
     <div ref={mapContainer} id='map' className={styles.map}>
-      {typeof ActiveProject === "number" &&
-        <ProjectCard project={projectData.find(el => el.id == ActiveProject)} />
-      }
+      {BUURTMAP && <ProjectCard project={ActiveProject} />}
     </div>
   )
 }

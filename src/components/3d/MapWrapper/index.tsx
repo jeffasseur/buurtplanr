@@ -80,7 +80,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
           tilt: 50,
           heading: 0,
           zoom: 18,
-          center: { lat: projects[1].coordinates.lat, lng: projects[1].coordinates.lng, altitude: 1 },
+          center: { lat: e.coords.latitude, lng: e.coords.longitude, altitude: 1 },
           mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_DEFAULT_MAP_ID,
           disableDefaultUI: true,
           keyboardShortcuts: false

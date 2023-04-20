@@ -5,12 +5,14 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { type project } from '@/components/3d/MapWrapper'
 
 export class BuurtMap {
+  map: google.maps.Map
   threeOverlay: ThreeJSOverlayView
   loader: GLTFLoader
   scene: THREE.Scene
   mousePosition: Vector3
 
   constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
+    this.map = map
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
     this.loader = new GLTFLoader()
@@ -44,8 +46,5 @@ export class BuurtMap {
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
-  }
-
-  removeProductById = (productID) => {
   }
 }
