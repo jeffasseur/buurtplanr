@@ -2,15 +2,18 @@ import styles from './styles.module.css'
 import { BuurtMap } from '@/utils/BuurtMap';
 
 interface EditorProps {
-  disabled: boolean,
-  activeProductID: number | null,
+  activePID: number | null,
   BUURTMAP: BuurtMap
 }
 
-export const Editor = ({ disabled, activeProductID, BUURTMAP }: EditorProps) => {
+export const Editor = ({ activePID, BUURTMAP }: EditorProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.action} onClick={() => { BUURTMAP.removeProductById(activeProductID) }}>delete</div>
+
+    {typeof activePID === 'number'
+      ? <div className={`${styles.action} ${styles.enabled}`} onClick={() => { BUURTMAP.removeProductById(activePID) }}>delete</div>
+      : <div className={`${styles.disabled}`}>delete</div>
+    }
     </div>
   )
 }

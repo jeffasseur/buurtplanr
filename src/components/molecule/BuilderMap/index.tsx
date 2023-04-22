@@ -17,20 +17,46 @@ let mousePosition: google.maps.LatLngAltitudeLiteral;
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
+    [PID, setPID] = useState<number | null>(null),
     [BUURTMAP, setBUURTMAP] = useState<BuurtMap>(),
     modelType = useDroppedModel(state => state.model);
 
-  let activeModel: boolean = false,
-    activeProductID: number | null = null;
+  let activeProductID: number | null = null;
 
   useEffect(() => {
     if (!map) {
       mapData.mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_FLAT_MAP_ID
+      mapData.center = projectData.coordinates
       const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
     }
     if (map && BUURTMAP) {
+      const updateMousePosition = (e) => {
+        const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+        const x = e.domEvent.clientX - left;
+        const y = e.domEvent.clientY - top;
+  
+        mousePosition.x = 2 * (x / width) - 1;
+        mousePosition.y = 1 - 2 * (y / height);
+      }
+      map.addListener("click", (e: google.maps.MapMouseEvent) => {
+        updateMousePosition(e);
+  
+        const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
+        setPID(null)
+  
+        if (intersections.length === 0) return;
+  
+        const highlightedObject = intersections[0].object;
+
+        if(highlightedObject.modelID)
+          setPID(highlightedObject.modelID)
+        else if(highlightedObject.parent.modelID)
+          setPID(highlightedObject.parent.modelID)
+  
+        BUURTMAP.threeOverlay.requestRedraw();
+      })
       map.addListener("mousemove", (e: google.maps.MapMouseEvent) => {
         const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
         latlng.z = 1
@@ -58,7 +84,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   return (
     <div ref={mapContainer} id='map' className={styles.map} onDragOver={onDragOver} onDrop={onDrop}>
-      {map && BUURTMAP && <Editor disabled={activeModel} activeProductID={activeProductID} BUURTMAP={BUURTMAP} />}
+      {map && BUURTMAP && <Editor activePID={PID} BUURTMAP={BUURTMAP} />}
       {map && <Toolbar />}
     </div>
   )

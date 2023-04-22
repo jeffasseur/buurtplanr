@@ -14,3 +14,11 @@
 .action {
   cursor: pointer;
 }
+
+.disabled {
+  opacity: 60%;
+}
+
+.enabled {
+  opacity: 100%;
+}

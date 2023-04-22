@@ -11,7 +11,7 @@ export class BuurtMap {
   scene: THREE.Scene
   mousePosition: Vector3
 
-  constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
+  constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
@@ -38,7 +38,7 @@ export class BuurtMap {
 
   appendProducts = (modelType: string) => {
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
-      gltf.scene.modelId = Math.floor(Math.random() * Date.now() * Math.PI)
+      gltf.scene.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
       gltf.scene.scale.set(80, 80, 80)
       gltf.scene.rotation.x = Math.PI / 2
       gltf.scene.position.copy(this.mousePosition)
@@ -46,5 +46,11 @@ export class BuurtMap {
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
+  }
+
+  removeProductById = (productID: number) => {
+    const toRemoveProduct = this.scene.children.find(e => e.modelID === productID)
+    this.scene.remove(toRemoveProduct)
+    this.threeOverlay.requestRedraw()
   }
 }
