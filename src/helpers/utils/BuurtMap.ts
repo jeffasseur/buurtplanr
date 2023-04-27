@@ -1,5 +1,6 @@
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
-import { Vector3 } from 'three'
+import { type Object3D, Vector3 } from 'three'
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { type project } from '@/components/3d/MapWrapper'
@@ -11,7 +12,7 @@ export class BuurtMap {
   scene: THREE.Scene
   mousePosition: Vector3
 
-  constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
+  constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene

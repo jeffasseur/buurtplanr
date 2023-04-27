@@ -34,7 +34,7 @@
         "./src/lib/hooks/*"
       ],
       "@/utils/*": [
-        "./utils/*"
+        "./src/helpers/utils/*"
       ]
     },
     "plugins": [
