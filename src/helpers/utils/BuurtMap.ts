@@ -43,10 +43,16 @@ export class BuurtMap {
       gltf.scene.scale.set(80, 80, 80)
       gltf.scene.rotation.x = Math.PI / 2
       gltf.scene.position.copy(this.mousePosition)
+      gltf.scene.isDraggable = true
       this.scene.add(gltf.scene)
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
+  }
+
+  updateProductPosition = (product: Object3D) => {
+    product.position.copy(this.mousePosition)
+    this.threeOverlay.requestRedraw()
   }
 
   removeProductById = (productID: number) => {

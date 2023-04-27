@@ -1,14 +1,16 @@
 .container {
   width: 250px;
-  height: 35px;
+  height: fit-content;
   background-color: white;
   position: absolute;
   top: 0;
   right: 0;
   z-index: 50;
   display: flex;
+  gap: 2em;
   justify-content: center;
   align-items: center;
+  padding: 0.4em 0em;
 }
 
 .action {
@@ -21,4 +23,16 @@
 
 .enabled {
   opacity: 100%;
+}
+
+.btnPrimary {
+  padding: 0.5em 2em;
+  border-radius: 4px;
+  background-color: blue;
+  color: white;
+}
+
+.disabledbtn {
+  opacity: 60%;
+  background-color: gray;
 }

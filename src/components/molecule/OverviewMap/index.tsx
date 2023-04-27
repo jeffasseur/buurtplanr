@@ -47,7 +47,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
       const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
       setActiveProject(undefined);
-      // console.log(intersections);
+
       if (highlightedObject) highlightedObject.material.color.setHex(0xff0000);
 
       if (intersections.length === 0) return;
