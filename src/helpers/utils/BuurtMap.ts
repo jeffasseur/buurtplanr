@@ -2,7 +2,7 @@ import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
 import { type Object3D, Vector3, Vec2 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-import { project, objectUploadData } from '@/types/BUURTTYPES';
+import { project, productUploadData } from '@/types/BUURTTYPES';
 
 
 export class BuurtMap {
@@ -12,7 +12,7 @@ export class BuurtMap {
   scene: THREE.Scene
   mousePosition: Vector3
   dragOBJ: Object3D | null
-  formData: objectUploadData | null
+  productformData: productUploadData[]
 
   constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -21,6 +21,7 @@ export class BuurtMap {
     this.loader = new GLTFLoader()
     this.mousePosition = new Vector3()
     this.dragOBJ = null
+    this.productformData = []
   }
 
   updateMousePosition = async (mousePosition: Vec2) => {
@@ -43,6 +44,7 @@ export class BuurtMap {
   appendProducts = (modelType: string) => {
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
       gltf.scene.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
+      gltf.scene.modelType = modelType
       gltf.scene.scale.set(80, 80, 80)
       gltf.scene.rotation.x = Math.PI / 2
       gltf.scene.position.copy(this.mousePosition)
@@ -66,6 +68,12 @@ export class BuurtMap {
   }
 
   getSceneProducts = () => {
-    this.scene.children.forEach(product => console.log(product))
+    this.scene.children.forEach(product => {
+      if (product.hasOwnProperty('modelID')) {
+        let newProduct = { latlng: product.position, modelType: product.modelType }
+        this.productformData.push(newProduct)
+      }
+    })
+    console.log(this.productformData)
   }
 }

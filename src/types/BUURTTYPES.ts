@@ -1,3 +1,5 @@
+import { type LatLngTypes } from '@googlemaps/three';
+import { Vector3 } from 'three';
 export interface mapOptions {
   tilt: number,
   heading: number,
@@ -17,7 +19,6 @@ export interface project {
   name: string,
   info: {
     description: string,
-
   },
   coordinates: {
     lat: number,
@@ -26,6 +27,7 @@ export interface project {
   }
 }
 
-export interface objectUploadData {
-
+export interface productUploadData {
+  latlng: LatLngTypes | Vector3,
+  modelType: string
 }
