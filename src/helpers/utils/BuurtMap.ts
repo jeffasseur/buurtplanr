@@ -1,5 +1,5 @@
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
-import { type Object3D, Vector3 } from 'three'
+import { type Object3D, Vector3, Vec2 } from 'three'
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
@@ -22,7 +22,7 @@ export class BuurtMap {
     this.dragOBJ = null
   }
 
-  updateMousePosition = async (mousePosition: LatLngTypes) => {
+  updateMousePosition = async (mousePosition: Vec2) => {
     this.mousePosition.copy(this.threeOverlay.latLngAltitudeToVector3(mousePosition))
     return await Promise.resolve(this.mousePosition)
   }
@@ -59,7 +59,8 @@ export class BuurtMap {
 
   removeProductById = (productID: number) => {
     const toRemoveProduct = this.scene.children.find(e => e.modelID === productID)
-    this.scene.remove(toRemoveProduct)
+    if (toRemoveProduct)
+      this.scene.remove(toRemoveProduct)
     this.threeOverlay.requestRedraw()
   }
 }

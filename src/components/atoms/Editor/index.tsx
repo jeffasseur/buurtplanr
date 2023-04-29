@@ -15,7 +15,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP }: EditorProps) => {
       {typeof activePID === 'number'
         ?
         <>
-          <div className={`${styles.action} ${styles.enabled}`} onClick={() => { BUURTMAP.removeProductById(activePID) }}>delete</div>
+          <div className={`${styles.action} ${styles.enabled}`} onClick={() => { BUURTMAP.removeProductById(activePID), setPID(null) }}>delete</div>
           <div className={`${styles.action} ${styles.btnPrimary}`} onClick={() => { setPID(null) }}>apply</div>
         </>
         :

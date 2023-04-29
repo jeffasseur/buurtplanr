@@ -6,14 +6,14 @@ import { Editor } from '@/components/atoms/Editor';
 import { mapOptions, project } from '@/components/3d/MapWrapper';
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext';
 import { BuurtMap } from '@/utils/BuurtMap';
-import { Object3D } from 'three';
+import { Object3D, Vector2 } from 'three';
 
 interface MapProps {
   mapData: mapOptions;
   projectData: project;
 }
 
-let mousePosition: google.maps.LatLngAltitudeLiteral;
+let mousePosition: Vector2;
 
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
@@ -33,11 +33,9 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     }
   }, [map])
 
-
-  if (map) {
-
+  if (map && BUURTMAP) {
     const updateMousePosition = (e) => {
-      const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+      const { left, top, width, height } = mapContainer.current!.getBoundingClientRect();
       const x = e.domEvent.clientX - left;
       const y = e.domEvent.clientY - top;
 

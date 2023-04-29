@@ -35,29 +35,31 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   const bindMapEvents = () => {
     const updateMousePosition = (e) => {
-      const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+      const { left, top, width, height } = mapContainer.current!.getBoundingClientRect();
       const x = e.domEvent.clientX - left;
       const y = e.domEvent.clientY - top;
 
       mousePosition.x = 2 * (x / width) - 1;
       mousePosition.y = 1 - 2 * (y / height);
     }
-    map.addListener("click", (e: google.maps.MapMouseEvent) => {
-      updateMousePosition(e);
 
-      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
-      setActiveProject(undefined);
+    if (map && BUURTMAP)
+      map.addListener("click", (e: google.maps.MapMouseEvent) => {
+        updateMousePosition(e);
 
-      if (highlightedObject) highlightedObject.material.color.setHex(0xff0000);
+        const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
+        setActiveProject(undefined);
 
-      if (intersections.length === 0) return;
+        if (highlightedObject) highlightedObject.material.color.setHex(0xff0000);
 
-      highlightedObject = intersections[0].object;
-      setActiveProject(projectData.find(pr => pr.id === highlightedObject.parent.projectId));
-      highlightedObject.material.color.setHex(0xffffff);
+        if (intersections.length === 0) return;
 
-      BUURTMAP.threeOverlay.requestRedraw();
-    })
+        highlightedObject = intersections[0].object;
+        setActiveProject(projectData.find(pr => pr.id === highlightedObject.parent.projectId));
+        highlightedObject.material.color.setHex(0xffffff);
+
+        BUURTMAP.threeOverlay.requestRedraw();
+      })
   }
 
   const appendMarkers = () => {
