@@ -68,6 +68,7 @@ export class BuurtMap {
   }
 
   getSceneProducts = () => {
+    this.productformData = []
     this.scene.children.forEach(product => {
       if (product.hasOwnProperty('modelID')) {
         let newProduct = { latlng: product.position, modelType: product.modelType }
