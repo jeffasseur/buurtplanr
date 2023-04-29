@@ -1,9 +1,9 @@
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
 import { type Object3D, Vector3, Vec2 } from 'three'
-import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-import { type project } from '@/components/3d/MapWrapper'
+import { project, objectUploadData } from '@/types/BUURTTYPES';
+
 
 export class BuurtMap {
   map: google.maps.Map
@@ -12,6 +12,7 @@ export class BuurtMap {
   scene: THREE.Scene
   mousePosition: Vector3
   dragOBJ: Object3D | null
+  formData: objectUploadData | null
 
   constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -62,5 +63,9 @@ export class BuurtMap {
     if (toRemoveProduct)
       this.scene.remove(toRemoveProduct)
     this.threeOverlay.requestRedraw()
+  }
+
+  getSceneProducts = () => {
+    this.scene.children.forEach(product => console.log(product))
   }
 }

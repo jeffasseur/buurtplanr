@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import Toolbar from '@/components/molecule/Toolbar';
 import { Editor } from '@/components/atoms/Editor';
-import { mapOptions, project } from '@/components/3d/MapWrapper';
+import { mapOptions, project } from '@/types/BUURTTYPES';
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext';
 import { BuurtMap } from '@/utils/BuurtMap';
 import { Object3D, Vector2 } from 'three';

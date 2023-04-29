@@ -35,6 +35,9 @@
       ],
       "@/utils/*": [
         "./src/helpers/utils/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
       ]
     },
     "plugins": [

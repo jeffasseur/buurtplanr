@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './styles.module.css'
 import { BuurtMap } from '@/utils/BuurtMap';
 
@@ -21,7 +20,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP }: EditorProps) => {
         :
         <>
           <div className={`${styles.disabled}`}>delete</div>
-          <div className={`${styles.action} ${styles.btnPrimary} ${styles.disabledbtn}`} onClick={() => { setPID(null) }}>apply</div>
+          <div className={`${styles.action} ${styles.btnPrimary}`} onClick={() => { BUURTMAP.getSceneProducts() }}>apply</div>
         </>
       }
     </div>

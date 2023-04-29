@@ -4,38 +4,11 @@ import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap';
 import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap';
 import { useEffect, useState } from 'react';
 import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap';
+import { mapOptions, project } from '@/types/BUURTTYPES';
 
 interface MapProps {
   mapType: string;
   projectId?: number;
-}
-
-export interface mapOptions {
-  tilt: number,
-  heading: number,
-  zoom: number,
-  center: {
-    lat: number,
-    lng: number,
-    altitude: number
-  },
-  mapId: string | undefined,
-  disableDefaultUI: boolean,
-  keyboardShortcuts: boolean
-}
-
-export interface project {
-  id: number,
-  name: string,
-  info: {
-    description: string,
-
-  },
-  coordinates: {
-    lat: number,
-    lng: number,
-    altitude: number
-  }
 }
 
 const projects: project[] = [

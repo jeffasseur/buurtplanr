@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { ThreeJSOverlayView } from "@googlemaps/three";
 
 import styles from './styles.module.css';
-import { mapOptions, project } from '@/components/3d/MapWrapper';
+import { mapOptions, project } from '@/types/BUURTTYPES';
 
 interface MapProps {
   mapData: mapOptions;

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 import styles from './styles.module.css'
-import { mapOptions, project } from '@/components/3d/MapWrapper';
+import { mapOptions, project } from '@/types/BUURTTYPES';
 import { ProjectCard } from '../ProjectCard';
 import { BuurtMap } from '@/utils/BuurtMap';
 
