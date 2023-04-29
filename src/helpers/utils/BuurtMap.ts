@@ -11,6 +11,7 @@ export class BuurtMap {
   loader: GLTFLoader
   scene: THREE.Scene
   mousePosition: Vector3
+  dragOBJ: Object3D | null
 
   constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -18,6 +19,7 @@ export class BuurtMap {
     this.scene = this.threeOverlay.scene
     this.loader = new GLTFLoader()
     this.mousePosition = new Vector3()
+    this.dragOBJ = null
   }
 
   updateMousePosition = async (mousePosition: LatLngTypes) => {
@@ -50,9 +52,9 @@ export class BuurtMap {
     this.threeOverlay.requestStateUpdate()
   }
 
-  updateProductPosition = (product: Object3D) => {
-    product.position.copy(this.mousePosition)
-    this.threeOverlay.requestRedraw()
+  updateProductPosition = () => {
+    if (this.dragOBJ)
+      this.dragOBJ.position.copy(this.mousePosition)
   }
 
   removeProductById = (productID: number) => {

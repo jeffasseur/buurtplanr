@@ -31,65 +31,57 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
     }
-    if (map && BUURTMAP) {
-      const updateMousePosition = (e) => {
-        const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
-        const x = e.domEvent.clientX - left;
-        const y = e.domEvent.clientY - top;
-
-        mousePosition.x = 2 * (x / width) - 1;
-        mousePosition.y = 1 - 2 * (y / height);
-      }
-
-      map.addListener("click", (e: google.maps.MapMouseEvent) => {
-        updateMousePosition(e);
-
-        const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
-
-        if (intersections.length === 0) {
-          setPID(null)
-          setDraggable(null)
-          return;
-        }
-
-        const highlightedObject = intersections[0].object;
-        let current = highlightedObject;
-
-        while (current.parent.parent !== null) {
-          current = current.parent;
-          setDraggable(null)
-        }
-
-        if (highlightedObject.modelID) {
-          setPID(highlightedObject.modelID)
-        }
-        else if (highlightedObject.parent.modelID)
-          setPID(highlightedObject.parent.modelID)
-
-
-        if (current.isDraggable) {
-          // has clicked on an active obj
-          setDraggable(current)
-        }
-        BUURTMAP.threeOverlay.requestRedraw();
-
-      })
-    }
   }, [map])
 
-  if (map)
+
+  if (map) {
+
+    const updateMousePosition = (e) => {
+      const { left, top, width, height } = mapContainer.current.getBoundingClientRect();
+      const x = e.domEvent.clientX - left;
+      const y = e.domEvent.clientY - top;
+
+      mousePosition.x = 2 * (x / width) - 1;
+      mousePosition.y = 1 - 2 * (y / height);
+    }
+
+    map.addListener("click", (e: google.maps.MapMouseEvent) => {
+      updateMousePosition(e);
+
+      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition);
+      if (intersections.length === 0) return
+
+      let current = intersections[0].object;
+
+      while (current.parent.parent !== null) {
+        current = current.parent;
+        setDraggable(null)
+      }
+
+      if (current.isDraggable) {
+        // has clicked on an active obj
+        if (PID != null || draggable == current) {
+          BUURTMAP.dragOBJ = null
+          setPID(null)
+          setDraggable(null)
+        } else {
+          BUURTMAP.dragOBJ = current
+          setPID(current.modelID)
+          setDraggable(current)
+        }
+      }
+      BUURTMAP.threeOverlay.requestRedraw();
+    })
+
     map.addListener("mousemove", (e: google.maps.MapMouseEvent) => {
       const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
       latlng.z = 1
       mousePosition = { ...latlng }
+
       BUURTMAP.updateMousePosition(latlng);
-
-      BUURTMAP.threeOverlay.requestRedraw()
-
-      if (!draggable) return
-
-      BUURTMAP.updateProductPosition(draggable)
+      BUURTMAP.updateProductPosition()
     })
+  }
 
   const initProduct = async () => {
     if (BUURTMAP && modelType) {
