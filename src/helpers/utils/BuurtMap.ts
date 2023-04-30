@@ -1,17 +1,16 @@
+import * as THREE from 'three'
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
-import { type Object3D, Vector3, Vec2 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { project, productUploadData } from '@/types/BUURTTYPES';
-
 
 export class BuurtMap {
   map: google.maps.Map
   threeOverlay: ThreeJSOverlayView
   loader: GLTFLoader
   scene: THREE.Scene
-  mousePosition: Vector3
-  dragOBJ: Object3D | null
+  mousePosition: THREE.Vector3
+  dragOBJ: THREE.Object3D | null
   productformData: productUploadData[]
 
   constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
@@ -19,12 +18,12 @@ export class BuurtMap {
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
     this.loader = new GLTFLoader()
-    this.mousePosition = new Vector3()
+    this.mousePosition = new THREE.Vector3()
     this.dragOBJ = null
     this.productformData = []
   }
 
-  updateMousePosition = async (mousePosition: Vec2) => {
+  updateMousePosition = async (mousePosition: THREE.Vector2) => {
     this.mousePosition.copy(this.threeOverlay.latLngAltitudeToVector3(mousePosition))
     return await Promise.resolve(this.mousePosition)
   }
@@ -79,6 +78,8 @@ export class BuurtMap {
   }
 
   placeBnds = () => {
-
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+    this.scene.add(dot);
+    this.dragOBJ = dot
   }
 }
