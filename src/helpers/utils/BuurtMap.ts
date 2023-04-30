@@ -12,6 +12,7 @@ export class BuurtMap {
   mousePosition: THREE.Vector3
   dragOBJ: THREE.Object3D | null
   productformData: productUploadData[]
+  latlngformData: LatLngTypes[]
 
   constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map

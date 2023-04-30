@@ -24,7 +24,8 @@ export interface project {
     lat: number,
     lng: number,
     altitude: number
-  }
+  },
+  bounds: LatLngTypes[]
 }
 
 export interface productUploadData {

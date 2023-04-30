@@ -23,7 +23,13 @@ const projects: project[] = [
       lat: 51.02342,
       lng: 4.4841925,
       altitude: 1
-    }
+    },
+    bounds: [
+      {
+        lat: 51.02342,
+        lng: 4.4841925,
+      }
+    ]
   },
   {
     id: 2,
@@ -36,7 +42,13 @@ const projects: project[] = [
       lat: 51.026431091650224,
       lng: 4.484253696734126,
       altitude: 1
-    }
+    },
+    bounds: [
+      {
+        lat: 51.02342,
+        lng: 4.4841925,
+      }
+    ]
   }
 ]
 
