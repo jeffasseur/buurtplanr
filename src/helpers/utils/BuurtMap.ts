@@ -77,4 +77,8 @@ export class BuurtMap {
     })
     console.log(this.productformData)
   }
+
+  placeBnds = () => {
+
+  }
 }

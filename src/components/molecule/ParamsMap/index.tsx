@@ -4,34 +4,34 @@ import { ThreeJSOverlayView } from "@googlemaps/three";
 
 import styles from './styles.module.css';
 import { mapOptions, project } from '@/types/BUURTTYPES';
+import { BuurtMap } from '@/utils/BuurtMap';
+import { MapSetup } from '@/components/atoms/MapSetup';
 
 interface MapProps {
   mapData: mapOptions;
+  projectData: project;
 }
 
-export const ParamsMapBlueprint = ({ mapData }: MapProps) => {
+let mousePosition: THREE.Vector2;
+
+export const ParamsMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null),
     [map, setMap] = useState<google.maps.Map>(),
-    [ActiveProject, setActiveProject] = useState<project | undefined>(undefined),
-    threeOverlay = new ThreeJSOverlayView(),
-    mousePosition = new THREE.Vector3();
+    [draggable, setDraggable] = useState<THREE.Object3D | null>(null),
+    [BUURTMAP, setBUURTMAP] = useState<BuurtMap>();
 
   useEffect(() => {
     if (!map) {
+      mapData.center = projectData.coordinates
       const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
       setMap(mapInstance)
-    }
-    if (map) {
-      createOverlay()
+      setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
     }
   }, [map])
 
-  //create 3d overlay
-  const createOverlay = () => {
-    threeOverlay.setMap(map);
-  }
-
   return (
-    <div ref={mapContainer} id='map' className={styles.map}></div>
+    <div ref={mapContainer} id='map' className={styles.map}>
+      {BUURTMAP && <MapSetup BUURTMAP={BUURTMAP} />}
+    </div>
   )
 }

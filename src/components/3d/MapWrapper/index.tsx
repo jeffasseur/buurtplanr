@@ -70,7 +70,7 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
       <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
         {mapType === "overview" && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
         {mapType === "builder" && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
-        {mapType === "params" && <ParamsMapBlueprint mapData={mapData} />}
+        {mapType === "params" && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
       </Wrapper>
     )}
   </>
