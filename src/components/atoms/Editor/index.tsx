@@ -1,4 +1,6 @@
+import Icon from '@/components/atoms/Icon';
 import styles from './styles.module.css'
+import clsx from 'clsx';
 import { BuurtMap } from '@/utils/BuurtMap';
 
 interface EditorProps {
@@ -14,13 +16,21 @@ export const Editor = ({ activePID, setPID, BUURTMAP }: EditorProps) => {
       {typeof activePID === 'number'
         ?
         <>
-          <div className={`${styles.action} ${styles.enabled}`} onClick={() => { BUURTMAP.removeProductById(activePID), setPID(null) }}>delete</div>
-          <div className={`${styles.action} ${styles.btnPrimary}`} onClick={() => { setPID(null) }}>apply</div>
+          <div className={clsx(styles.action, styles.enabled)} onClick={() => { BUURTMAP.removeProductById(activePID), setPID(null) }}>
+            <Icon name="trash" />
+          </div>
+          <div className={`${styles.action} ${styles.btnPrimary}`} onClick={() => { setPID(null) }}>
+            <Icon name="save" />
+          </div>
         </>
         :
         <>
-          <div className={`${styles.disabled}`}>delete</div>
-          <div className={`${styles.action} ${styles.btnPrimary}`} onClick={() => { BUURTMAP.getSceneProducts() }}>apply</div>
+          <div className={`${styles.disabled}`}>
+            <Icon name="trash" />
+          </div>
+          <div className={`${styles.action} ${styles.btnPrimary}`} onClick={() => { BUURTMAP.getSceneProducts() }}>
+            <Icon name="save" />
+          </div>
         </>
       }
     </div>
