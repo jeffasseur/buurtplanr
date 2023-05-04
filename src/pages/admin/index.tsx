@@ -17,27 +17,26 @@ const inter = Inter({ subsets: ['latin'] })
 // ]
 // end development data
 
-async function getProjects() {
-  const res = await fetch('https://localhost:3002/projects/');
-
-  // Recommendation: handle errors
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
+export const getStaticProps = async () => {
+  const res = await fetch('http://localhost:3002/projects/'); 
+  const data = await res.json();
+  return {
+    props: {
+      projects: data
+    }
   }
-
-  return res.json();
 }
 
-const AdminDashboard = async () => {
-  const [filter, setFilter] = useState('all');
-  const projects = await getProjects();
+const AdminDashboard = ({ projects }) => {
+  const [filter, setFilter] = useState('Wachten tot opstart');
+  console.log(projects.data)
+  const fetchedProjects = projects.data;
 
-  const filteredProjects = projects.filter((project) => {
-    if (filter === 'all') {
+  const filteredProjects = fetchedProjects.filter((project) => {
+    if (filter === 'Wachten tot opstart') {
       return true
     } else {
-      return project.status === filter
+      return project.fase === filter
     }
   });
 
@@ -54,16 +53,20 @@ const AdminDashboard = async () => {
         <div className="projectenHeader">
           <h2>Projecten</h2>
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value="all">All projects</option>
-            <option value="completed">Completed projects</option>
-            <option value="inProgress">Projects in progress</option>
+            <option value="Wachten tot opstart ...">Fase 0: Wachten tot opstart</option>
+            <option value="Informeren">Fase 1: Informeren</option>
+            <option value="Cocreatie">Fase 2: Cocreatie</option>
+            <option value="Stemmen">Fase 3: Stemmen</option>
+            <option value="Vervolg">Fase 4: Vervolg</option>
           </select>
         </div>
         <ul>
           {filteredProjects.map((project) => (
-            <li key={project.name}>
-              <h3>{project.name}</h3>
-              <p>{project.status}</p>
+            <li key={project._id}>
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <p>{project.fase}</p>
+              <p>{project.dateOfStartCocreation}</p>
             </li>
           ))}
         </ul>
