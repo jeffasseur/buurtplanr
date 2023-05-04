@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <>
+      <div>
+        <h1>Index page</h1>
+      </div>
       <MapWrapper mapType="overview" />
     </>
   )
