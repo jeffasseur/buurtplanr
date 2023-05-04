@@ -1,6 +1,8 @@
 import styles from './styles.module.css'
 import productList from './productlist.json'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext';
+import donut from '/img/donut.webp'
+import WebpIcon from '../webpIcons';
 
 const Product = () => {
   const updateModel = useDroppedModel(state => state.updateModel)
@@ -11,7 +13,7 @@ const Product = () => {
   return <>
     {productList.list.map((modelType, index) =>
       <div key={index} className={styles.productListing} draggable="true" onDragStart={handleDrag} data-modeltype={modelType}>
-        <p>{modelType}</p>
+        <WebpIcon name={modelType} />
       </div>
     )}
   </>
