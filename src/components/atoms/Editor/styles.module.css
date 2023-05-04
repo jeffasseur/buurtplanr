@@ -1,16 +1,16 @@
 .container {
-  width: 250px;
-  height: fit-content;
-  background-color: white;
   position: absolute;
   top: 0;
   right: 0;
   z-index: 50;
   display: flex;
   gap: 2em;
-  justify-content: center;
   align-items: center;
-  padding: 0.4em 0em;
+  justify-content: center;
+  width: 250px;
+  height: fit-content;
+  padding: 0.4em 0;
+  background-color: white;
 }
 
 .action {
@@ -18,22 +18,23 @@
 }
 
 .disabled {
-  opacity: 60%;
+  color: black;
+  opacity: 0.6;
 }
 
 .enabled {
-  opacity: 100%;
+  opacity: 1;
 }
 
 .btnPrimary {
-  cursor: pointer;
   padding: 0.5em 2em;
-  border-radius: 4px;
-  background-color: blue;
   color: white;
+  cursor: pointer;
+  background-color: blue;
+  border-radius: 4px;
 }
 
 .disabledbtn {
-  opacity: 60%;
   background-color: gray;
+  opacity: 0.6;
 }
