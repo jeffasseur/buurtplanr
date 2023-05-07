@@ -3,13 +3,40 @@
   background-color: whitesmoke;
   position: absolute;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0em 2em;
-  gap: 2em;
-  height: 180px;
+  flex-direction: column;
+  padding: 1em 2em;
+  gap: 1em;
+  height: fit-content;
   width: 100%;
   z-index: 10;
   bottom: 0;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.interaction {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  height: 3em;
+  background-color: white;
+  border-radius: 50px;
+  width: 627px;
+  color: rgb(181, 181, 181);
+}
+
+.search p {
+  position: relative;
+  left: 1em;
+}
+
+.filter {
+  border-radius: 8px;
+  background-color: white;
+  width: 3em;
+  height: 3em;
 }

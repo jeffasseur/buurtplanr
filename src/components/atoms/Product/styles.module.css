@@ -1,3 +1,11 @@
+.productList {
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  gap: 1em;
+  padding: 12px;
+}
+
 .productListing {
   width: 6em;
   height: 6em;
@@ -5,6 +13,6 @@
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  border-radius: 1em;
+  border-radius: 8px;
   background-color: rgb(221, 221, 221);
 }

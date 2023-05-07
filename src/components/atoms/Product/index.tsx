@@ -12,12 +12,12 @@ export const Product = () => {
   }
 
   return (
-    <>
+    <div className={styles.productList}>
       {productList.list.map((modelType, index) =>
         <div key={index} className={styles.productListing} draggable='true' onDragStart={handleDrag} data-modeltype={modelType}>
           <WebpIcon onDragStart={handleDrag} name={modelType} data-modeltype={modelType} />
         </div>
       )}
-    </>
+    </div>
   )
 }
