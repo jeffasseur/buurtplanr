@@ -1,22 +1,14 @@
 {
   "spacing": {
-    "0": { "value": "0" },
-    "01": { "value": "1px" },
-    "02": { "value": "0.2rem" },
-    "04": { "value": "0.4rem" },
-    "06": { "value": "0.6rem" },
-    "08": { "value": "0.8rem" },
-    "10": { "value": "1rem" },
-    "14": { "value": "1.4rem" },
-    "16": { "value": "1.6rem" },
-    "20": { "value": "2rem" },
-    "24": { "value": "2.4rem" },
-    "28": { "value": "2.8rem" },
-    "32": { "value": "3.2rem" },
-    "36": { "value": "3.6rem" },
-    "40": { "value": "4rem" },
-    "44": { "value": "4.4rem" },
-    "56": { "value": "5.6rem" },
-    "64": { "value": "6.4rem" }
+    "00": { "value": "0.25rem" },
+    "01": { "value": "0.375rem" },
+    "02": { "value": "0.5rem" },
+    "03": { "value": "0.75rem" },
+    "04": { "value": "1rem" },
+    "05": { "value": "1.25rem" },
+    "06": { "value": "1.5rem" },
+    "07": { "value": "1.75rem" },
+    "08": { "value": "2rem" },
+    "09": { "value": "3rem" }
   }
 }
