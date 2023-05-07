@@ -15,9 +15,9 @@ export const Editor = ({ activePID, setPID, BUURTMAP }: EditorProps) => {
   return (
     <div className={styles.container}>
       {typeof activePID === 'number' && (
-        <div>
+        <>
           <div
-            className={clsx(styles.action, styles.enabled)}
+            className={clsx(styles.action)}
             onClick={() => {
               BUURTMAP.removeProductById(activePID)
               setPID(null)
@@ -25,24 +25,20 @@ export const Editor = ({ activePID, setPID, BUURTMAP }: EditorProps) => {
           >
             <Icon name='trash' />
           </div>
-          <div
-            className={clsx(styles.action, styles.btnPrimary)}
-            onClick={() => { setPID(null) }}
-          >
+          <div className={clsx(styles.action)} onClick={() => { setPID(null) }}>
             <Icon name='save' />
           </div>
-        </div>
+        </>
       )}
       {typeof activePID !== 'number' && (
-        <div>
-          <div className={styles.disabled}>
+        <>
+          <div className={clsx(styles.action)}>
             <Icon name='trash' />
-            bla2
           </div>
-          <div className={clsx(styles.action, styles.btnPrimary)} onClick={() => { BUURTMAP.getSceneProducts() }}>
+          <div className={clsx(styles.action)} onClick={() => { BUURTMAP.getSceneProducts() }}>
             <Icon name='save' />
           </div>
-        </div>
+        </>
       )}
     </div>
   )

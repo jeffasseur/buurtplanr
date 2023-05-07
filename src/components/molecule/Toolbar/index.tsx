@@ -1,4 +1,5 @@
-import Product from '@/components/atoms/Product'
+import { Product } from '@/components/atoms/Product'
+
 import styles from './styles.module.css'
 
 const Toolbar = () => {

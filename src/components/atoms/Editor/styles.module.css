@@ -4,37 +4,22 @@
   right: 0;
   z-index: 50;
   display: flex;
-  gap: 2em;
+  gap: 1em;
+  border-radius: 0 0 0 1em;
   align-items: center;
   justify-content: center;
-  width: 250px;
   height: fit-content;
-  padding: 0.4em 0;
-  background-color: white;
+  padding: 0.4em 2em;
+  background-color: #F4F4F7;
+  -webkit-box-shadow: -27px 26px 29px -30px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: -27px 26px 29px -30px rgba(0, 0, 0, 0.46);
+  box-shadow: -27px 26px 29px -30px rgba(0, 0, 0, 0.46);
+  box-shadow: black;
 }
 
 .action {
   cursor: pointer;
-}
-
-.disabled {
-  color: black;
-  opacity: 0.6;
-}
-
-.enabled {
-  opacity: 1;
-}
-
-.btnPrimary {
-  padding: 0.5em 2em;
-  color: white;
-  cursor: pointer;
-  background-color: blue;
-  border-radius: 4px;
-}
-
-.disabledbtn {
-  background-color: gray;
-  opacity: 0.6;
+  padding: 0.8em 1em;
+  border-radius: 5px;
+  background-color: white;
 }
