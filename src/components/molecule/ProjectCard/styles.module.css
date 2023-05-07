@@ -1,18 +1,18 @@
 .cardContainer {
-  box-sizing: border-box;
-  background-color: whitesmoke;
   position: absolute;
+  right: 1em;
+  bottom: 1em;
+  z-index: 10;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: fit-content;
   width: 448px;
-  z-index: 10;
-  bottom: 1em;
-  right: 1em;
+  height: fit-content;
   padding: 12px;
+  background-color: whitesmoke;
   border-radius: 8px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
 }
 
 .hidden {
@@ -23,22 +23,22 @@
 .cardDescription p,
 .cardButton p,
 .cardHeader h3 {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .cardImg {
-  height: 196px;
   width: 100%;
-  border-radius: 8px;
+  height: 196px;
   background-color: black;
+  border-radius: 8px;
 }
 
 .cardHeader {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 8px;
+  width: 100%;
 }
 
 .subCardHeader {
@@ -48,13 +48,13 @@
 }
 
 .cardButton {
-  color: white;
-  padding: 0.5em 1em;
-  border-radius: 100px;
-  height: fit-content;
   width: fit-content;
-  cursor: pointer;
+  height: fit-content;
+  padding: 0.5em 1em;
+  color: white;
   text-decoration: none;
+  cursor: pointer;
+  border-radius: 100px;
 }
 
 .btnMain {

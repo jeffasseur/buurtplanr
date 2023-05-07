@@ -1,15 +1,15 @@
 .toolbarContainer {
-  box-sizing: border-box;
-  background-color: whitesmoke;
   position: absolute;
+  bottom: 0;
+  z-index: 10;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  padding: 0em 2em;
   gap: 2em;
-  height: 180px;
+  align-items: center;
   width: 100%;
-  z-index: 10;
-  bottom: 0;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  height: 180px;
+  padding: 0 2em;
+  background-color: whitesmoke;
+  box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
 }

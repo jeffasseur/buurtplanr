@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { type project } from '@/components/3d/MapWrapper'
+import Button from '@/components/atoms/Button'
 
 import styles from './styles.module.css'
 
