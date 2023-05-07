@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 const icons = [
   'chevron-down',
   'trash',
-  'save',
+  'save'
 ] as const
 
 export type Icons = typeof icons[number]
@@ -20,7 +20,7 @@ const Icon = ({ name, className = '' }: IconProps) => {
   const classNames = clsx(styles.icon, className)
   return (
     <svg className={classNames}>
-      <use href={`img/icons.svg#${name}`} />
+      <use href={`/img/icons.svg#${name}`} />
     </svg>
   )
 }

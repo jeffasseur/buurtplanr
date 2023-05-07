@@ -4,14 +4,14 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  height: 400px;
-  width: 350px;
+  gap: 8px;
+  height: fit-content;
+  width: 448px;
   z-index: 10;
-  top: 2em;
-  right: 2em;
-  padding: 1em;
+  bottom: 1em;
+  right: 1em;
+  padding: 12px;
+  border-radius: 8px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -19,29 +19,53 @@
   display: none;
 }
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+.subCardHeader p,
+.cardDescription p,
+.cardButton p,
+.cardHeader h3 {
+  margin: 0;
+  padding: 0;
 }
 
 .cardImg {
-  height: 100px;
-  width: 250px;
-  border-radius: 15px;
+  height: 196px;
+  width: 100%;
+  border-radius: 8px;
   background-color: black;
 }
 
-.cardDescription {
-  margin: 0 2em;
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.subCardHeader {
+  display: flex;
+  gap: 1em;
+  width: 100%;
 }
 
 .cardButton {
-  background-color: black;
   color: white;
-  padding: 0 1em;
-  border-radius: 5px;
+  padding: 0.5em 1em;
+  border-radius: 100px;
+  height: fit-content;
+  width: fit-content;
   cursor: pointer;
   text-decoration: none;
+}
+
+.btnMain {
+  background-color: #3457BF;
+}
+
+.btnSucces {
+  background-color: #329459;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 1em;
 }
