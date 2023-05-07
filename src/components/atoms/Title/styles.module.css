@@ -1,0 +1,40 @@
+.title {
+  font-family: var(--font-display);
+  color: var(--color-black);
+}
+
+.size-h1 {
+  font-size: var(--font-size-h1);
+}
+
+.size-h2 {
+  font-size: var(--font-size-h2);
+}
+
+.size-h3 {
+  font-size: var(--font-size-h3);
+}
+
+.size-h4 {
+  font-size: var(--font-size-h4);
+}
+
+.weight-light {
+  font-weight: 200;
+}
+
+.weight-regular {
+  font-weight: 400;
+}
+
+.weight-medium {
+  font-weight: 500;
+}
+
+.weight-semibold {
+  font-weight: 600;
+}
+
+.weight-bold {
+  font-weight: 700;
+}
