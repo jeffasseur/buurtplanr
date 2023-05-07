@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "prettier": "prettier --write **/*.json",
     "ci": "npm run lint && npm run typecheck && npm run lint:css",
-    "build:css-vars": "style-dictionary build --config ./.style-dictionary.config.js",
+    "build:css-vars": "style-dictionary build --config ./.style-dictionary/config.json",
     "build:icons": "npx svg-sprite -s --symbol-dest public/img --symbol-sprite icons.svg src/assets/icons/*.svg",
     "build:storybook": "storybook build"
   },
