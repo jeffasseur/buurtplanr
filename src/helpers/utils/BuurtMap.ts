@@ -1,8 +1,8 @@
-import * as THREE from 'three'
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
+import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-import { project, productUploadData } from '@/types/BUURTTYPES';
+import { type project, type productUploadData } from '@/types/BUURTTYPES'
 
 export class BuurtMap {
   map: google.maps.Map
@@ -14,7 +14,7 @@ export class BuurtMap {
   productformData: productUploadData[]
   latlngformData: LatLngTypes[]
 
-  constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
+  constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
@@ -56,14 +56,12 @@ export class BuurtMap {
   }
 
   updateProductPosition = () => {
-    if (this.dragOBJ)
-      this.dragOBJ.position.copy(this.mousePosition)
+    if (this.dragOBJ) { this.dragOBJ.position.copy(this.mousePosition) }
   }
 
   removeProductById = (productID: number) => {
     const toRemoveProduct = this.scene.children.find(e => e.modelID === productID)
-    if (toRemoveProduct)
-      this.scene.remove(toRemoveProduct)
+    if (toRemoveProduct) { this.scene.remove(toRemoveProduct) }
     this.threeOverlay.requestRedraw()
   }
 
@@ -71,7 +69,7 @@ export class BuurtMap {
     this.productformData = []
     this.scene.children.forEach(product => {
       if (product.hasOwnProperty('modelID')) {
-        let newProduct = { latlng: product.position, modelType: product.modelType }
+        const newProduct = { latlng: product.position, modelType: product.modelType }
         this.productformData.push(newProduct)
       }
     })
@@ -79,8 +77,8 @@ export class BuurtMap {
   }
 
   placeBnds = () => {
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
-    this.scene.add(dot);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
+    this.scene.add(dot)
     this.dragOBJ = dot
   }
 }

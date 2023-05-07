@@ -4,19 +4,19 @@
   right: 0;
   z-index: 50;
   display: flex;
-  gap: 1em;
+  gap: var(--spacing-04);
   align-items: center;
   justify-content: center;
   height: fit-content;
-  padding: 0.4em 2em;
-  background-color: #F4F4F7;
-  border-radius: 0 0 0 1em;
-  box-shadow: -27px 26px 29px -30px rgb(0 0 0 / 46%);
+  padding: var(--spacing-03);
+  background-color: var(--color-grey-50);
+  border-radius: 0 0 0 var(--radius-2);
+  box-shadow: var(--shadow-xs);
 }
 
 .action {
-  padding: 0.8em 1em;
+  padding: var(--spacing-03) var(--spacing-04);
   cursor: pointer;
-  background-color: white;
-  border-radius: 5px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-1);
 }

@@ -1,8 +1,7 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
-import { type project } from '@/components/3d/MapWrapper'
 import Button from '@/components/atoms/Button'
+import { type project } from '@/types/BUURTTYPES'
 
 import styles from './styles.module.css'
 
@@ -29,12 +28,12 @@ export const ProjectCard = ({ project }: ProjectProps) => {
             <p>{project.info.description}</p>
           </div>
           <div className={styles.btnContainer}>
-            <Link className={`${styles.btnMain} ${styles.cardButton}`} href={`/builder/${project.id}`}>
-              <p>Deelnemen</p>
-            </Link>
-            <Link className={`${styles.btnSucces} ${styles.cardButton}`} href={`/builder/${project.id}`}>
-              <p>Info</p>
-            </Link>
+            <Button as='link' size='small' href={`/builder/${project.id}`}>
+              <span>Deelnemen</span>
+            </Button>
+            <Button as='link' theme='Tertiary' size='small' href={`/builder/${project.id}`}>
+              <span>Info</span>
+            </Button>
           </div>
         </div>}
     </>

@@ -81,6 +81,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
           const admit = markers.findIndex(markers => markers.projectId === el.projectId)
           if (admit === -1) markers.push(el)
         }
+        return true
       })
     }
   }

@@ -52,7 +52,7 @@ const projects: project[] = [
   }
 ]
 
-{ /* send coordinates as props to mapblueprint so that the map is reusable */ }
+/* send coordinates as props to mapblueprint so that the map is reusable */
 export const MapWrapper = ({ mapType, projectId }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
   const [projectData, setProjectData] = useState<project>()
@@ -73,13 +73,13 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
         setMapData(mapOptions)
       })
     }
-    if (projectId) { setProjectData(projects.find(el => el.id == projectId)) }
+    if (projectId) { setProjectData(projects.find(el => el.id === projectId)) }
   })
 
   return (
     <>
       {mapData && (
-        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
+        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
           {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
           {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}

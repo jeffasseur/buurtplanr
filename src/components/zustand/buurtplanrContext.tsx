@@ -1,11 +1,11 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 interface DroppedModel {
-  model: string | null;
-  updateModel: (model: string | null) => void;
+  model: string | null
+  updateModel: (model: string | null) => void
 }
 
 export const useDroppedModel = create<DroppedModel>((set) => ({
   model: null,
-  updateModel: (el) => set(() => ({ model: el }))
+  updateModel: (el) => { set(() => ({ model: el })) }
 }))

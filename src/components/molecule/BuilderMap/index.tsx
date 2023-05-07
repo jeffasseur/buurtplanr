@@ -28,7 +28,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (!map) {
       mapData.mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_FLAT_MAP_ID
       mapData.center = projectData.coordinates
-      const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
+      const mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
     }
@@ -36,7 +36,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   if (map && BUURTMAP) {
     const updateMousePosition = (e) => {
-      const { left, top, width, height } = mapContainer.current!.getBoundingClientRect()
+      const { left, top, width, height } = mapContainer.current.getBoundingClientRect()
       const x = e.domEvent.clientX - left
       const y = e.domEvent.clientY - top
 
@@ -52,14 +52,14 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
       let current = intersections[0].object
 
-      while (current.parent.parent !== null) {
+      while (current?.parent?.parent !== null) {
         current = current.parent
         setDraggable(null)
       }
 
       if (current.isDraggable) {
         // has clicked on an active obj
-        if (PID != null || draggable == current) {
+        if (PID != null || draggable === current) {
           BUURTMAP.dragOBJ = null
           setPID(null)
           setDraggable(null)
@@ -77,21 +77,22 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       latlng.z = 1
       mousePosition = { ...latlng }
 
-      BUURTMAP.updateMousePosition(latlng)
+      BUURTMAP.updateMousePosition(latlng).catch((err) => { console.log(err) })
       BUURTMAP.updateProductPosition()
     })
   }
 
   const initProduct = async () => {
     if (BUURTMAP && modelType) {
-      BUURTMAP.updateMousePosition(mousePosition).then((res) => {
-        BUURTMAP.appendProducts(modelType)
-      })
+      BUURTMAP.updateMousePosition(mousePosition)
+        .then((res) => {
+          BUURTMAP.appendProducts(modelType)
+        }).catch((err) => { console.log(err) })
     }
   }
 
   const onDrop = (e) => {
-    initProduct()
+    initProduct().catch((err) => { console.log(err) })
   }
 
   const onDragOver = (e) => {

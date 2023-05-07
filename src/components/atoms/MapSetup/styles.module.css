@@ -1,7 +1,7 @@
 .setupContainer {
   position: absolute;
-  top: 2em;
-  right: 2em;
+  top: var(--spacing-08);
+  right: var(--spacing-08);
   z-index: 10;
   box-sizing: border-box;
   display: flex;
@@ -10,15 +10,15 @@
   justify-content: space-around;
   width: 350px;
   height: 400px;
-  padding: 1em;
+  padding: var(--spacing-04);
   background-color: whitesmoke;
   box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
 }
 
 .btnPrimary {
-  padding: 0.5em 2em;
-  color: white;
+  padding: var(--spacing-02) var(--spacing-08);
+  color: var(--color-white);
   cursor: pointer;
-  background-color: blue;
-  border-radius: 4px;
+  background-color: var(--color-blue-500);
+  border-radius: var(--radius-1);
 }
