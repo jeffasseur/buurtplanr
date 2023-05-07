@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Sun, 07 May 2023 11:05:37 GMT
+ * Generated on Sun, 07 May 2023 13:21:34 GMT
  */
 
 :root {
@@ -15,8 +15,8 @@
   --font-size-h3: 2rem;
   --font-size-h2: 3rem;
   --font-size-h1: 4rem;
-  --font-display: 'Mulish', system-ui;
-  --font-sans: 'Manrope', sans-serif;
+  --font-display: var(--next-font-display), system-ui;
+  --font-sans: var(--next-font-sans), system-ui;
   --spacing-09: 3rem;
   --spacing-08: 2rem;
   --spacing-07: 1.75rem;
@@ -46,7 +46,7 @@
   --color-red-300: #fca5a5;
   --color-red-400: #f87171;
   --color-red-500: #ef4444;
-  --color-grey-filter: rgb(140 149 175 / 25%);
+  --color-grey-filter: rgb(140 149 175 / 40%);
   --color-grey-50: #f4f4f7;
   --color-grey-100: #e2e5eb;
   --color-grey-200: #d1d5df;
@@ -59,7 +59,7 @@
   --color-blue-300: #8198dd;
   --color-blue-400: #627ed4;
   --color-blue-500: #3457bf;
-  --color-purple-filter: rgb(87 90 185 / 25%);
+  --color-purple-filter: rgb(87 90 185 / 40%);
   --color-purple-50: #e6e6f5;
   --color-purple-100: #cdcdea;
   --color-purple-200: #b3b5df;
@@ -78,7 +78,7 @@
   --color-yellow-300: #ffe766;
   --color-yellow-400: #ffdf33;
   --color-yellow-500: #ffd700;
-  --color-filter: rgb(25 25 25 / 25%);
+  --color-filter: rgb(25 25 25 / 40%);
   --color-white: #fff;
   --color-black: #191919;
   --bp-xxl: 1920px;
