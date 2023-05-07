@@ -1,12 +1,12 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import React from 'react'
 
 import styles from './styles.module.css'
-import Image from 'next/image'
 
 const webpicons = [
   'donut',
-  'marker',
+  'marker'
 ] as const
 
 export type WebpIcons = typeof webpicons[number]
@@ -19,7 +19,7 @@ interface IconProps {
 const WebpIcon = ({ name, className = '' }: IconProps) => {
   const classNames = clsx(styles.icon, className)
   return (
-    <div draggable="false" className={classNames}>
+    <div draggable='false' className={classNames}>
       <Image draggable='false' src={`/img/${name}.webp`} alt={name} fill />
     </div>
   )
