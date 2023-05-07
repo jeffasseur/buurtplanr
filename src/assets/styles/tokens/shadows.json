@@ -1,19 +1,11 @@
 {
   "shadow:": {
-    "1": { "value": "0 1px 2px 0 rgb(0 0 0 / 5%)" },
-    "2": {
-      "value": "0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%)"
-    },
-    "3": {
-      "value": "0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%)"
-    },
-    "4": {
-      "value": "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%)"
-    },
-    "5": {
-      "value": "0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%)"
-    },
-    "6": { "value": "0 25px 50px -12px rgb(0 0 0 / 25%)" },
-    "inner": { "value": "inset 0 2px 4px 0 rgb(0 0 0 / 5%)" }
+    "XS": { "value": "0 4px 8px 0 rgb(0 0 0 / 10%)" },
+    "SM": { "value": "0 6px 12px 0 rgb(0 0 0 / 10%)" },
+    "MD": { "value": "0 8px 16px 0 rgb(0 0 0 / 10%)" },
+    "LG": { "value": "0 10px 20px 0 rgb(0 0 0 / 10%)" },
+    "XL": { "value": "0 12px 24px 0 rgb(0 0 0 / 10%)" },
+    "V": { "value": "0 1px 4px 0 rgb(0 0 0 / 25%)" },
+    "Top": { "value": "0 -4px 8px 0 rgb(0 0 0 / 10%)" }
   }
 }
