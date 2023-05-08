@@ -1,22 +1,22 @@
-import { Wrapper } from '@googlemaps/react-wrapper';
+import { Wrapper } from '@googlemaps/react-wrapper'
+import { useEffect, useState } from 'react'
 
-import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap';
-import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap';
-import { useEffect, useState } from 'react';
-import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap';
-import { mapOptions, project } from '@/types/BUURTTYPES';
+import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap'
+import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap'
+import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap'
+import { type mapOptions, type project } from '@/types/BUURTTYPES'
 
 interface MapProps {
-  mapType: string;
-  projectId?: number;
+  mapType: string
+  projectId?: number
 }
 
 const projects: project[] = [
   {
     id: 1,
-    name: "kruidtuin",
+    name: 'kruidtuin',
     info: {
-      description: "lorem ipsummed lorem",
+      description: 'lorem ipsummed lorem'
 
     },
     coordinates: {
@@ -27,15 +27,15 @@ const projects: project[] = [
     bounds: [
       {
         lat: 51.02342,
-        lng: 4.4841925,
+        lng: 4.4841925
       }
     ]
   },
   {
     id: 2,
-    name: "vleeshalle",
+    name: 'vleeshalle',
     info: {
-      description: "lorem ipsummed lorem",
+      description: 'lorem ipsummed lorem'
 
     },
     coordinates: {
@@ -46,20 +46,20 @@ const projects: project[] = [
     bounds: [
       {
         lat: 51.02342,
-        lng: 4.4841925,
+        lng: 4.4841925
       }
     ]
   }
 ]
 
-{/* send coordinates as props to mapblueprint so that the map is reusable */ }
+/* send coordinates as props to mapblueprint so that the map is reusable */
 export const MapWrapper = ({ mapType, projectId }: MapProps) => {
-  const [mapData, setMapData] = useState<mapOptions | null>(null);
-  const [projectData, setProjectData] = useState<project>();
+  const [mapData, setMapData] = useState<mapOptions | null>(null)
+  const [projectData, setProjectData] = useState<project>()
 
   useEffect(() => {
     if (!mapData) {
-      //get user coordinates to send in map blueprint to set map camera to user location
+      // get user coordinates to send in map blueprint to set map camera to user location
       navigator.geolocation.getCurrentPosition((e) => {
         const mapOptions: mapOptions = {
           tilt: 50,
@@ -73,17 +73,18 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
         setMapData(mapOptions)
       })
     }
-    if (projectId)
-      setProjectData(projects.find(el => el.id == projectId))
+    if (projectId) { setProjectData(projects.find(el => el.id === projectId)) }
   })
 
-  return <>
-    {mapData && (
-      <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-        {mapType === "overview" && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
-        {mapType === "builder" && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
-        {mapType === "params" && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
-      </Wrapper>
-    )}
-  </>
+  return (
+    <>
+      {mapData && (
+        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
+          {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
+          {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
+          {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
+        </Wrapper>
+      )}
+    </>
+  )
 }

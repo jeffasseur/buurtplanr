@@ -1,24 +1,24 @@
 .setupContainer {
-  box-sizing: border-box;
-  background-color: whitesmoke;
   position: absolute;
+  top: var(--spacing-08);
+  right: var(--spacing-08);
+  z-index: 10;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 400px;
   width: 350px;
-  z-index: 10;
-  top: 2em;
-  right: 2em;
-  padding: 1em;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  height: 400px;
+  padding: var(--spacing-04);
+  background-color: whitesmoke;
+  box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
 }
 
 .btnPrimary {
+  padding: var(--spacing-02) var(--spacing-08);
+  color: var(--color-white);
   cursor: pointer;
-  padding: 0.5em 2em;
-  border-radius: 4px;
-  background-color: blue;
-  color: white;
+  background-color: var(--color-blue-500);
+  border-radius: var(--radius-1);
 }

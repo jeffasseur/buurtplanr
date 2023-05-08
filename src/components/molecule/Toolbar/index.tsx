@@ -14,7 +14,6 @@ const Toolbar = () => {
         <div className={styles.filter} />
         <div className={styles.filter} />
       </div>
-
       <Product />
     </div>
   )

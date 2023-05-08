@@ -13,7 +13,7 @@
             "buildPath": "src/assets/styles/",
             "files": [
                 {
-                    "destination": "variables.scss",
+                    "destination": "variables.css",
                     "format": "css/variables"
                 }
             ],

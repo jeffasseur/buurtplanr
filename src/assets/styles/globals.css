@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Mulish:wght@300;400;500;600;700&display=swap');
+
 :root {
   scroll-behavior: smooth;
 
@@ -10,6 +12,11 @@ main {
   height: 100vh;
 }
 
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body)
+}
+
 :focus {
   outline-style: solid;
   outline-color: transparent;
@@ -19,8 +26,4 @@ main {
   outline-width: var(--outline-focus-width);
   outline-color: var(--color-primary);
   outline-offset: var(--outline-focus-offset);
-}
-
-body {
-  margin: 0; 
 }

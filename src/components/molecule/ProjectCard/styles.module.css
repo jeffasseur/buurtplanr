@@ -1,18 +1,18 @@
 .cardContainer {
-  box-sizing: border-box;
-  background-color: whitesmoke;
   position: absolute;
+  right: var(--spacing-04);
+  bottom: var(--spacing-04);
+  z-index: 10;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  height: fit-content;
+  gap: var(--spacing-02);
   width: 448px;
-  z-index: 10;
-  bottom: 1em;
-  right: 1em;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  height: fit-content;
+  padding: var(--spacing-03);
+  background-color: var(--color-white);
+  border-radius:var(--spacing-02);
+  box-shadow: var(--shadow-xs);
 }
 
 .hidden {
@@ -23,49 +23,31 @@
 .cardDescription p,
 .cardButton p,
 .cardHeader h3 {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .cardImg {
-  height: 196px;
   width: 100%;
-  border-radius: 8px;
-  background-color: black;
+  height: 196px;
+  background-color: var(--color-grey-200);
+  border-radius: var(--radius-2);
 }
 
 .cardHeader {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-02);
   width: 100%;
-  gap: 8px;
 }
 
 .subCardHeader {
   display: flex;
-  gap: 1em;
+  gap: var(--spacing-04);
   width: 100%;
-}
-
-.cardButton {
-  color: white;
-  padding: 0.5em 1em;
-  border-radius: 100px;
-  height: fit-content;
-  width: fit-content;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btnMain {
-  background-color: #3457BF;
-}
-
-.btnSucces {
-  background-color: #329459;
 }
 
 .btnContainer {
   display: flex;
-  gap: 1em;
+  gap: var(--spacing-04);
 }
