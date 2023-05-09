@@ -6,7 +6,10 @@ import styles from './styles.module.css'
 
 const webpicons = [
   'donut',
-  'marker'
+  'marker',
+  'gravel',
+  'grass',
+  'fountain'
 ] as const
 
 export type WebpIcons = typeof webpicons[number]
