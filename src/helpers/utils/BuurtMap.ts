@@ -2,7 +2,7 @@ import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-import { type project, type productUploadData } from '@/types/BUURTTYPES'
+import { type project, type productUploadData, type product } from '@/types/BUURTTYPES'
 
 export class BuurtMap {
   map: google.maps.Map
@@ -14,7 +14,7 @@ export class BuurtMap {
   productformData: productUploadData[]
   latlngformData: LatLngTypes[]
 
-  constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
+  constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
@@ -43,13 +43,14 @@ export class BuurtMap {
 
   appendProducts = (modelType: string) => {
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
-      gltf.scene.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
-      gltf.scene.modelType = modelType
-      gltf.scene.scale.set(80, 80, 80)
-      gltf.scene.rotation.x = Math.PI / 2
-      gltf.scene.position.copy(this.mousePosition)
-      gltf.scene.isDraggable = true
-      this.scene.add(gltf.scene)
+      const product: product = gltf.scene
+      product.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
+      product.modelType = modelType
+      product.scale.set(1, 1, 1)
+      product.rotation.x = Math.PI / 2
+      product.position.copy(this.mousePosition)
+      product.isDraggable = true
+      this.scene.add(product)
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()

@@ -9,7 +9,8 @@ const webpicons = [
   'marker',
   'gravel',
   'grass',
-  'fountain'
+  'fountain',
+  'tree'
 ] as const
 
 export type WebpIcons = typeof webpicons[number]
@@ -23,7 +24,7 @@ const WebpIcon = ({ name, className = '' }: IconProps) => {
   const classNames = clsx(styles.icon, className)
   return (
     <div draggable='false' className={classNames}>
-      <Image draggable='false' src={`/img/${name}.webp`} alt={name} fill />
+      <Image draggable='false' src={`/img/productThumbnails/${name}.webp`} alt={name} fill />
     </div>
   )
 }
