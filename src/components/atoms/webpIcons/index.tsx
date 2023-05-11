@@ -10,7 +10,8 @@ const webpicons = [
   'gravel',
   'grass',
   'fountain',
-  'tree'
+  'tree',
+  'tree-draco'
 ] as const
 
 export type WebpIcons = typeof webpicons[number]

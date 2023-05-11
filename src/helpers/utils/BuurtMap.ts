@@ -1,5 +1,6 @@
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
 import * as THREE from 'three'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { type project, type productUploadData, type product } from '@/types/BUURTTYPES'
@@ -7,7 +8,7 @@ import { type project, type productUploadData, type product } from '@/types/BUUR
 export class BuurtMap {
   map: google.maps.Map
   threeOverlay: ThreeJSOverlayView
-  loader: GLTFLoader
+  loader: GLTFLoader | null
   scene: THREE.Scene
   mousePosition: THREE.Vector3
   dragOBJ: THREE.Object3D | null
@@ -22,6 +23,14 @@ export class BuurtMap {
     this.mousePosition = new THREE.Vector3()
     this.dragOBJ = null
     this.productformData = []
+    this.initDracoLoader()
+  }
+
+  initDracoLoader = () => {
+    const dracoLoader = new DRACOLoader()
+    dracoLoader.setDecoderConfig({ type: 'js' })
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
+    this.loader.setDRACOLoader(dracoLoader)
   }
 
   updateMousePosition = async (mousePosition: THREE.Vector2) => {
