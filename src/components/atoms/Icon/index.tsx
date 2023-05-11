@@ -6,7 +6,12 @@ import styles from './styles.module.css'
 const icons = [
   'chevron-down',
   'trash',
-  'save'
+  'save',
+  'furniture',
+  'ground',
+  'light',
+  'tree',
+  'water'
 ] as const
 
 export type Icons = typeof icons[number]

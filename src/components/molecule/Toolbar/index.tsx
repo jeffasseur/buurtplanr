@@ -11,10 +11,21 @@ const Toolbar = () => {
           <div className={styles.search}>
             <p>Zoeken...</p>
           </div>
-          <div className={styles.filter} />
-          <div className={styles.filter} />
-          <div className={styles.filter} />
-          <div className={styles.filter} />
+          <div className={styles.filter}>
+            <Icon name='tree' />
+          </div>
+          <div className={styles.filter}>
+            <Icon name='light' />
+          </div>
+          <div className={styles.filter}>
+            <Icon name='furniture' />
+          </div>
+          <div className={styles.filter}>
+            <Icon name='ground' />
+          </div>
+          <div className={styles.filter}>
+            <Icon name='water' />
+          </div>
         </div>
         <Icon name='chevron-down' />
       </div>
