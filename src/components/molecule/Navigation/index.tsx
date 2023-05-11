@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
 import Link from 'next/link'
 import Icon from '../../atoms/Icon'
+import Button from '@/components/atoms/Button'
 
 const isAdmin = true
 
@@ -16,10 +17,11 @@ const Navigation = () => {
         </Link>
         {
           isAdmin &&
-          (<Link href="/admin" className={styles.btnAdmin}>
-            Admin
-            <Icon name="security-user" />
-          </Link>)
+          (
+            <Button as='link' href='/admin' append='security-user' size='small'>
+              Admin
+            </Button>
+          )
         }
         <Link href="/">
           <Icon name="notification" />
