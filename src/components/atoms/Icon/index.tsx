@@ -13,6 +13,8 @@ const icons = [
   'home',
   'security-user',
   'notification',
+  'trash',
+  'save'
 ] as const
 
 export type Icons = typeof icons[number]
@@ -26,7 +28,7 @@ const Icon = ({ name, className = '' }: IconProps) => {
   const classNames = clsx(styles.icon, className)
   return (
     <svg className={classNames}>
-      <use href={`img/icons.svg#${name}`} />
+      <use href={`/img/icons.svg#${name}`} />
     </svg>
   )
 }

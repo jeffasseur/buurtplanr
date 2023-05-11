@@ -1,25 +1,22 @@
 import { useRouter } from 'next/router'
-import { MapWrapper } from "@/components/3d/MapWrapper"
 import { useEffect, useState } from 'react'
+
+import { MapWrapper } from '@/components/3d/MapWrapper'
 
 const Builder = () => {
   const router = useRouter()
-  const [projectId, setProjectId] = useState<number | null>(null);
+  const [projectId, setProjectId] = useState<number | null>(null)
 
   useEffect(() => {
     if (router.isReady) {
-      let query = router.query.id as string
-      let id = parseInt(query[0])
+      const query = router.query.id as string
+      const id = parseInt(query[0])
       setProjectId(id)
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query])
 
   return (
-    <>
-      {
-        projectId && <MapWrapper mapType="builder" projectId={projectId} />
-      }
-    </>
+    projectId && <MapWrapper mapType='builder' projectId={projectId} />
   )
 }
 

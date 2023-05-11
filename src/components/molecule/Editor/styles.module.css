@@ -1,0 +1,22 @@
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  gap: var(--spacing-04);
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  padding: var(--spacing-03);
+  background-color: var(--color-grey-50);
+  border-radius: 0 0 0 var(--radius-2);
+  box-shadow: var(--shadow-xs);
+}
+
+.action {
+  padding: var(--spacing-03) var(--spacing-04);
+  cursor: pointer;
+  background-color: var(--color-white);
+  border-radius: var(--radius-1);
+}
