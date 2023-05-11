@@ -31,6 +31,7 @@ interface BaseProps extends VariantProps<typeof buttonStyle> {
   children: React.ReactNode
   className?: string
   prepend?: Icons
+  href?: string
 }
 
 type ButtonAsButton = BaseProps &
@@ -58,18 +59,17 @@ type ButtonProps = ButtonAsButton | ButtonAsExternal | ButtonAsLink
  * * `externalLink`: will render a `<a>` tag
  */
 const Button = forwardRef<unknown, ButtonProps>(
-  ({ size, theme, className, prepend, append, ...props }, ref) => {
+  ({ size, theme, className, prepend, append, href, ...props }, ref) => {
     const classNames = cx([buttonStyle({ size, theme }), className])
 
     const { as } = props
 
     if (as === 'link') {
-      const { ...rest } = props
       return (
         <Link
           className={classNames}
-          {...rest}
           ref={ref as Ref<HTMLAnchorElement>}
+          href={href ?? ''}
         >
           {prepend && <Icon name={prepend} />}
 
@@ -87,6 +87,7 @@ const Button = forwardRef<unknown, ButtonProps>(
           target='_blank'
           rel='noopener noreferrer'
           ref={ref as Ref<HTMLAnchorElement>}
+          href={href ?? ''}
           {...props}
         >
           {prepend && <Icon name={prepend} />}
