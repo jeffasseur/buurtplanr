@@ -4,7 +4,15 @@ import React from 'react'
 import styles from './styles.module.css'
 
 const icons = [
-  'chevron-down'
+  'chevron-down',
+  'folder',
+  'profile-user',
+  'setting',
+  'trend-up',
+  'logo',
+  'home',
+  'security-user',
+  'notification',
 ] as const
 
 export type Icons = typeof icons[number]
