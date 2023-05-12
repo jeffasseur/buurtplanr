@@ -4,10 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import styles from '@/assets/styles/pages/admin/Dashboard.module.css'
-import { MapWrapper } from '@/components/3d/MapWrapper'
+import styles from '@/assets/styles/pages/admin/styles.module.css'
 import Nav from '@/components/molecule/Navigation'
 import SideNav from '@/components/molecule/Navigation/Sidenav'
+import AdminProjects from '@components/organisms/adminProjects'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -50,7 +50,7 @@ const AdminDashboard = ({ projects }) => {
         <SideNav />
       </aside>
       <main>
-        Here is the main content
+        <AdminProjects />
       </main>
     </>
   )
