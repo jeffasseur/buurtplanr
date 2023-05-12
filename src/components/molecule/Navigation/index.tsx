@@ -4,6 +4,7 @@ import Icon from '../../atoms/Icon'
 import Button from '@/components/atoms/Button'
 
 const isAdmin = true
+const loggedIn = true
 
 const Navigation = () => {
   return (
@@ -16,19 +17,40 @@ const Navigation = () => {
           <Icon name="home" />
         </Link>
         {
-          isAdmin &&
+          isAdmin && loggedIn &&
           (
             <Button as='link' href='/admin' append='security-user' size='small'>
               Admin
             </Button>
           )
         }
-        <Link href="/">
-          <Icon name="notification" />
-        </Link>
-        <Link href="/">
-          <i>Dropdown</i>
-        </Link>
+        
+        {
+          loggedIn &&
+          (
+            <div className={styles.accountBtns}>
+              <Link href="/">
+                <Icon name="notification" />
+              </Link>
+              <Button as='button' prepend='save' size='small' theme='Tertiary'>
+                Jef Fasseur
+              </Button>
+            </div>
+          )
+        }
+        {
+          !loggedIn &&
+          (
+            <div className={styles.accountBtns}>
+              <Button as='link' href="/register" size='small'>
+                Registreren
+              </Button>
+              <Button as='link' href="/login" size='small'>
+                Aanmelden
+              </Button>
+            </div>
+          )
+        }
       </div>
     </div>
   )
