@@ -10,14 +10,13 @@ const Toolbar = () => {
     'furniture',
     'ground',
     'light',
-    'tree',
+    'nature',
     'water'
   ] as const
 
   type filtersTypes = typeof filterTypesArr[number]
 
   const [filter, setFilter] = useState<filtersTypes | null>(null)
-  console.log(filter)
 
   return (
     <div className={styles.toolbarContainer}>
@@ -34,7 +33,6 @@ const Toolbar = () => {
                 </div>
               )
             }
-
             return (
               <div key={key} className={styles.filter} onClick={() => { setFilter(f) }}>
                 <Icon name={f} />
@@ -46,7 +44,7 @@ const Toolbar = () => {
         </div>
         <Icon name='chevron-down' />
       </div>
-      <Product />
+      <Product productType={filter} />
     </div>
   )
 }
