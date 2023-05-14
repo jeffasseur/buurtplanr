@@ -1,0 +1,32 @@
+{
+  "list": [
+    {
+      "name": "donut",
+      "productType": null
+    },
+    {
+      "name": "marker",
+      "productType": null
+    },
+    {
+      "name": "fountain",
+      "productType": "water"
+    },
+    {
+      "name": "grass",
+      "productType": "floor"
+    },
+    {
+      "name": "gravel",
+      "productType": "floor"
+    },
+    {
+      "name": "tree",
+      "productType": "nature"
+    },
+    {
+      "name": "tree-draco",
+      "productType": "nature"
+    }
+  ]
+}

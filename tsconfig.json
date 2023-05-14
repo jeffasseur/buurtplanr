@@ -28,7 +28,7 @@
         "./src/*"
       ],
       "@/helpers/*": [
-        "./src/lib/helpers/*"
+        "./src/helpers/*"
       ],
       "@/services/*": [
         "./src/lib/services/*"
