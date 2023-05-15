@@ -23,6 +23,22 @@
     {
       "name": "tree",
       "productType": "nature"
+    },
+    {
+      "name": "bench-simple",
+      "productType": "furniture"
+    },
+    {
+      "name": "car-charge",
+      "productType": "furniture"
+    },
+    {
+      "name": "water-pole",
+      "productType": "water"
+    },
+    {
+      "name": "trashcan-handle",
+      "productType": "furniture"
     }
   ]
 }
