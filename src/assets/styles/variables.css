@@ -97,4 +97,6 @@
   --border-size-3: 5px;
   --border-size-2: 2px;
   --border-size-1: 1px;
+  --map-size-base: 533px;
+  --map-size-full: 100vh;
 }

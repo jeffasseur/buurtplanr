@@ -1,10 +1,11 @@
-import { Wrapper } from '@googlemaps/react-wrapper'
-import { useEffect, useState } from 'react'
+import { Wrapper, Status } from '@googlemaps/react-wrapper'
+import { type ReactElement, useEffect, useState } from 'react'
 
 import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap'
 import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap'
 import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap'
 import { type mapOptions, type project } from '@/types/BUURTTYPES'
+import { Loader3d } from '@components/molecule/3dloader'
 
 interface MapProps {
   mapType: string
@@ -52,6 +53,11 @@ const projects: project[] = [
   }
 ]
 
+const render = (status: Status): ReactElement => {
+  if (status === Status.LOADING) return <Loader3d />
+  if (status === Status.FAILURE) return <h3>{status} ...</h3>
+}
+
 /* send coordinates as props to mapblueprint so that the map is reusable */
 export const MapWrapper = ({ mapType, projectId }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
@@ -74,17 +80,17 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
       })
     }
     if (projectId) { setProjectData(projects.find(el => el.id === projectId)) }
-  })
+  }, [mapData, projectId])
 
   return (
     <>
-      {mapData && (
-        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
+      {mapData
+        ? <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
           {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
           {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
         </Wrapper>
-      )}
+        : <Loader3d />}
     </>
   )
 }
