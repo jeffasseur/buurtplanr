@@ -1,4 +1,4 @@
-import { ThreeJSOverlayView } from '@googlemaps/three'
+import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
 
 import { MapSetup } from '@/components/atoms/MapSetup'
@@ -14,12 +14,11 @@ interface MapProps {
   projectData: project
 }
 
-let mousePosition: THREE.Vector2
+let mousePosition: THREE.Vector3
 
 export const ParamsMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
-  const [draggable, setDraggable] = useState<THREE.Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export const ParamsMapBlueprint = ({ projectData, mapData }: MapProps) => {
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
     }
-  }, [map])
+  }, [map, mapData, projectData.coordinates])
 
   if (map && BUURTMAP) {
     const updateMousePosition = (e) => {
@@ -50,7 +49,7 @@ export const ParamsMapBlueprint = ({ projectData, mapData }: MapProps) => {
       const current = intersections[0].object
 
       // has clicked on an active obj
-      if (BUURTMAP.dragOBJ == current) {
+      if (BUURTMAP.dragOBJ === current) {
         BUURTMAP.dragOBJ = null
       } else {
         BUURTMAP.dragOBJ = current
@@ -59,11 +58,9 @@ export const ParamsMapBlueprint = ({ projectData, mapData }: MapProps) => {
     })
 
     map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
-      const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
-      latlng.z = 1
-      mousePosition = { ...latlng }
-
-      BUURTMAP.updateMousePosition(latlng)
+      const latlng: LatLngTypes = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
+      mousePosition = BUURTMAP.threeOverlay.latLngAltitudeToVector3(latlng)
+      BUURTMAP.mousePosition = mousePosition
       BUURTMAP.updateProductPosition()
     })
   }

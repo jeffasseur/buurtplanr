@@ -55,7 +55,7 @@ const projects: project[] = [
 
 const render = (status: Status): ReactElement => {
   if (status === Status.LOADING) return <Loader3d />
-  if (status === Status.FAILURE) return <h3>{status} ...</h3>
+  if (status === Status.FAILURE) return <h3>error loading map</h3>
 }
 
 /* send coordinates as props to mapblueprint so that the map is reusable */

@@ -8,14 +8,14 @@ import { type project, type productUploadData, type product } from '@/types/BUUR
 export class BuurtMap {
   map: google.maps.Map
   threeOverlay: ThreeJSOverlayView
-  loader: GLTFLoader | null
+  loader: GLTFLoader
   scene: THREE.Scene
   mousePosition: THREE.Vector3
   dragOBJ: THREE.Object3D | null
   productformData: productUploadData[]
   latlngformData: LatLngTypes[]
 
-  constructor(map: google.maps.Map, anchorPoint: LatLngTypes) {
+  constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
     this.threeOverlay = new ThreeJSOverlayView({ map, anchor: anchorPoint, animationMode: 'always', upAxis: 'Z' })
     this.scene = this.threeOverlay.scene
@@ -33,20 +33,16 @@ export class BuurtMap {
     this.loader.setDRACOLoader(dracoLoader)
   }
 
-  updateMousePosition = async (mousePosition: THREE.Vector2) => {
-    this.mousePosition.copy(this.threeOverlay.latLngAltitudeToVector3(mousePosition))
-    return await Promise.resolve(this.mousePosition)
-  }
-
   appendModel = (el: project) => {
     this.loader.load('/models/marker.glb', (gltf) => {
-      gltf.scene.projectId = el.id
-      gltf.scene.scale.set(20, 20, 20)
-      gltf.scene.rotation.x = Math.PI / 2
+      const product: product = gltf.scene
+      product.projectId = el.id
+      product.scale.set(20, 20, 20)
+      product.rotation.x = Math.PI / 2
       const lat = el.coordinates.lat
       const lng = el.coordinates.lng
-      gltf.scene.position.copy(this.threeOverlay.latLngAltitudeToVector3({ lat, lng }))
-      this.scene.add(gltf.scene)
+      product.position.copy(this.threeOverlay.latLngAltitudeToVector3({ lat, lng }))
+      this.scene.add(product)
     })
   }
 

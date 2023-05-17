@@ -35,6 +35,7 @@ export interface productUploadData {
 }
 
 export interface product extends THREE.Group {
+  projectId?: number
   modelID?: number
   modelType?: string
   isDraggable?: boolean
