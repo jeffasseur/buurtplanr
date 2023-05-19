@@ -11,12 +11,15 @@ interface EditorProps {
   setPID: (val: number | null) => void
   BUURTMAP: BuurtMap
   targetObject: object
+  targetArea: Vec2 | undefined
 }
 
-export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProps) => {
-  const [position, setPosition] = useState<Vec2>({ x: 0, y: 0 })
+export const Editor = ({ activePID, setPID, BUURTMAP, targetObject, targetArea }: EditorProps) => {
+  const [position, setPosition] = useState<Vec2 | undefined>({ x: 0, y: 0 })
   const [bool, setBool] = useState<boolean>(false)
+
   useEffect(() => {
+    setPosition(targetArea)
     const handleWindowMouseMove = event => {
       if (BUURTMAP.dragOBJ && bool) {
         setPosition({
@@ -36,6 +39,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
 
   const left = position.x.toString() + 'px'
   const top = position.y.toString() + 'px'
+
   return (
     <div className={styles.container} style={{ left, top, position: 'absolute' }}>
       <div

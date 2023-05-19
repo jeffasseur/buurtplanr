@@ -1,6 +1,6 @@
 import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
-import { type Object3D, type Vector3 } from 'three'
+import { type Vec2, type Object3D, type Vector3 } from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
@@ -21,6 +21,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const [PID, setPID] = useState<number | null>(null)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
+  const [targetArea, setTargetArea] = useState<Vec2>()
   const modelType = useDroppedModel(state => state.model)
   let mousePosition: Vector3
 
@@ -39,6 +40,8 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       const { left, top, width, height } = mapContainer.current.getBoundingClientRect()
       const x = e.domEvent.clientX - left
       const y = e.domEvent.clientY - top
+
+      setTargetArea({ x, y })
 
       mousePosition.x = 2 * (x / width) - 1
       mousePosition.y = 1 - 2 * (y / height)
@@ -96,7 +99,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   return (
     <div ref={mapContainer} id='map' className={styles.map} onDragOver={onDragOver} onDrop={onDrop}>
-      {map && BUURTMAP && PID && draggable && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
+      {map && BUURTMAP && PID && draggable && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} targetArea={targetArea} />}
       {map && <Toolbar />}
     </div>
   )
