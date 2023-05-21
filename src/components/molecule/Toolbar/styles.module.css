@@ -12,6 +12,7 @@
   padding: var(--spacing-04) var(--spacing-08);
   background-color: var(--color-grey-100);
   box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
+  overflow: hidden;
 }
 
 .interaction {
