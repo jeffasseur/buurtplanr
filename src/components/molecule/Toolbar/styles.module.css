@@ -17,16 +17,16 @@
 .interaction {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: var(--spacing-04);
 }
 
 .search {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 3em;
+  height: var(--spacing-09);
   background-color: white;
-  border-radius: 50px;
+  border-radius: var(--radius-round);
   width: 627px;
   color: rgb(181, 181, 181);
   padding: 0 var(--spacing-04);
@@ -37,13 +37,14 @@
 }
 
 .filter {
-  border-radius: 8px;
+  border-radius: var(--radius-2);
   background-color: white;
-  width: 3em;
-  height: 3em;
+  width: var(--spacing-09);
+  height: var(--spacing-09);
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .activeFilter {

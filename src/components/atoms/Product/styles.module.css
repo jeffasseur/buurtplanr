@@ -1,8 +1,8 @@
 .productList {
   background-color: white;
-  border-radius: 8px;
+  border-radius: var(--radius-2);
   display: flex;
-  gap: 1em;
+  gap: var(--spacing-04);
   padding: 12px;
   width: 100%;
 }
