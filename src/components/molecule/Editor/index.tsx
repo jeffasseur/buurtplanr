@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { type Vec2 } from 'three'
 
 import Icon from '@/components/atoms/Icon'
 import { type BuurtMap } from '@/utils/BuurtMap'
@@ -10,22 +9,15 @@ interface EditorProps {
   activePID: number | null
   setPID: (val: number | null) => void
   BUURTMAP: BuurtMap
-  targetObject: object
-  targetArea: Vec2 | undefined
+  targetObject: object | null
 }
 
-export const Editor = ({ activePID, setPID, BUURTMAP, targetObject, targetArea }: EditorProps) => {
-  const [position, setPosition] = useState<Vec2 | undefined>({ x: 0, y: 0 })
+export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProps) => {
   const [bool, setBool] = useState<boolean>(false)
 
   useEffect(() => {
-    setPosition(targetArea)
     const handleWindowMouseMove = event => {
       if (BUURTMAP.dragOBJ && bool) {
-        setPosition({
-          x: event.clientX,
-          y: event.clientY
-        })
         BUURTMAP.updateProductPosition()
       }
     }
@@ -37,11 +29,8 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject, targetArea }
     }
   }, [BUURTMAP, bool, targetObject])
 
-  const left = position.x.toString() + 'px'
-  const top = position.y.toString() + 'px'
-
   return (
-    <div className={styles.container} style={{ left, top, position: 'absolute' }}>
+    <div className={styles.container}>
       <div
         className={styles.action}
         onClick={() => {
@@ -53,6 +42,10 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject, targetArea }
       </div>
 
       <div className={styles.action} onClick={() => { setBool(true) }}>
+        <Icon name='move' />
+      </div>
+
+      <div className={styles.action} onClick={() => { BUURTMAP.getSceneProducts() }}>
         <Icon name='save' />
       </div>
     </div>

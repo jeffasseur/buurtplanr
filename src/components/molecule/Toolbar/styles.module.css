@@ -23,16 +23,17 @@
 .search {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 3em;
   background-color: white;
   border-radius: 50px;
   width: 627px;
   color: rgb(181, 181, 181);
+  padding: 0 var(--spacing-04);
 }
 
 .search p {
   position: relative;
-  left: 1em;
 }
 
 .filter {

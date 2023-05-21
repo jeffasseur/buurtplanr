@@ -1,7 +1,7 @@
 .container {
   position: absolute;
+  right: 0;
   z-index: 50;
-  margin: var(--spacing-04);
   display: flex;
   gap: var(--spacing-04);
   align-items: center;
@@ -9,7 +9,7 @@
   height: fit-content;
   padding: var(--spacing-03);
   background-color: var(--color-grey-500);
-  border-radius: var(--radius-2);
+  border-radius: 0 0 0 var(--radius-2);
   box-shadow: var(--shadow-xs);
 }
 

@@ -99,7 +99,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   return (
     <div ref={mapContainer} id='map' className={styles.map} onDragOver={onDragOver} onDrop={onDrop}>
-      {map && BUURTMAP && PID && draggable && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} targetArea={targetArea} />}
+      {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       {map && <Toolbar />}
     </div>
   )

@@ -24,6 +24,7 @@ const Toolbar = () => {
         <div className={styles.interaction}>
           <div className={styles.search}>
             <p>Zoeken...</p>
+            <Icon name='search' />
           </div>
           {filterTypesArr.map((f, key) => {
             if (f === filter) {
@@ -42,7 +43,7 @@ const Toolbar = () => {
           )}
           <p>{filter}</p>
         </div>
-        <Icon name='chevron-down' />
+        <Icon name='arrow-down' />
       </div>
       <Product productType={filter} />
     </div>
