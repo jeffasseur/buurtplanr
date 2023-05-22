@@ -21,8 +21,8 @@ const inter = Inter({ subsets: ['latin'] })
 // end development data
 
 export const getStaticProps = async () => {
-  const res = await fetch('http://localhost:3002/projects/'); 
-  const data = await res.json();
+  const res = await fetch('http://localhost:3002/projects/')
+  const data = await res.json()
   return {
     props: {
       projects: data
@@ -31,9 +31,9 @@ export const getStaticProps = async () => {
 }
 
 const AdminDashboard = ({ projects }) => {
-  const [filter, setFilter] = useState('Wachten tot opstart');
+  const [filter, setFilter] = useState('Wachten tot opstart')
   // console.log(projects.data)
-  const fetchedProjects = projects.data;
+  const fetchedProjects = projects.data
 
   const filteredProjects = fetchedProjects.filter((project) => {
     if (filter === 'Wachten tot opstart') {
@@ -41,7 +41,7 @@ const AdminDashboard = ({ projects }) => {
     } else {
       return project.fase === filter
     }
-  });
+  })
 
   return (
     <>
@@ -55,4 +55,4 @@ const AdminDashboard = ({ projects }) => {
     </>
   )
 }
-export default AdminDashboard;
+export default AdminDashboard
