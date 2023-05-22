@@ -10,48 +10,8 @@ import { Loader3d } from '@components/molecule/3dloader'
 interface MapProps {
   mapType: string
   projectId?: string
+  projectData: project[]
 }
-
-const projects: project[] = [
-  {
-    id: '1',
-    name: 'kruidtuin',
-    info: {
-      description: 'lorem ipsummed lorem'
-
-    },
-    coordinates: {
-      lat: 51.02342,
-      lng: 4.4841925,
-      altitude: 1
-    },
-    bounds: [
-      {
-        lat: 51.02342,
-        lng: 4.4841925
-      }
-    ]
-  },
-  {
-    id: '2',
-    name: 'vleeshalle',
-    info: {
-      description: 'lorem ipsummed lorem'
-
-    },
-    coordinates: {
-      lat: 51.026431091650224,
-      lng: 4.484253696734126,
-      altitude: 1
-    },
-    bounds: [
-      {
-        lat: 51.02342,
-        lng: 4.4841925
-      }
-    ]
-  }
-]
 
 const render = (status: Status): ReactElement => {
   if (status === Status.LOADING) return <Loader3d />
@@ -59,9 +19,9 @@ const render = (status: Status): ReactElement => {
 }
 
 /* send coordinates as props to mapblueprint so that the map is reusable */
-export const MapWrapper = ({ mapType, projectId }: MapProps) => {
+export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
-  const [projectData, setProjectData] = useState<project>()
+  const [singleProject, setSingleProject] = useState<project>()
 
   useEffect(() => {
     if (!mapData) {
@@ -79,17 +39,17 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
         setMapData(mapOptions)
       })
     }
-    if (projectId) { setProjectData(projects.find(el => el.id === projectId)) }
+    if (projectId) { setSingleProject(projects.find(el => el.id === projectId)) }
   }, [mapData, projectId])
 
   return (
     <>
       {mapData
         ? <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
-          {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
-          {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
+          {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projectData} />}
+          {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={singleProject} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
-        </Wrapper>
+          </Wrapper>
         : <Loader3d />}
     </>
   )

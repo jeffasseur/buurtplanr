@@ -33,7 +33,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
       appendMarkers()
       bindMapEvents()
     }
-  }, [map])
+  }, [map, mapData])
 
   const bindMapEvents = () => {
     const updateMousePosition = (e) => {
@@ -57,7 +57,7 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
         if (intersections.length === 0) return
 
         highlightedObject = intersections[0].object
-        setActiveProject(projectData.find(pr => pr.id === highlightedObject.parent.projectId))
+        setActiveProject(projectData.find(pr => pr._id === highlightedObject.parent.projectId))
         highlightedObject.material.color.setHex(0xffffff)
 
         BUURTMAP.threeOverlay.requestRedraw()

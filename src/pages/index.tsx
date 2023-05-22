@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <>
       <Nav />
-      <MapWrapper mapType='overview' />
+      <MapWrapper mapType='overview' projectData={data?.data} />
       <div className={styles.searchWrapper}>
         <h3>Zoek naar een project</h3>
         <div className='search'>
@@ -38,9 +38,9 @@ const Dashboard = () => {
           </select>
         </div>
         <ul>
-          {data?.data.map((project) => (
-            <ProjectRow key={project._id} project={project} />
-          ))}
+          {data?.data.map((project) => {
+            return <ProjectRow key={project._id} project={project} />
+          })}
         </ul>
       </section>
     </>
