@@ -14,8 +14,12 @@
 }
 
 .action {
-  padding: var(--spacing-03) var(--spacing-04);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--spacing-09);
+  height: var(--spacing-09);
   background-color: var(--color-white);
   border-radius: var(--radius-2);
 }

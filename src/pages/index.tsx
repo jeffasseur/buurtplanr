@@ -1,23 +1,20 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
 import { useState } from 'react'
+import useSWR from 'swr'
 
 import styles from '@/assets/styles/pages/admin/Dashboard.module.css'
 import { MapWrapper } from '@/components/3d/MapWrapper'
 import Nav from '@/components/molecule/Navigation'
+import ProjectRow from '@components/molecule/ProjectCard/Row'
 
-const Dashboard = ({ projects }) => {
+const fetcher = async (url) => {
+  const res = await fetch(url)
+  return await res.json()
+}
+
+const Dashboard = () => {
+  const baseURL = process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()
+  const { data } = useSWR(`${baseURL}projects/`, fetcher)
   const [filter, setFilter] = useState('Wachten tot opstart')
-  // console.log(projects.data)
-  const fetchedProjects = projects.data
-
-  const filteredProjects = fetchedProjects.filter((project) => {
-    if (filter === 'Wachten tot opstart') {
-      return true
-    } else {
-      return project.fase === filter
-    }
-  })
 
   return (
     <>
@@ -41,13 +38,8 @@ const Dashboard = ({ projects }) => {
           </select>
         </div>
         <ul>
-          {filteredProjects.map((project) => (
-            <li key={project._id}>
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <p>{project.fase}</p>
-              <p>{project.dateOfStartCocreation}</p>
-            </li>
+          {data?.data.map((project) => (
+            <ProjectRow key={project._id} project={project} />
           ))}
         </ul>
       </section>
