@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 
 import { MapWrapper } from '@/components/3d/MapWrapper'
+import Navigation from '@components/molecule/Navigation'
 
 const fetcher = async (url) => {
   const res = await fetch(url)
@@ -18,6 +19,7 @@ export default function Builder ({ pid, userid }) {
 
   return (
     <>
+      <Navigation />
       {data && <MapWrapper mapType='builder' projectData={data.message} />}
     </>
   )

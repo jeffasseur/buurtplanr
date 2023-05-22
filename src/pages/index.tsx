@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import useSWR from 'swr'
 
-import styles from '@/assets/styles/pages/admin/Dashboard.module.css'
+import styles from '@/assets/styles/pages/dashboard/Dashboard.module.css'
 import { MapWrapper } from '@/components/3d/MapWrapper'
 import Nav from '@/components/molecule/Navigation'
-import ProjectRow from '@components/molecule/ProjectCard/Row'
+import ProjectColumn from '@components/molecule/ProjectCard/Column'
 
 const fetcher = async (url) => {
   const res = await fetch(url)
@@ -37,11 +37,11 @@ const Dashboard = () => {
             <option value='Vervolg'>Fase 4: Vervolg</option>
           </select>
         </div>
-        <ul>
+        <div className={styles.projectList}>
           {data?.data.map((project) => {
-            return <ProjectRow key={project._id} project={project} />
+            return <ProjectColumn key={project._id} project={project} />
           })}
-        </ul>
+        </div>
       </section>
     </>
   )
