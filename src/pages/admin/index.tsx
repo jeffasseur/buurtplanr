@@ -1,8 +1,3 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import { useState } from 'react'
-
 import Nav from '@/components/molecule/Navigation'
 import SideNav from '@/components/molecule/Navigation/Sidenav'
 import AdminProjects from '@components/organisms/adminProjects'

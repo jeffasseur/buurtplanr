@@ -1,0 +1,8 @@
+.searchWrapper {
+  background: #3457BF;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FFF;
+}

@@ -5,6 +5,14 @@ import styles from './styles.module.css'
 
 const icons = [
   'chevron-down',
+  'folder',
+  'profile-user',
+  'setting',
+  'trend-up',
+  'logo',
+  'home',
+  'security-user',
+  'notification',
   'trash',
   'save'
 ] as const
