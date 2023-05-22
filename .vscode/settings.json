@@ -12,5 +12,6 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "eslint.workingDirectories": [
     "src"
-  ]
+  ],
+  "nuxt.isNuxtApp": false
 }

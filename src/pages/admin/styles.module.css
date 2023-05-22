@@ -1,0 +1,21 @@
+.adminProjects {
+  display: grid;
+  grid-template-columns: 221px 1fr;
+  grid-template-rows: auto auto;
+}
+
+.nav {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+
+.aside {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  max-with: 221px;
+}
+
+.main {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}

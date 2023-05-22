@@ -1,0 +1,32 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 100%;
+  max-width: 136px;
+}
+
+.btnAdmin {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: blue;
+  padding: .5rem;
+  border-radius: 70px;
+}
+
+.accountBtns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
