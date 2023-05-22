@@ -53,15 +53,6 @@ const Navigation = () => {
             </div>
           )
         }
-        {
-          isAdmin &&
-          (
-            <Link href='/admin' className={styles.btnAdmin}>
-              Admin
-              <Icon name='security-user' />
-            </Link>
-          )
-        }
         <Link href='/'>
           <Icon name='notification' />
         </Link>
