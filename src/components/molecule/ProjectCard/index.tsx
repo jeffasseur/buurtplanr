@@ -18,7 +18,7 @@ export const ProjectCard = ({ project }: ProjectProps) => {
             <Image src='' alt='image' className={styles.cardImg} />
           </div>
           <div className={styles.cardHeader}>
-            <h3>{project.name}</h3>
+            <h3>{project.title}</h3>
             <div className={styles.subCardHeader}>
               <p className={styles.date}>23.04.2023</p>
               <p className={styles.fase}>Fase 2: build it</p>
