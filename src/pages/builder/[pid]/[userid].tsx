@@ -3,15 +3,13 @@ import { useEffect, useState } from 'react'
 
 import { MapWrapper } from '@/components/3d/MapWrapper'
 
-const Builder = () => {
+export default function Builder () {
   const router = useRouter()
-  const [projectId, setProjectId] = useState<number | null>(null)
+  const [projectId, setProjectId] = useState<string | undefined>()
 
   useEffect(() => {
     if (router.isReady) {
-      const query = router.query.id as string
-      const id = parseInt(query[0])
-      setProjectId(id)
+      setProjectId(router.query.pid?.toString())
     }
   }, [router.isReady, router.query])
 
@@ -19,5 +17,3 @@ const Builder = () => {
     projectId && <MapWrapper mapType='builder' projectId={projectId} />
   )
 }
-
-export default Builder

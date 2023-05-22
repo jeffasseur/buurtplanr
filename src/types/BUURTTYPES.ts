@@ -16,7 +16,7 @@ export interface mapOptions {
 }
 
 export interface project {
-  id: number
+  id: string
   name: string
   info: {
     description: string

@@ -9,12 +9,12 @@ import { Loader3d } from '@components/molecule/3dloader'
 
 interface MapProps {
   mapType: string
-  projectId?: number
+  projectId?: string
 }
 
 const projects: project[] = [
   {
-    id: 1,
+    id: '1',
     name: 'kruidtuin',
     info: {
       description: 'lorem ipsummed lorem'
@@ -33,7 +33,7 @@ const projects: project[] = [
     ]
   },
   {
-    id: 2,
+    id: '2',
     name: 'vleeshalle',
     info: {
       description: 'lorem ipsummed lorem'
