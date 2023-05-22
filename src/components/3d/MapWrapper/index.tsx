@@ -21,7 +21,6 @@ const render = (status: Status): ReactElement => {
 /* send coordinates as props to mapblueprint so that the map is reusable */
 export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
-  const [singleProject, setSingleProject] = useState<project>()
 
   useEffect(() => {
     if (!mapData) {
@@ -39,7 +38,6 @@ export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
         setMapData(mapOptions)
       })
     }
-    if (projectId) { setSingleProject(projects.find(el => el.id === projectId)) }
   }, [mapData, projectId])
 
   return (
@@ -47,7 +45,7 @@ export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
       {mapData
         ? <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
           {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projectData} />}
-          {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={singleProject} />}
+          {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
           </Wrapper>
         : <Loader3d />}

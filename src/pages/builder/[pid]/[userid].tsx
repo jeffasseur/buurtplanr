@@ -1,19 +1,24 @@
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 import { MapWrapper } from '@/components/3d/MapWrapper'
 
-export default function Builder () {
-  const router = useRouter()
-  const [projectId, setProjectId] = useState<string | undefined>()
+const fetcher = async (url) => {
+  const res = await fetch(url)
+  return await res.json()
+}
 
-  useEffect(() => {
-    if (router.isReady) {
-      setProjectId(router.query.pid?.toString())
-    }
-  }, [router.isReady, router.query])
+Builder.getInitialProps = async ({ query }) => {
+  const { pid, userid } = query
+  return { pid, userid }
+}
+
+export default function Builder ({ pid, userid }) {
+  const baseURL = process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()
+  const { data } = useSWR(`${baseURL}projects/${pid}`, fetcher)
 
   return (
-    projectId && <MapWrapper mapType='builder' projectId={projectId} />
+    <>
+      {data && <MapWrapper mapType='builder' projectData={data.message} />}
+    </>
   )
 }
