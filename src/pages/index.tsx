@@ -1,13 +1,10 @@
-import { Inter } from '@next/font/google'
-import Head from 'next/head'
-import Image from 'next/image'
+// import Head from 'next/head'
+// import Image from 'next/image'
 import { useState } from 'react'
 
 import styles from '@/assets/styles/pages/admin/Dashboard.module.css'
 import { MapWrapper } from '@/components/3d/MapWrapper'
 import Nav from '@/components/molecule/Navigation'
-
-const inter = Inter({ subsets: ['latin'] })
 
 // development data
 // const projects = [
@@ -30,7 +27,6 @@ export const getStaticProps = async () => {
 
 const Dashboard = ({ projects }) => {
   const [filter, setFilter] = useState('Wachten tot opstart')
-  // console.log(projects.data)
   const fetchedProjects = projects.data
 
   const filteredProjects = fetchedProjects.filter((project) => {
