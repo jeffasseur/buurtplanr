@@ -70,6 +70,7 @@ export class BuurtMap {
     const toRemoveProduct = this.scene.children.find(e => e.modelID === productID)
     if (toRemoveProduct) { this.scene.remove(toRemoveProduct) }
     this.threeOverlay.requestRedraw()
+    this.dragOBJ = null
   }
 
   getSceneProducts = () => {

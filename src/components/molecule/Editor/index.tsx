@@ -37,7 +37,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
       <div className={styles.actionContainer}>
         <div className={styles.action}>
           <div
-            className={styles.actionIcon}
+            className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
             onClick={() => {
               if (activePID) BUURTMAP.removeProductById(activePID)
               setPID(null)
@@ -48,7 +48,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
           <div className={styles.actionName}>remove</div>
         </div>
         <div className={styles.action}>
-          <div className={styles.actionIcon} onClick={() => { setBool(true) }}>
+          <div className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `} onClick={() => { setBool(true) }}>
             <Icon name='move' />
           </div>
           <div className={styles.actionName}>move</div>
