@@ -73,7 +73,7 @@ export class BuurtMap {
     this.dragOBJ = null
   }
 
-  getSceneProducts = () => {
+  sendCreation = (url) => {
     this.productformData = []
     this.scene.children.forEach(product => {
       if (product.hasOwnProperty('modelID')) {
@@ -81,7 +81,19 @@ export class BuurtMap {
         this.productformData.push(newProduct)
       }
     })
-    console.log(this.productformData)
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(this.productformData),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    })
+      .then(async (response) => await response.json())
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
   placeBnds = () => {

@@ -9,9 +9,9 @@
   justify-content: center;
   height: fit-content;
   padding: var(--spacing-03);
-  background-color: var(--color-grey-500);
+  background-color: var(--color-grey-50);
   border-radius: 0 0 0 var(--radius-2);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-md);
 }
 
 .actionContainer {
@@ -38,6 +38,10 @@
   height: var(--spacing-09);
   background-color: var(--color-white);
   border-radius: var(--radius-2);
+}
+
+.actionIcon:hover {
+  color: var(--color-blue-400);
 }
 
 .hidden {

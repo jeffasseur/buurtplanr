@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Icon from '@/components/atoms/Icon'
 import { type BuurtMap } from '@/utils/BuurtMap'
+import { useUser } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
@@ -13,8 +14,11 @@ interface EditorProps {
 }
 
 export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProps) => {
+  const projectID = useUser(state => state.projectID)
+  const userID = useUser(state => state.userID)
+  const baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}creaties/new/${projectID}/${userID}`
   const [bool, setBool] = useState<boolean>(false)
-  const [feedback, setFeedback] = useState<string>('')
+  const [feedback, setFeedback] = useState<string | null>('')
 
   useEffect(() => {
     if (BUURTMAP.dragOBJ) { setFeedback(BUURTMAP.dragOBJ.modelType) } else { setFeedback('') }
@@ -54,13 +58,19 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
           <div className={styles.actionName}>move</div>
         </div>
         <div className={styles.action}>
-          <div className={styles.actionIcon} onClick={() => { BUURTMAP.getSceneProducts() }}>
+          <div
+            className={styles.actionIcon}
+            onClick={() => {
+              BUURTMAP.sendCreation(baseURL)
+              setFeedback('creatie opgeslagen')
+            }}
+          >
             <Icon name='save' />
           </div>
           <div className={styles.actionName}>save</div>
         </div>
       </div>
-      <div className={`${BUURTMAP.dragOBJ ? 'active' : styles.hidden}`}><p>{feedback}</p></div>
+      <div className={`${feedback ? 'active' : styles.hidden}`}><p>{feedback}</p></div>
     </div>
   )
 }
