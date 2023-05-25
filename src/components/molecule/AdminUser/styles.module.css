@@ -1,0 +1,13 @@
+.adminUserContainer {
+  display: grid;
+  grid-template-columns: 65px 3fr 3fr 2fr 1fr 30px;
+  column-gap: 2rem;
+  align-items: center;
+}
+
+.adminUser_img {
+  width: 61px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  border-radius: var(--radius-round);
+}

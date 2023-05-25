@@ -1,0 +1,15 @@
+.adminSettings {
+  background: white;
+  border-radius: var(--radius-2);
+}
+
+.header {
+  display: flex;
+  gap: 3rem;
+  padding: 2rem;
+  border-bottom: 1px solid var(--grey-500);
+}
+
+.settingsContainer {
+  padding: 2rem;
+}

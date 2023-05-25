@@ -16,7 +16,6 @@ export interface mapOptions {
 }
 
 export interface project {
-  status: string
   data: {
     location: {
       coordinates: {
@@ -43,12 +42,36 @@ export interface project {
   }
   id: number
   title: string
-  dateOfCreation: string
   info: {
     fase: string
     description: string
   }
   bounds: LatLngTypes[]
+}
+
+export interface projectData {
+  location: {
+    coordinates: {
+      lat: number
+      lng: number
+      altitude: number
+    }
+    postalcode: string
+    city: string
+    street: string
+  }
+  delete: {
+    isDeleted: boolean
+    whenDeleted: string
+  }
+  _id: string
+  fase: string
+  dateOfCreation: string
+  title: string
+  description: string
+  dateOfStart: string
+  dateOfEnd: string
+  __v: number
 }
 
 export interface productUploadData {

@@ -1,19 +1,10 @@
 import Nav from '@/components/molecule/Navigation'
 import SideNav from '@/components/molecule/Navigation/Sidenav'
-import AdminProjects from '@components/organisms/Admin/AdminProjects'
+import AdminOccurrences from '@components/organisms/Admin/AdminOccurrences'
 
 import styles from './styles.module.css'
 
-// development data
-// const projects = [
-//   { name: 'Project 1', status: 'completed' },
-//   { name: 'Project 2', status: 'inProgress' },
-//   { name: 'Project 3', status: 'completed' },
-//   { name: 'Project 4', status: 'inProgress' },
-// ]
-// end development data
-
-const AdminDashboard = () => {
+const AdminActivities = () => {
   return (
     <>
       <div className={styles.adminProjects}>
@@ -24,10 +15,10 @@ const AdminDashboard = () => {
           <SideNav />
         </aside>
         <main className={styles.main}>
-          <AdminProjects />
+          <AdminOccurrences />
         </main>
       </div>
     </>
   )
 }
-export default AdminDashboard
+export default AdminActivities

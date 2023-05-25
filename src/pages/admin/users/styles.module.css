@@ -1,4 +1,4 @@
-.adminProjects {
+.adminUsers {
   display: grid;
   grid-template-columns: 263px 1fr;
   grid-template-rows: auto auto;

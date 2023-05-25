@@ -1,0 +1,18 @@
+.OccContainer {
+  display: grid;
+  grid-template-columns: 65px 3fr 1fr 2fr 30px 1fr 1fr;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+.OccContainer_divider {
+  display: flex;
+  justify-content: center;
+  max-height: 29px;
+}
+
+.divider {
+  width: 3px;
+  height: 100%;
+  background: var(--color-grey-200);
+}

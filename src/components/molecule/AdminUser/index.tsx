@@ -1,0 +1,37 @@
+import Image from 'next/image'
+
+import Icon from '@/components/atoms/Icon'
+
+import styles from './styles.module.css'
+
+const AdminUser = ({ user }) => {
+  return (
+    <>
+      {
+        user &&
+          <div className={styles.adminUserContainer}>
+            <div className={styles.adminUser_img}>
+              <Image src='/img/donut.webp' alt='placeholder' width={61} height={61} />
+            </div>
+            <div className={styles.adminUser_name}>
+              <h4>{user.firstname} {user.lastname}</h4>
+            </div>
+            <div className={styles.adminUser_email}>
+              <p>{user.email}</p>
+            </div>
+            <div className={styles.adminUser_date}>
+              <p>{user.dateOfRegistration}</p>
+            </div>
+            <div className={styles.adminUser_role}>
+              <p>Gebruiker</p>
+            </div>
+            <div className={styles.adminUser_settings}>
+              <Icon name='setting-3' />
+            </div>
+          </div>
+      }
+    </>
+  )
+}
+
+export default AdminUser

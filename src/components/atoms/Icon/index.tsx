@@ -14,7 +14,9 @@ const icons = [
   'security-user',
   'notification',
   'trash',
-  'save'
+  'save',
+  'setting-3',
+  'eye'
 ] as const
 
 export type Icons = typeof icons[number]
