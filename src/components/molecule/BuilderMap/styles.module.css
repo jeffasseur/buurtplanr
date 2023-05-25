@@ -1,4 +1,5 @@
 .map {
   width: 100vw;
-  height: var(--map-size-full);
+  /* height: var(--map-size-full); */
+  height: 100vh;
 }

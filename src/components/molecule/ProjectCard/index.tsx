@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import Button from '@/components/atoms/Button'
 import { type project } from '@/types/BUURTTYPES'
+import { useUser } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
@@ -10,7 +11,8 @@ interface ProjectProps {
 }
 
 export const ProjectCard = ({ project }: ProjectProps) => {
-  console.log(project)
+  const userID = useUser(state => state.userID)
+
   return (
     <>
       {project &&
@@ -29,10 +31,10 @@ export const ProjectCard = ({ project }: ProjectProps) => {
             <p>{project.informatie}</p>
           </div>
           <div className={styles.btnContainer}>
-            <Button as='link' size='small' href={`/builder/${project._id}`}>
+            <Button as='link' size='small' href={`/builder/${project._id}/${userID}`}>
               <span>Deelnemen</span>
             </Button>
-            <Button as='link' theme='Tertiary' size='small' href={`/builder/${project._id}`}>
+            <Button as='link' theme='Tertiary' size='small' href={`/builder/${project._id}/${userID}`}>
               <span>Info</span>
             </Button>
           </div>

@@ -18,7 +18,7 @@ export const useDroppedModel = create<DroppedModel>((set) => ({
 }))
 
 export const useUser = create<User>((set) => ({
-  userID: null,
+  userID: '1',
   updateUID: (el) => { set(() => ({ userID: el })) },
   projectID: null,
   updatePID: (el) => { set(() => ({ projectID: el })) }

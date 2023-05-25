@@ -27,7 +27,7 @@ export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
       // get user coordinates to send in map blueprint to set map camera to user location
       navigator.geolocation.getCurrentPosition((e) => {
         const mapOptions: mapOptions = {
-          tilt: 50,
+          tilt: 75,
           heading: 0,
           zoom: 18,
           center: { lat: e.coords.latitude, lng: e.coords.longitude, altitude: 1 },
@@ -47,7 +47,7 @@ export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
           {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
-          </Wrapper>
+        </Wrapper>
         : <Loader3d />}
     </>
   )

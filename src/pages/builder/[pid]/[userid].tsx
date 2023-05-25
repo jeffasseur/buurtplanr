@@ -24,7 +24,7 @@ export default function Builder ({ pid, userid }) {
 
   return (
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       {data && <MapWrapper mapType='builder' projectData={data.message} />}
     </>
   )
