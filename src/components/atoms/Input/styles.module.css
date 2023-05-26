@@ -1,0 +1,18 @@
+.inputBasic {
+  padding: var(--spacing-02) var(--spacing-01);
+  background: var(--color-white);
+  border-radius: var(--radius-1);
+  border: 1px solid var(--color-grey-500);
+  font-size: var(--font-size-medium);
+  width: 100%;
+}
+
+.sizeSmall {
+  max-width: 300px;
+}
+.sizeMedium {
+  max-width: 509px;
+}
+.sizeLarge {
+  max-width: 100%;
+}
