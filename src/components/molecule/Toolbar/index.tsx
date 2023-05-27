@@ -29,19 +29,24 @@ const Toolbar = () => {
           {filterTypesArr.map((f, key) => {
             if (f === filter) {
               return (
-                <div key={key} className={`${styles.filter} ${styles.activeFilter}`} onClick={() => { setFilter(null) }}>
-                  <Icon name={f} />
+                <div key={key} className={styles.filter}>
+                  <div className={`${styles.filterIcon} ${styles.activeFilter}`} onClick={() => { setFilter(null) }}>
+                    <Icon name={f} />
+                  </div>
+                  <div className={styles.filterName}>{f}</div>
                 </div>
               )
             }
             return (
-              <div key={key} className={styles.filter} onClick={() => { setFilter(f) }}>
-                <Icon name={f} />
+              <div key={key} className={styles.filter}>
+                <div className={styles.filterIcon} onClick={() => { setFilter(f) }}>
+                  <Icon name={f} />
+                </div>
+                <div className={styles.filterName}>{f}</div>
               </div>
             )
           }
           )}
-          <p>{filter}</p>
         </div>
         <Icon name='arrow-down' />
       </div>

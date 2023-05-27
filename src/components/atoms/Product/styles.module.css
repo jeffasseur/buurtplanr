@@ -20,6 +20,7 @@
   font-weight: 700;
   background-color: var(--color-grey-50);
   border-radius: var(--radius-2);
+  cursor: pointer;
 }
 
 .active {

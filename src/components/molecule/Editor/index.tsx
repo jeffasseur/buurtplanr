@@ -70,7 +70,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
           <div className={styles.actionName}>save</div>
         </div>
       </div>
-      <div className={`${feedback ? 'active' : styles.hidden}`}><p>{feedback}</p></div>
+      <div className={`${feedback ? styles.selected : styles.hidden}`}><p>{feedback}</p></div>
     </div>
   )
 }
