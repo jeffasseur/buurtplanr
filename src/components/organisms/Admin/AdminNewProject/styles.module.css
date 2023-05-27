@@ -3,6 +3,7 @@
   border-radius: var(--radius-2);
   padding: var(--spacing-08);
   padding-bottom: var(--spacing-09);
+  width: 100%;
 }
 
 .btnContainer {
