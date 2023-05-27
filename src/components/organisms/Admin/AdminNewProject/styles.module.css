@@ -1,6 +1,8 @@
 .newProjectContainer {
   background: var(--color-white);
   border-radius: var(--radius-2);
+  padding: var(--spacing-08);
+  padding-bottom: var(--spacing-09);
 }
 
 .btnContainer {
@@ -8,4 +10,9 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-08);
+}
+
+.footer {
+  padding-top: var(--spacing-06);
+  padding-bottom: var(--spacing-08);
 }

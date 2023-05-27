@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
 
@@ -5,8 +7,8 @@ import styles from './styles.module.css'
 
 const Setup = () => {
   return (
-    <div>
-      <fieldset>
+    <div className={styles.setupContainer}>
+      <fieldset className={styles.name}>
         <Title size='h3' weight='semibold'>Projectnaam</Title>
         <Input type='text' Size='large' placeholder='Projectnaam' />
       </fieldset>
@@ -47,6 +49,37 @@ const Setup = () => {
       </fieldset>
       <fieldset>
         <Title size='h3' weight='semibold'>Type</Title>
+        <div className={styles.typesContainer}>
+          <div>
+            <label className={styles.typePlein}>
+              <span>Plein</span>
+              <Image src='/img/donut.webp' alt='type plein' width={250} height={220} />
+              <input type='radio' name='type' id='plein' value='plein' />
+            </label>
+          </div>
+          <div>
+            <label className={styles.typePark}>
+              <span>Park</span>
+              <Image src='/img/donut.webp' alt='type park' width={250} height={220} />
+              <input type='radio' name='type' id='park' value='park' />
+            </label>
+          </div>
+          <div>
+            <label className={styles.typeStraat}>
+              <span>Straat</span>
+              <Image src='/img/donut.webp' alt='type straat' width={250} height={220} />
+              <input type='radio' name='type' id='straat' value='straat' />
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <Title size='h3' weight='semibold'>Informatie</Title>
+        <Input type='text' Size='large' placeholder='text editor...' />
+      </fieldset>
+      <fieldset>
+        <Title size='h3' weight='semibold'>Document/ Afbeelding</Title>
+        <Input type='file' Size='small' />
       </fieldset>
     </div>
   )

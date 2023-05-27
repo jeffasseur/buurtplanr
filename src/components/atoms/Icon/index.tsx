@@ -19,7 +19,9 @@ const icons = [
   'eye',
   'arrow-right',
   'adjust',
-  'arrow-left'
+  'arrow-left',
+  'gps',
+  'location'
 ] as const
 
 export type Icons = typeof icons[number]
