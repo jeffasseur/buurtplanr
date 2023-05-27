@@ -13,14 +13,6 @@ const fetcher = async (url) => {
   const res = await fetch(url)
   return await res.json()
 }
-// export async function getServerSideProps () {
-//   const res = await fetch(apiUrl)
-//   return {
-//     props: {
-//       data: await res.json()
-//     }
-//   }
-// }
 
 const AdminProjects = () => {
   const { data, isLoading, error } = useSWR(apiUrl, fetcher)
@@ -28,7 +20,7 @@ const AdminProjects = () => {
     <div className={styles.adminprojects}>
       <div className={styles.header}>
         <Title size='h3'>Start een nieuw project</Title>
-        <Button as='link' href='/admin/projecten/create' append='save' size='small'>Project starten</Button>
+        <Button as='link' href='/admin/projects/create' append='save' size='small'>Project starten</Button>
       </div>
       <div className={styles.projectContainer}>
         <div className={styles.cardContainer}>

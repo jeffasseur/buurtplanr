@@ -20,7 +20,7 @@
   gap: .75rem;
   align-items: center;
 }
-.link:hover, .link:active {
+.link:hover, .link:active, .active {
   color: blue;
   font-weight: 500;
 }

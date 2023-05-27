@@ -1,4 +1,5 @@
 import { cva, cx, type VariantProps } from 'class-variance-authority'
+
 import styles from './styles.module.css'
 
 const inputStyle = cva(styles.inputBasic, {
@@ -20,12 +21,14 @@ const inputStyle = cva(styles.inputBasic, {
   }
 })
 
-export interface InputProps 
-  extends React.InputHTMLAttributes<HTMLInputElement>, 
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
   VariantProps<typeof inputStyle> {
-    placeholder?: string
-    type?: string
-  }
+  placeholder?: string
+  className?: string
+  type?: string
+  value?: string
+}
 
 const Input: React.FC<InputProps> = ({
   className,
@@ -33,7 +36,7 @@ const Input: React.FC<InputProps> = ({
   BorderRadius,
   ...props
 }) => {
-  const classNames = cx( [inputStyle({ Size, BorderRadius }), className] )
+  const classNames = cx([inputStyle({ Size, BorderRadius }), className])
   return (
     <input type={props.type} className={classNames} placeholder={props.placeholder} />
   )

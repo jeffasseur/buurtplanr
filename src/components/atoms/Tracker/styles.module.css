@@ -1,0 +1,6 @@
+.trackerContainer {
+  background: url('./../../../assets/icons/tracker-start.svg') no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 260px;
+}

@@ -1,0 +1,11 @@
+.newProjectContainer {
+  background: var(--color-white);
+  border-radius: var(--radius-2);
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-08);
+}

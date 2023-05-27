@@ -16,7 +16,10 @@ const icons = [
   'trash',
   'save',
   'setting-3',
-  'eye'
+  'eye',
+  'arrow-right',
+  'adjust',
+  'arrow-left'
 ] as const
 
 export type Icons = typeof icons[number]

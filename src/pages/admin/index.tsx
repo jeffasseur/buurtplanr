@@ -4,15 +4,6 @@ import AdminProjects from '@components/organisms/Admin/AdminProjects'
 
 import styles from './styles.module.css'
 
-// development data
-// const projects = [
-//   { name: 'Project 1', status: 'completed' },
-//   { name: 'Project 2', status: 'inProgress' },
-//   { name: 'Project 3', status: 'completed' },
-//   { name: 'Project 4', status: 'inProgress' },
-// ]
-// end development data
-
 const AdminDashboard = () => {
   return (
     <>

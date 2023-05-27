@@ -1,0 +1,17 @@
+.date {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+}
+
+.publishDate, .cocreationDateStart, .cocreationDateEnd, .voteDateStart, .voteDateEnd {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.cocreationDate, .voteDate {
+  display: flex;
+  gap: var(--spacing-06);
+}
