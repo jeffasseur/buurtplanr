@@ -1,5 +1,17 @@
 .map {
   width: 100vw;
-  /* height: var(--map-size-full); */
+  height: var(--map-size-full);
+}
+
+.container {
   height: 100vh;
+  display: grid;
+  grid-template-rows: auto 216px;
+}
+
+.navcontainer {
+  position: relative;
+  bottom: 0;
+  width: 100vw;
+  height: fit-content;
 }
