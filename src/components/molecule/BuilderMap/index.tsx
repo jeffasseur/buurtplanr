@@ -1,6 +1,6 @@
 import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
-import { type Vec2, type Object3D, type Vector3 } from 'three'
+import { type Object3D, type Vector3 } from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
@@ -21,7 +21,8 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const [PID, setPID] = useState<number | null>(null)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
-  const modelType = useDroppedModel(state => state.model)
+  const modelName = useDroppedModel(state => state.model)
+  const updateModel = useDroppedModel(state => state.updateModel)
   let mousePosition: Vector3
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
     }
-  }, [map, mapData, projectData.coordinates])
+  }, [map, mapData, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
     const updateMousePosition = (e) => {
@@ -46,9 +47,10 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
     map.addListener('click', (e: google.maps.MapMouseEvent) => {
       updateMousePosition(e)
+      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition)
 
       BUURTMAP.dragOBJ = null
-      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition)
+      BUURTMAP.mousePosition = mousePosition
       if (intersections.length === 0) return
 
       let current: THREE.Object3D = intersections[0].object
@@ -79,25 +81,21 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     })
   }
 
-  const initProduct = async () => {
-    if (BUURTMAP && modelType) {
-      BUURTMAP.mousePosition = mousePosition
-      BUURTMAP.appendProducts(modelType)
+  const clicker = () => {
+    if (modelName !== null) {
+      BUURTMAP.appendProducts(modelName)
+      updateModel(null)
     }
   }
 
-  const onDrop = (e) => {
-    initProduct().catch((err) => { console.log(err) })
-  }
-
-  const onDragOver = (e) => {
-    e.preventDefault()
-  }
-
   return (
-    <div ref={mapContainer} id='map' className={styles.map} onDragOver={onDragOver} onDrop={onDrop}>
-      {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
-      {map && <Toolbar />}
+    <div className={styles.container}>
+      <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
+        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
+      </div>
+      <div className={styles.navcontainer}>
+        {map && <Toolbar />}
+      </div>
     </div>
   )
 }

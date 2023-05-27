@@ -18,8 +18,8 @@ interface IconProps {
 const WebpIcon = ({ name, className = '' }: IconProps) => {
   const classNames = clsx(styles.icon, className)
   return (
-    <div draggable='false' className={classNames}>
-      <Image draggable='false' src={`/img/productThumbnails/${name}.webp`} alt={name} fill />
+    <div className={classNames}>
+      <Image src={`/img/productThumbnails/${name}.webp`} alt={name} fill />
     </div>
   )
 }
