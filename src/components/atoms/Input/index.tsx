@@ -27,7 +27,8 @@ export interface InputProps
   placeholder?: string
   className?: string
   type?: string
-  value?: string
+  value?: any
+  onChange?: any
 }
 
 const Input: React.FC<InputProps> = ({
@@ -38,7 +39,13 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const classNames = cx([inputStyle({ Size, BorderRadius }), className])
   return (
-    <input type={props.type} className={classNames} placeholder={props.placeholder} />
+    <input
+      type={props.type}
+      className={classNames}
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={props.onChange}
+    />
   )
 }
 

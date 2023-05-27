@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useState } from 'react'
 
 import Button from '@/components/atoms/Button'
@@ -8,11 +9,36 @@ import Summary from '@/components/molecule/AdminNewProject/Summary'
 import styles from './styles.module.css'
 
 const AdminNewProject = () => {
+  const [createFormData, setCreateFormData] = useState({
+    title: '',
+    dateOfPublish: '',
+    dateOfStartCocreation: '',
+    dateOfEndCocreation: '',
+    dateOfStartVote: '',
+    dateOfEndVote: '',
+    budget: 0,
+    description: '',
+    type: '',
+    info: '',
+    doc: '',
+    location: {
+      coordinates: {
+        lat: 0,
+        lng: 0
+      },
+      postalcode: 0,
+      city: '',
+      street: ''
+    }
+  })
   const [page, setPage] = useState(0)
-  const FormElements = [<Setup key={0} />, <Cocreation key={1} />, <Summary key={2} />]
+  const FormElements = [<Setup key={0} createFormData={createFormData} setCreateFormData={setCreateFormData} />, <Cocreation key={1} createFormData={createFormData} setCreateFormData={setCreateFormData} />, <Summary key={2} createFormData={createFormData} setCreateFormData={setCreateFormData} />]
   return (
     <div className={styles.newProjectContainer}>
       <div className={styles.header}>
+        <Image src='/img/donut.webp' alt='donut' width={250} height={220} />
+      </div>
+      <div className={styles.tracker}>
         <h1 className={styles.title}>Tracker</h1>
       </div>
       <div className={styles.body}>
@@ -78,7 +104,9 @@ const AdminNewProject = () => {
               size='small'
               append='save'
               theme='Primary'
-              type='submit'
+              onClick={
+                () => { console.log(createFormData) }
+              }
             >opslaan
             </Button>
           </div>

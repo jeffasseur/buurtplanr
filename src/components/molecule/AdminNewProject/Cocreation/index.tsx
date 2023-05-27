@@ -6,7 +6,7 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const Cocreation = () => {
+const Cocreation = ({ createFormData, setCreateFormData }) => {
   return (
     <div className={styles.cocreationContainer}>
       <fieldset className={styles.location}>
