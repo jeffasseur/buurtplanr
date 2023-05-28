@@ -52,14 +52,15 @@ export class BuurtMap {
     })
   }
 
-  appendProducts = (modelName: string) => {
+  appendProducts = (modelName: string, mousePos: THREE.Vector3 | undefined) => {
+    console.log(mousePos)
     this.loader.load(`/models/${modelName}.glb`, (gltf) => {
       const product: product = gltf.scene
       product.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
       product.modelName = modelName
       product.scale.set(1, 1, 1)
       product.rotation.x = Math.PI / 2
-      product.position.copy(this.mousePosition)
+      product.position.copy(mousePos)
       product.isDraggable = true
       this.scene.add(product)
     })
@@ -67,10 +68,10 @@ export class BuurtMap {
     this.threeOverlay.requestStateUpdate()
   }
 
-  placeGround = () => {
-    if (!this.initgndPos) this.initgndPos = this.mousePosition.clone()
+  placeGround = (mousePos: THREE.Vector3 | undefined) => {
+    if (!this.initgndPos) this.initgndPos = mousePos.clone()
     else {
-      this.finalgndPos = this.mousePosition.clone()
+      this.finalgndPos = mousePos.clone()
       const width = Math.abs(this.finalgndPos.x - this.initgndPos.x)
       const height = Math.abs(this.finalgndPos.y - this.initgndPos.y)
 

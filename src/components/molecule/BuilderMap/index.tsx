@@ -1,6 +1,6 @@
 import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
-import { type Object3D, type Vector3 } from 'three'
+import { type Vector2, type Object3D, type Vector3, type Vec2 } from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
@@ -17,6 +17,7 @@ interface MapProps {
 
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
+  const mouseCapture = useRef<Vector3>()
   const [map, setMap] = useState<google.maps.Map>()
   const [PID, setPID] = useState<number | null>(null)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
@@ -26,6 +27,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const productType = useDroppedModel(state => state.productType)
   const updateProductType = useDroppedModel(state => state.updateProductType)
   let mousePosition: Vector3
+  let rayMouse: Vector2
 
   useEffect(() => {
     if (!map) {
@@ -38,35 +40,51 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   }, [map, mapData, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
-    const updateMousePosition = (e) => {
+    const updateRayMouse = (e) => {
+      // calculation to get raycaster right
       const { left, top, width, height } = mapContainer.current.getBoundingClientRect()
       const x = e.domEvent.clientX - left
       const y = e.domEvent.clientY - top
 
-      mousePosition.x = 2 * (x / width) - 1
-      mousePosition.y = 1 - 2 * (y / height)
+      rayMouse = { x: 2 * (x / width) - 1, y: 1 - 2 * (y / height) }
     }
 
-    map.addListener('click', (e: google.maps.MapMouseEvent) => {
-      // updateMousePosition(e)
-
+    const updateMouse = (e: google.maps.MapMouseEvent, updateType: string) => {
+      // calculation to get location right
       const latlng: LatLngTypes = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
       mousePosition = BUURTMAP.threeOverlay.latLngAltitudeToVector3(latlng)
       BUURTMAP.mousePosition = mousePosition
 
+      // change mouse position for placing products on click position
+      if (updateType === 'click') { mouseCapture.current = mousePosition }
+    }
+
+    map.addListener('click', (e: google.maps.MapMouseEvent) => {
+      updateRayMouse(e)
+      updateMouse(e, 'click')
+
+      // see if user is placing a ground type product on map
       if (BUURTMAP.initgndPos) {
-        BUURTMAP.placeGround()
+        BUURTMAP.placeGround(mouseCapture.current)
         return
       }
 
-      const intersections = BUURTMAP.threeOverlay.raycast(mousePosition)
+      // raycast fn
+      const intersections = BUURTMAP.threeOverlay.raycast(rayMouse)
 
+      // place obj on map after repositioning product
       BUURTMAP.dragOBJ = null
-      BUURTMAP.mousePosition = mousePosition
-      if (intersections.length === 0) return
+
+      // reset if no intersections found
+      if (intersections.length === 0) {
+        setPID(null)
+        setDraggable(null)
+        return
+      }
 
       let current: THREE.Object3D = intersections[0].object
 
+      // cycle oject upwards until top-level found
       while (current?.parent?.parent !== null) {
         current = current.parent
         setDraggable(null)
@@ -87,23 +105,22 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     })
 
     map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
-      const latlng: LatLngTypes = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
-      mousePosition = BUURTMAP.threeOverlay.latLngAltitudeToVector3(latlng)
-      BUURTMAP.mousePosition = mousePosition
+      updateMouse(e, 'move')
     })
   }
 
   const clicker = () => {
+    // check for type of product placement || ground types need multiple markers while others just 1
     if (modelName !== null && productType !== null && BUURTMAP) {
       switch (productType) {
         case 'ground':
           BUURTMAP.gnd = modelName
-          BUURTMAP.placeGround(modelName)
+          BUURTMAP.placeGround(mouseCapture.current)
           updateModel(null)
           updateProductType(null)
           break
         default:
-          BUURTMAP.appendProducts(modelName)
+          BUURTMAP.appendProducts(modelName, mouseCapture.current)
           updateModel(null)
           updateProductType(null)
           break
