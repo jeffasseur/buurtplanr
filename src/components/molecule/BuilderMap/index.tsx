@@ -1,6 +1,6 @@
 import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
-import { type Vector2, type Object3D, type Vector3, type Vec2 } from 'three'
+import { type Vector2, type Object3D, type Vector3 } from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'

@@ -17,6 +17,12 @@ body {
   font-size: var(--font-size-body)
 }
 
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: bold;
+}
+
 :focus {
   outline-style: solid;
   outline-color: transparent;
