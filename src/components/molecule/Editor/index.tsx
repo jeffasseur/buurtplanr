@@ -21,7 +21,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
   const [feedback, setFeedback] = useState<string | null>('')
 
   useEffect(() => {
-    if (BUURTMAP.dragOBJ) { setFeedback(BUURTMAP.dragOBJ.modelType) } else { setFeedback('') }
+    if (BUURTMAP.dragOBJ) { setFeedback(BUURTMAP.dragOBJ.modelName) } else { setFeedback('') }
 
     const handleWindowMouseMove = event => {
       if (BUURTMAP.dragOBJ && bool) { BUURTMAP.updateProductPosition() }

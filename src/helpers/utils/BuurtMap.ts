@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-import { type project, type productUploadData, type product } from '@/types/BUURTTYPES'
+import { type productUploadData, type product } from '@/types/BUURTTYPES'
 
 export class BuurtMap {
   map: google.maps.Map
@@ -14,6 +14,9 @@ export class BuurtMap {
   dragOBJ: THREE.Object3D | null
   productformData: productUploadData[]
   latlngformData: LatLngTypes[]
+  gnd: string | null
+  initgndPos: THREE.Vector3 | null
+  finalgndPos: THREE.Vector3 | null
 
   constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -24,6 +27,9 @@ export class BuurtMap {
     this.dragOBJ = null
     this.productformData = []
     this.initDracoLoader()
+    this.gnd = null
+    this.initgndPos = null
+    this.finalgndPos = null
   }
 
   initDracoLoader = () => {
@@ -37,7 +43,6 @@ export class BuurtMap {
     this.loader.load('/models/marker.glb', (gltf) => {
       const product: product = gltf.scene
       product.projectId = el._id
-      console.log(product.projectId)
       product.scale.set(20, 20, 20)
       product.rotation.x = Math.PI / 2
       const lat = el.location.coordinates.lat
@@ -47,11 +52,11 @@ export class BuurtMap {
     })
   }
 
-  appendProducts = (modelType: string) => {
-    this.loader.load(`/models/${modelType}.glb`, (gltf) => {
+  appendProducts = (modelName: string) => {
+    this.loader.load(`/models/${modelName}.glb`, (gltf) => {
       const product: product = gltf.scene
       product.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
-      product.modelType = modelType
+      product.modelName = modelName
       product.scale.set(1, 1, 1)
       product.rotation.x = Math.PI / 2
       product.position.copy(this.mousePosition)
@@ -60,6 +65,31 @@ export class BuurtMap {
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
+  }
+
+  placeGround = () => {
+    if (!this.initgndPos) this.initgndPos = this.mousePosition.clone()
+    else {
+      this.finalgndPos = this.mousePosition.clone()
+      const width = Math.abs(this.finalgndPos.x - this.initgndPos.x)
+      const height = Math.abs(this.finalgndPos.y - this.initgndPos.y)
+
+      // ground geo
+      const geometry = new THREE.PlaneGeometry(width, height)
+      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+      const ground = new THREE.Mesh(geometry, material)
+      ground.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
+      ground.modelName = this.gnd
+      ground.isDraggable = true
+      ground.position.x = (this.finalgndPos.x + this.initgndPos.x) / 2
+      ground.position.y = (this.finalgndPos.y + this.initgndPos.y) / 2
+      this.scene.add(ground)
+
+      // reset ground data
+      this.gnd = null
+      this.initgndPos = null
+      this.finalgndPos = null
+    }
   }
 
   updateProductPosition = () => {
@@ -77,7 +107,7 @@ export class BuurtMap {
     this.productformData = []
     this.scene.children.forEach(product => {
       if (product.hasOwnProperty('modelID')) {
-        const newProduct = { latlng: product.position, modelType: product.modelType }
+        const newProduct = { latlng: product.position, modelName: product.modelName }
         this.productformData.push(newProduct)
       }
     })

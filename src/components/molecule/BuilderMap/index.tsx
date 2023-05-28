@@ -23,6 +23,8 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelName = useDroppedModel(state => state.model)
   const updateModel = useDroppedModel(state => state.updateModel)
+  const productType = useDroppedModel(state => state.productType)
+  const updateProductType = useDroppedModel(state => state.updateProductType)
   let mousePosition: Vector3
 
   useEffect(() => {
@@ -46,7 +48,17 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     }
 
     map.addListener('click', (e: google.maps.MapMouseEvent) => {
-      updateMousePosition(e)
+      // updateMousePosition(e)
+
+      const latlng: LatLngTypes = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
+      mousePosition = BUURTMAP.threeOverlay.latLngAltitudeToVector3(latlng)
+      BUURTMAP.mousePosition = mousePosition
+
+      if (BUURTMAP.initgndPos) {
+        BUURTMAP.placeGround()
+        return
+      }
+
       const intersections = BUURTMAP.threeOverlay.raycast(mousePosition)
 
       BUURTMAP.dragOBJ = null
@@ -82,9 +94,20 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   }
 
   const clicker = () => {
-    if (modelName !== null) {
-      BUURTMAP.appendProducts(modelName)
-      updateModel(null)
+    if (modelName !== null && productType !== null && BUURTMAP) {
+      switch (productType) {
+        case 'ground':
+          BUURTMAP.gnd = modelName
+          BUURTMAP.placeGround(modelName)
+          updateModel(null)
+          updateProductType(null)
+          break
+        default:
+          BUURTMAP.appendProducts(modelName)
+          updateModel(null)
+          updateProductType(null)
+          break
+      }
     }
   }
 

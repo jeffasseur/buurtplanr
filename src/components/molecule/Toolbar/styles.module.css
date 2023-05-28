@@ -26,7 +26,7 @@
   height: var(--spacing-09);
   background-color: white;
   border-radius: var(--radius-round);
-  width: 627px;
+  width: 375px;
   color: rgb(181, 181, 181);
   padding: 0 var(--spacing-04);
 }
