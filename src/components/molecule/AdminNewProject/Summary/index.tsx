@@ -5,7 +5,7 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const Summary = ({ createFormData, setCreateFormData }) => {
+const Summary = ({ FormData, setFormData }) => {
   return (
     <div className={styles.summaryContainer}>
       <div className={styles.dates}>
@@ -14,19 +14,24 @@ const Summary = ({ createFormData, setCreateFormData }) => {
       </div>
       <div className={styles.budget}>
         <Title size='h3' weight='semibold'>Budget</Title>
-        <p>€ {createFormData.budget}</p>
+        <p>€ {FormData.budget}</p>
       </div>
       <div className={styles.beschrijving}>
         <Title size='h3' weight='semibold'>Beschrijving</Title>
-        <p>{createFormData.description}</p>
+        <p>{FormData.description}</p>
       </div>
       <div className={styles.info}>
         <Title size='h3' weight='semibold'>Informatie</Title>
         <Title size='h4' weight='regular' className={styles.textGrey500}>Infotekst</Title>
-        <p>{createFormData.info}</p>
+        <p>{FormData.informatie}</p>
         <Title size='h4' weight='regular' className={styles.textGrey500}>Document/ afbeelding</Title>
         <div className={styles.imgContainer}>
-          <Image src={createFormData.doc} alt='afbeelding/ document' width={100} height={100} />
+          {
+            FormData.document !== '' &&
+            (
+              <Image src={FormData.document} alt='afbeelding/ document' width={100} height={100} />
+            )
+          }
         </div>
       </div>
       <div className={styles.location}>

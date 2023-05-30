@@ -32,6 +32,7 @@ interface BaseProps extends VariantProps<typeof buttonStyle> {
   className?: string
   prepend?: Icons
   href?: string
+  onClick?: any
 }
 
 type ButtonAsButton = BaseProps &

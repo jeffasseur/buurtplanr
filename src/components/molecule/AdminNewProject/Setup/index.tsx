@@ -5,7 +5,7 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const Setup = ({ createFormData, setCreateFormData }) => {
+const Setup = ({ FormData, setFormData }) => {
   return (
     <div className={styles.setupContainer}>
       <fieldset className={styles.name}>
@@ -14,8 +14,10 @@ const Setup = ({ createFormData, setCreateFormData }) => {
           type='text'
           Size='large'
           placeholder='Projectnaam'
-          value={createFormData.title}
-          onChange={(event) => setCreateFormData({ ...createFormData, title: event.target.value })}
+          autoFocus
+          required
+          value={FormData.title}
+          onChange={(event) => setFormData({ ...FormData, title: event.target.value })}
         />
       </fieldset>
       <fieldset className={styles.date}>
@@ -25,9 +27,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
           <Input
             type='date'
             Size='small'
-            value={createFormData.dateOfPublish}
+            value={FormData.dateOfPublication}
             onChange={
-              (event) => setCreateFormData({ ...createFormData, dateOfPublish: event.target.value })
+              (event) => setFormData({ ...FormData, dateOfPublication: event.target.value })
             }
           />
         </div>
@@ -37,9 +39,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
             <Input
               type='date'
               Size='small'
-              value={createFormData.dateOfStartCocreation}
+              value={FormData.dateOfStartCocreation}
               onChange={
-                (event) => setCreateFormData({ ...createFormData, dateOfStartCocreation: event.target.value })
+                (event) => setFormData({ ...FormData, dateOfStartCocreation: event.target.value })
               }
             />
           </div>
@@ -48,9 +50,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
             <Input
               type='date'
               Size='small'
-              value={createFormData.dateOfEndCocreation}
+              value={FormData.dateOfEndCocreation}
               onChange={
-                (event) => setCreateFormData({ ...createFormData, dateOfEndCocreation: event.target.value })
+                (event) => setFormData({ ...FormData, dateOfEndCocreation: event.target.value })
               }
             />
           </div>
@@ -61,9 +63,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
             <Input
               type='date'
               Size='small'
-              value={createFormData.dateOfStartVote}
+              value={FormData.dateOfStartVote}
               onChange={
-                (event) => setCreateFormData({ ...createFormData, dateOfStartVote: event.target.value })
+                (event) => setFormData({ ...FormData, dateOfStartVote: event.target.value })
               }
             />
           </div>
@@ -72,9 +74,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
             <Input
               type='date'
               Size='small'
-              value={createFormData.dateOfEndVote}
+              value={FormData.dateOfEndVote}
               onChange={
-                (event) => setCreateFormData({ ...createFormData, dateOfEndVote: event.target.value })
+                (event) => setFormData({ ...FormData, dateOfEndVote: event.target.value })
               }
             />
           </div>
@@ -86,9 +88,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
           type='number'
           Size='large'
           placeholder='0'
-          value={createFormData.budget}
+          value={FormData.budget}
           onChange={
-            (event) => setCreateFormData({ ...createFormData, budget: event.target.value })
+            (event) => setFormData({ ...FormData, budget: event.target.value })
           }
         />
       </fieldset>
@@ -98,9 +100,9 @@ const Setup = ({ createFormData, setCreateFormData }) => {
           type='text'
           Size='large'
           placeholder='text editor...'
-          value={createFormData.description}
+          value={FormData.description}
           onChange={
-            (event) => setCreateFormData({ ...createFormData, description: event.target.value })
+            (event) => setFormData({ ...FormData, description: event.target.value })
           }
         />
       </fieldset>
@@ -136,15 +138,23 @@ const Setup = ({ createFormData, setCreateFormData }) => {
           type='text'
           Size='large'
           placeholder='text editor...'
-          value={createFormData.info}
+          value={FormData.information}
           onChange={
-            (event) => setCreateFormData({ ...createFormData, info: event.target.value })
+            (event) => setFormData({ ...FormData, informatie: event.target.value })
           }
         />
       </fieldset>
       <fieldset>
         <Title size='h3' weight='semibold'>Document/ Afbeelding</Title>
-        <Input type='file' Size='small' />
+        <Input
+          type='file'
+          Size='small'
+          onChange={
+            (event) => {
+              setFormData({ ...FormData, document: event.target.files[0] })
+            }
+          }
+        />
       </fieldset>
     </div>
   )
