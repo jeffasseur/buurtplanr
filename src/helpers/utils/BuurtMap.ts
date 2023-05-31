@@ -17,6 +17,7 @@ export class BuurtMap {
   gnd: string | null
   initgndPos: THREE.Vector3 | null
   finalgndPos: THREE.Vector3 | null
+  highlight: THREE.Object3D | null
 
   constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -30,6 +31,7 @@ export class BuurtMap {
     this.gnd = null
     this.initgndPos = null
     this.finalgndPos = null
+    this.highlight = null
   }
 
   initDracoLoader = () => {
@@ -66,6 +68,25 @@ export class BuurtMap {
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
+  }
+
+  updateHighlight = (visible: boolean) => {
+    if (!visible && this.highlight) {
+      this.scene.remove(this.highlight)
+      this.highlight = null
+    } else if (this.dragOBJ) {
+      const bbox = new THREE.Box3().setFromObject(this.dragOBJ)
+      const width = bbox.max.x - bbox.min.x
+
+      const geometry = new THREE.CircleGeometry(width, 32)
+      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.FrontSide })
+      this.highlight = new THREE.Mesh(geometry, material)
+      this.highlight.isHighlighter = true
+      this.highlight.position.x = this.dragOBJ.position.x
+      this.highlight.position.y = this.dragOBJ.position.y
+      this.highlight.position.z = this.dragOBJ.position.z
+      this.scene.add(this.highlight)
+    }
   }
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {

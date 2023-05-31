@@ -74,15 +74,20 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
       // place obj on map after repositioning product
       BUURTMAP.dragOBJ = null
+      BUURTMAP.updateHighlight(false)
 
       // reset if no intersections found
       if (intersections.length === 0) {
+        BUURTMAP.updateHighlight(false)
         setPID(null)
         setDraggable(null)
         return
       }
 
       let current: THREE.Object3D = intersections[0].object
+
+      // if this item is a highlighter return
+      if (current.hasOwnProperty('isHighlighter')) return
 
       // cycle oject upwards until top-level found
       while (current?.parent?.parent !== null) {
@@ -97,6 +102,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
           setDraggable(null)
         } else {
           BUURTMAP.dragOBJ = current
+          BUURTMAP.updateHighlight(true)
           setPID(current.modelID)
           setDraggable(current)
         }
