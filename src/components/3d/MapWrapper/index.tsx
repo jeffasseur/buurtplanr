@@ -1,68 +1,33 @@
-import { Wrapper } from '@googlemaps/react-wrapper'
-import { useEffect, useState } from 'react'
+import { Wrapper, Status } from '@googlemaps/react-wrapper'
+import { type ReactElement, useEffect, useState } from 'react'
 
 import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap'
 import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap'
 import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap'
 import { type mapOptions, type project } from '@/types/BUURTTYPES'
+import { Loader3d } from '@components/molecule/3dloader'
 
 interface MapProps {
   mapType: string
-  projectId?: number
+  projectId?: string
+  projectData: project[]
 }
 
-const projects: project[] = [
-  {
-    id: 1,
-    name: 'kruidtuin',
-    info: {
-      description: 'lorem ipsummed lorem'
-
-    },
-    coordinates: {
-      lat: 51.02342,
-      lng: 4.4841925,
-      altitude: 1
-    },
-    bounds: [
-      {
-        lat: 51.02342,
-        lng: 4.4841925
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'vleeshalle',
-    info: {
-      description: 'lorem ipsummed lorem'
-
-    },
-    coordinates: {
-      lat: 51.026431091650224,
-      lng: 4.484253696734126,
-      altitude: 1
-    },
-    bounds: [
-      {
-        lat: 51.02342,
-        lng: 4.4841925
-      }
-    ]
-  }
-]
+const render = (status: Status): ReactElement => {
+  if (status === Status.LOADING) return <Loader3d />
+  if (status === Status.FAILURE) return <h3>error loading map</h3>
+}
 
 /* send coordinates as props to mapblueprint so that the map is reusable */
-export const MapWrapper = ({ mapType, projectId }: MapProps) => {
+export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
-  const [projectData, setProjectData] = useState<project>()
 
   useEffect(() => {
     if (!mapData) {
       // get user coordinates to send in map blueprint to set map camera to user location
       navigator.geolocation.getCurrentPosition((e) => {
         const mapOptions: mapOptions = {
-          tilt: 50,
+          tilt: 75,
           heading: 0,
           zoom: 18,
           center: { lat: e.coords.latitude, lng: e.coords.longitude, altitude: 1 },
@@ -73,18 +38,17 @@ export const MapWrapper = ({ mapType, projectId }: MapProps) => {
         setMapData(mapOptions)
       })
     }
-    if (projectId) { setProjectData(projects.find(el => el.id === projectId)) }
-  })
+  }, [mapData, projectId])
 
   return (
     <>
-      {mapData && (
-        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
-          {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projects} />}
+      {mapData
+        ? <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
+          {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
         </Wrapper>
-      )}
+        : <Loader3d />}
     </>
   )
 }

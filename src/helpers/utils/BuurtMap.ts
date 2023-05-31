@@ -1,8 +1,9 @@
 import { type LatLngTypes, ThreeJSOverlayView } from '@googlemaps/three'
 import * as THREE from 'three'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-import { type project, type productUploadData } from '@/types/BUURTTYPES'
+import { type project, type productUploadData, type product } from '@/types/BUURTTYPES'
 
 export class BuurtMap {
   map: google.maps.Map
@@ -22,34 +23,40 @@ export class BuurtMap {
     this.mousePosition = new THREE.Vector3()
     this.dragOBJ = null
     this.productformData = []
+    this.initDracoLoader()
   }
 
-  updateMousePosition = async (mousePosition: THREE.Vector2) => {
-    this.mousePosition.copy(this.threeOverlay.latLngAltitudeToVector3(mousePosition))
-    return await Promise.resolve(this.mousePosition)
+  initDracoLoader = () => {
+    const dracoLoader = new DRACOLoader()
+    dracoLoader.setDecoderConfig({ type: 'js' })
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
+    this.loader.setDRACOLoader(dracoLoader)
   }
 
-  appendModel = (el: project) => {
+  appendModel = (el) => {
     this.loader.load('/models/marker.glb', (gltf) => {
-      gltf.scene.projectId = el.id
-      gltf.scene.scale.set(20, 20, 20)
-      gltf.scene.rotation.x = Math.PI / 2
-      const lat = el.coordinates.lat
-      const lng = el.coordinates.lng
-      gltf.scene.position.copy(this.threeOverlay.latLngAltitudeToVector3({ lat, lng }))
-      this.scene.add(gltf.scene)
+      const product: product = gltf.scene
+      product.projectId = el._id
+      console.log(product.projectId)
+      product.scale.set(20, 20, 20)
+      product.rotation.x = Math.PI / 2
+      const lat = el.location.coordinates.lat
+      const lng = el.location.coordinates.lng
+      product.position.copy(this.threeOverlay.latLngAltitudeToVector3({ lat, lng }))
+      this.scene.add(product)
     })
   }
 
   appendProducts = (modelType: string) => {
     this.loader.load(`/models/${modelType}.glb`, (gltf) => {
-      gltf.scene.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
-      gltf.scene.modelType = modelType
-      gltf.scene.scale.set(80, 80, 80)
-      gltf.scene.rotation.x = Math.PI / 2
-      gltf.scene.position.copy(this.mousePosition)
-      gltf.scene.isDraggable = true
-      this.scene.add(gltf.scene)
+      const product: product = gltf.scene
+      product.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
+      product.modelType = modelType
+      product.scale.set(1, 1, 1)
+      product.rotation.x = Math.PI / 2
+      product.position.copy(this.mousePosition)
+      product.isDraggable = true
+      this.scene.add(product)
     })
     this.threeOverlay.requestRedraw()
     this.threeOverlay.requestStateUpdate()
@@ -63,9 +70,10 @@ export class BuurtMap {
     const toRemoveProduct = this.scene.children.find(e => e.modelID === productID)
     if (toRemoveProduct) { this.scene.remove(toRemoveProduct) }
     this.threeOverlay.requestRedraw()
+    this.dragOBJ = null
   }
 
-  getSceneProducts = () => {
+  sendCreation = (url) => {
     this.productformData = []
     this.scene.children.forEach(product => {
       if (product.hasOwnProperty('modelID')) {
@@ -73,7 +81,19 @@ export class BuurtMap {
         this.productformData.push(newProduct)
       }
     })
-    console.log(this.productformData)
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(this.productformData),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    })
+      .then(async (response) => await response.json())
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
   placeBnds = () => {

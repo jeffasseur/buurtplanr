@@ -1,0 +1,64 @@
+{
+  "list": [
+    {
+      "name": "donut",
+      "productType": null
+    },
+    {
+      "name": "marker",
+      "productType": null
+    },
+    {
+      "name": "grass",
+      "productType": "ground"
+    },
+    {
+      "name": "gravel",
+      "productType": "ground"
+    },
+    {
+      "name": "tree",
+      "productType": "nature"
+    },
+    {
+      "name": "root-decoration",
+      "productType": "nature"
+    },
+    {
+      "name": "root-decoration2",
+      "productType": "nature"
+    },
+    {
+      "name": "bench-simple",
+      "productType": "furniture"
+    },
+    {
+      "name": "trashcan-handle",
+      "productType": "furniture"
+    },
+    {
+      "name": "car-charge",
+      "productType": "furniture"
+    },
+    {
+      "name": "water-pole",
+      "productType": "water"
+    },
+    {
+      "name": "fountain",
+      "productType": "water"
+    },
+    {
+      "name": "light-modern",
+      "productType": "light"
+    },
+    {
+      "name": "light-vintage",
+      "productType": "light"
+    },
+    {
+      "name": "light-park",
+      "productType": "light"
+    }
+  ]
+}

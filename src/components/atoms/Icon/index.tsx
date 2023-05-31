@@ -5,6 +5,10 @@ import styles from './styles.module.css'
 
 const icons = [
   'chevron-down',
+  'arrow-down',
+  'map-pin',
+  'search',
+  'move',
   'folder',
   'profile-user',
   'setting',
@@ -25,7 +29,12 @@ const icons = [
   'profile-circle',
   'builder',
   'search',
-  'setting-2'
+  'setting-2',
+  'furniture',
+  'ground',
+  'light',
+  'tree',
+  'water'
 ] as const
 
 export type Icons = typeof icons[number]

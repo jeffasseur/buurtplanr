@@ -1,5 +1,6 @@
+import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
-import { type Object3D, type Vector2 } from 'three'
+import { type Vec2, type Object3D, type Vector3 } from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
@@ -14,8 +15,6 @@ interface MapProps {
   projectData: project
 }
 
-let mousePosition: Vector2
-
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
@@ -23,16 +22,17 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelType = useDroppedModel(state => state.model)
+  let mousePosition: Vector3
 
   useEffect(() => {
     if (!map) {
       mapData.mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_FLAT_MAP_ID
-      mapData.center = projectData.coordinates
+      mapData.center = projectData.location.coordinates
       const mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
       setMap(mapInstance)
-      setBUURTMAP(new BuurtMap(mapInstance, projectData.coordinates))
+      setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
     }
-  }, [map])
+  }, [map, mapData, projectData.coordinates])
 
   if (map && BUURTMAP) {
     const updateMousePosition = (e) => {
@@ -47,10 +47,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     map.addListener('click', (e: google.maps.MapMouseEvent) => {
       updateMousePosition(e)
 
+      BUURTMAP.dragOBJ = null
       const intersections = BUURTMAP.threeOverlay.raycast(mousePosition)
       if (intersections.length === 0) return
 
-      let current = intersections[0].object
+      let current: THREE.Object3D = intersections[0].object
 
       while (current?.parent?.parent !== null) {
         current = current.parent
@@ -60,7 +61,6 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       if (current.isDraggable) {
         // has clicked on an active obj
         if (PID != null || draggable === current) {
-          BUURTMAP.dragOBJ = null
           setPID(null)
           setDraggable(null)
         } else {
@@ -73,21 +73,16 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     })
 
     map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
-      const latlng = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
-      latlng.z = 1
-      mousePosition = { ...latlng }
-
-      BUURTMAP.updateMousePosition(latlng).catch((err) => { console.log(err) })
-      BUURTMAP.updateProductPosition()
+      const latlng: LatLngTypes = JSON.parse(JSON.stringify(e.latLng?.toJSON()))
+      mousePosition = BUURTMAP.threeOverlay.latLngAltitudeToVector3(latlng)
+      BUURTMAP.mousePosition = mousePosition
     })
   }
 
   const initProduct = async () => {
     if (BUURTMAP && modelType) {
-      BUURTMAP.updateMousePosition(mousePosition)
-        .then((res) => {
-          BUURTMAP.appendProducts(modelType)
-        }).catch((err) => { console.log(err) })
+      BUURTMAP.mousePosition = mousePosition
+      BUURTMAP.appendProducts(modelType)
     }
   }
 
@@ -101,7 +96,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   return (
     <div ref={mapContainer} id='map' className={styles.map} onDragOver={onDragOver} onDrop={onDrop}>
-      {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} />}
+      {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       {map && <Toolbar />}
     </div>
   )

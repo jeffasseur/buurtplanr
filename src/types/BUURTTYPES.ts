@@ -78,3 +78,10 @@ export interface productUploadData {
   latlng: LatLngTypes | Vector3
   modelType: string
 }
+
+export interface product extends THREE.Group {
+  projectId?: number
+  modelID?: number
+  modelType?: string
+  isDraggable?: boolean
+}
