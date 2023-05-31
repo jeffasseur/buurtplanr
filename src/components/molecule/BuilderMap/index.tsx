@@ -34,6 +34,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (!map) {
       mapData.mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_FLAT_MAP_ID
       mapData.center = projectData.location.coordinates
+      mapData.tilt = 65
       const mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
       setMap(mapInstance)
       setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
