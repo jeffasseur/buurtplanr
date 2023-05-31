@@ -1,7 +1,8 @@
 .adminProjects {
   display: grid;
-  grid-template-columns: 221px 1fr;
+  grid-template-columns: 263px 1fr;
   grid-template-rows: auto auto;
+  gap: 2rem;
 }
 
 .nav {
@@ -12,10 +13,11 @@
 .aside {
   grid-column: 1/2;
   grid-row: 2/3;
-  max-with: 221px;
+  max-width: 221px;
 }
 
 .main {
   grid-column: 2/3;
   grid-row: 2/3;
+  padding-right: 2rem;
 }

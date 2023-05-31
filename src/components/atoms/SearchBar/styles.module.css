@@ -1,0 +1,30 @@
+.searchBar {
+  max-width: 627px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+  position: relative;
+}
+
+.searchBar_input {
+  width: 100%;
+  padding: var(--spacing-03) calc(var(--spacing-06) + 2.25rem) var(--spacing-03) var(--spacing-06);
+  background: white;
+  position: relative;
+  border: 1px solid var(--color-grey-500);
+  border-radius: var(--radius-round);
+}
+
+/* ::placeholder, ::-webkit-input-placeholder, :-ms-input-placeholder {
+  color: var(--color-grey-500);
+} */
+
+.input_icon {
+  position:absolute;
+  right: var(--spacing-03);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--spacing-06);
+  aspect-ratio: 1/1;
+  color: var(--color-green-500);
+}

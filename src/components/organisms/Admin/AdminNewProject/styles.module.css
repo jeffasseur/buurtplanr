@@ -1,0 +1,20 @@
+.newProjectContainer {
+  background: var(--color-white);
+  border-radius: var(--radius-2);
+  padding: var(--spacing-08);
+  padding-bottom: var(--spacing-09);
+  width: 100%;
+  background: radial-gradient(44.64% 44.64% at 68.92% 1.63%, rgba(216, 218, 226, 0.2) 0%, rgba(255, 255, 255, 0.2) 71.06%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, radial-gradient(40.58% 79.56% at 11.84% 89.06%, rgba(206, 210, 251, 0.2) 0%, rgba(255, 255, 255, 0.2) 84.79%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #FFFFFF;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-08);
+}
+
+.footer {
+  padding-top: var(--spacing-06);
+  padding-bottom: var(--spacing-08);
+}

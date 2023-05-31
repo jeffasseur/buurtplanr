@@ -1,0 +1,59 @@
+.cocreationContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  padding: var(--spacing-06) 6rem;
+}
+
+.location, .cocreation, .buildingpieces, .checkedBuildingPieces {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+}
+
+.checkedBuildingPiece {
+  display: flex;
+  gap: var(--spacing-06);
+  align-items: center;
+}
+
+.imgContainer {
+  width: 108px;
+  height: 108px;
+  background: var(--color-grey-50);
+  border-radius: var(--radius-2);
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+.publishDate, .cocreationDateStart, .cocreationDateEnd, .voteDateStart, .voteDateEnd {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.cocreationDate, .voteDate {
+  display: flex;
+  gap: var(--spacing-06);
+}
+
+.typesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.typePlein, .typePark, .typeStraat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  justify-content: center;
+  align-items: center;
+}

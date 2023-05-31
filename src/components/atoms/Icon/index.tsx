@@ -19,11 +19,23 @@ const icons = [
   'notification',
   'trash',
   'save',
+  'setting-3',
+  'eye',
+  'arrow-right',
+  'adjust',
+  'arrow-left',
+  'gps',
+  'location',
+  'profile-circle',
+  'builder',
+  'search',
+  'setting-2',
   'furniture',
   'ground',
   'light',
   'tree',
-  'water'
+  'water',
+  'shield-security'
 ] as const
 
 export type Icons = typeof icons[number]

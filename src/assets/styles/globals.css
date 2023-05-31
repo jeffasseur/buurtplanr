@@ -14,7 +14,8 @@ main {
 
 body {
   font-family: var(--font-sans);
-  font-size: var(--font-size-body)
+  font-size: var(--font-size-body);
+  background: var(--color-grey-50);
 }
 
 h2 {

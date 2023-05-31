@@ -1,0 +1,31 @@
+.huisstijlContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-08);
+  gap: var(--spacing-00);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-small);
+  color: var(--color-grey-500);
+  font-weight: 300;
+}
+
+.bigLabel {
+  margin-bottom: var(--spacing-08);
+}
+
+.inputColor {
+  width: 50px;
+  height: 20px;
+  padding: var(--spacing-00);
+  border: 1px solid;
+  border-radius: var(--radius-1);
+}

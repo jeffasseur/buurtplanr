@@ -1,10 +1,11 @@
 import Button from '@/components/atoms/Button'
-import { type project } from '@/types/BUURTTYPES'
+import Title from '@/components/atoms/Title'
+import { type projectData } from '@/types/BUURTTYPES'
 
 import styles from './styles.module.css'
 
 interface ProjectProps {
-  project: project | undefined
+  project: projectData | undefined
 }
 
 const ProjectRow = ({ project }: ProjectProps) => {
@@ -12,7 +13,7 @@ const ProjectRow = ({ project }: ProjectProps) => {
     <>
       {project &&
         <div className={styles.cardContainer}>
-          <h3 className={styles.title}>{project.title}</h3>
+          <Title size='h4' weight='regular' className={styles.title}>{project.title}</Title>
           <div>
             <p className={styles.fase}>{project.fase}</p>
           </div>
@@ -20,10 +21,10 @@ const ProjectRow = ({ project }: ProjectProps) => {
             <p className={styles.date}>{project.dateOfCreation}</p>
           </div>
           <div className={styles.btnContainer}>
-            <Button as='link' size='small' append='setting' theme='Warning' href={`/builder/${project.id}`}>
+            <Button as='link' size='small' append='setting-3' theme='Warning' href={`/admin/projects/edit/${project._id}`}>
               <span>Bewerken</span>
             </Button>
-            <Button as='link' append='chevron-down' size='small' href={`/admin/project/${project.id}`}>
+            <Button as='link' append='arrow-right' size='small' href={`/admin/project/${project._id}`}>
               <span>Project pagina</span>
             </Button>
           </div>

@@ -28,19 +28,6 @@ const Navigation = () => {
           )
         }
         {
-          loggedIn &&
-          (
-            <div className={styles.accountBtns}>
-              <Link href='/'>
-                <Icon name='notification' />
-              </Link>
-              <Button as='button' prepend='save' size='small' theme='Tertiary'>
-                Jef Fasseur
-              </Button>
-            </div>
-          )
-        }
-        {
           !loggedIn &&
           (
             <div className={styles.accountBtns}>
@@ -51,15 +38,6 @@ const Navigation = () => {
                 Aanmelden
               </Button>
             </div>
-          )
-        }
-        {
-          isAdmin &&
-          (
-            <Link href='/admin' className={styles.btnAdmin}>
-              Admin
-              <Icon name='security-user' />
-            </Link>
           )
         }
         <Link href='/'>

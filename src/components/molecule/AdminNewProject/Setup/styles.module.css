@@ -1,0 +1,37 @@
+.setupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  padding: var(--spacing-06) 6rem;
+}
+
+.date, .name {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+}
+
+.publishDate, .cocreationDateStart, .cocreationDateEnd, .voteDateStart, .voteDateEnd {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.cocreationDate, .voteDate {
+  display: flex;
+  gap: var(--spacing-06);
+}
+
+.typesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.typePlein, .typePark, .typeStraat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  justify-content: center;
+  align-items: center;
+}
