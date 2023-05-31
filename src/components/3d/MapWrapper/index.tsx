@@ -21,7 +21,6 @@ const render = (status: Status): ReactElement => {
 /* send coordinates as props to mapblueprint so that the map is reusable */
 export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
-
   useEffect(() => {
     if (!mapData) {
       // get user coordinates to send in map blueprint to set map camera to user location
@@ -47,7 +46,7 @@ export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
           {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
           {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
-        </Wrapper>
+          </Wrapper>
         : <Loader3d />}
     </>
   )

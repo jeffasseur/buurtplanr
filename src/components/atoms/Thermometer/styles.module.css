@@ -1,0 +1,30 @@
+.thermoContainer {
+  position: absolute;
+  z-index: 100;
+  width: fit-content;
+  padding: var(--spacing-03);
+  background-color: var(--color-grey-50);
+  border-radius: 0 var(--radius-2) var(--radius-2) 0;
+}
+
+.thermo {
+  height: 3rem;
+  width: 354px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-round);
+  overflow: hidden;
+}
+
+.thermoFill {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30%;
+  background-color: var(--color-green-300);
+}
+
+.thermoTitle {
+  position: absolute;
+  top: var(--spacing-06);
+  left: 10rem;
+}

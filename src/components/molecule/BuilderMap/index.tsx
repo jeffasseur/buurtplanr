@@ -6,6 +6,7 @@ import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
 import { type mapOptions, type project } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
+import Thermometer from '@components/atoms/Thermometer'
 import { Editor } from '@components/molecule/Editor'
 
 import styles from './styles.module.css'
@@ -137,6 +138,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   return (
     <div className={styles.container}>
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
+        <Thermometer />
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       </div>
       <div className={styles.navcontainer}>
