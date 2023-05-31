@@ -11,7 +11,18 @@ const AdminUser = ({ user }) => {
         user &&
           <div className={styles.adminUserContainer}>
             <div className={styles.adminUser_img}>
-              <Image src='/img/donut.webp' alt='placeholder' width={61} height={61} />
+              {
+                user.image &&
+                (
+                  <Image src={user.image} alt='placeholder' width={61} height={61} />
+                )
+              }
+              {
+                !user.image &&
+                (
+                  <Icon name='profile-circle' className={styles.profileIcon} />
+                )
+              }
             </div>
             <div className={styles.adminUser_name}>
               <h4>{user.firstname} {user.lastname}</h4>

@@ -5,7 +5,14 @@
   align-items: center;
 }
 
+.profileIcon {
+  color: var(--color-black);
+}
+
 .adminUser_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 61px;
   aspect-ratio: 1/1;
   object-fit: contain;

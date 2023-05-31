@@ -21,7 +21,10 @@ const icons = [
   'adjust',
   'arrow-left',
   'gps',
-  'location'
+  'location',
+  'profile-circle',
+  'builder',
+  'search'
 ] as const
 
 export type Icons = typeof icons[number]

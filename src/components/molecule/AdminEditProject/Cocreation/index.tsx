@@ -25,6 +25,7 @@ const submitEditProject = async (FormData, id) => {
 }
 
 const AdminProjectEditCocreation = ({ project }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [FormData, setFormData] = useState({
     title: project.title,
     description: project.description,
@@ -78,7 +79,11 @@ const AdminProjectEditCocreation = ({ project }) => {
             <div className={styles.imgContainer}>
               <Image src='/img/donut.webp' alt='bouwstuk' width={76} height={76} />
             </div>
-            <Input type='number' Size='small' placeholder='0' />
+            <Input
+              type='number'
+              Size='small'
+              placeholder='0'
+            />
           </label>
         </div>
       </fieldset>

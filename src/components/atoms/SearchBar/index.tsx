@@ -6,7 +6,7 @@ const SearchBar = () => {
   return (
     <div className={styles.searchBar}>
       <input type='text' placeholder='Zoeken' className={styles.searchBar_input} />
-      <Icon name='save' className={styles.input_icon} />
+      <Icon name='search' className={styles.input_icon} />
     </div>
   )
 }

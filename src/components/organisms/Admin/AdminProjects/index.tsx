@@ -9,7 +9,7 @@ import styles from './styles.module.css'
 // const apiUrl = '/api/getAllProjects'
 const apiUrl = 'http://127.0.0.1:3002/projects/'
 
-const fetcher = async (url) => {
+const fetcher = async (url: string) => {
   const res = await fetch(url)
   return await res.json()
 }
@@ -17,7 +17,7 @@ const fetcher = async (url) => {
 const AdminProjects = () => {
   const { data, isLoading, error } = useSWR(apiUrl, fetcher)
   return (
-    <div className={styles.adminprojects}>
+    <div className={styles.adminProjects}>
       <div className={styles.header}>
         <Title size='h3'>Start een nieuw project</Title>
         <Button as='link' href='/admin/projects/create' append='save' size='small'>Project starten</Button>
