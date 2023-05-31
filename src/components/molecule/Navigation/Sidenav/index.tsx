@@ -20,7 +20,7 @@ const SideNavigation = () => {
         Gebruikers
       </Link>
       <Link className={styles.link} href='/admin/settings'>
-        <Icon name='setting' />
+        <Icon name='setting-2' />
         Instellingen
       </Link>
     </div>
