@@ -1,0 +1,16 @@
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  padding: var(--spacing-06) 6rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+}
+
+.btnSave {
+  text-transform: uppercase;
+}

@@ -23,10 +23,12 @@ const Setup = ({ FormData, setFormData }) => {
       <fieldset className={styles.date}>
         <Title size='h3' weight='semibold'>Datums</Title>
         <div className={styles.publishDate}>
-          <label>Publiceer datum</label>
+          <Title size='h4' weight='regular'>Publiceer datum</Title>
           <Input
             type='date'
             Size='small'
+            placeholder='dd-mm-yyyy'
+            min='2023-05-30'
             value={FormData.dateOfPublication}
             onChange={
               (event) => setFormData({ ...FormData, dateOfPublication: event.target.value })
@@ -35,10 +37,12 @@ const Setup = ({ FormData, setFormData }) => {
         </div>
         <div className={styles.cocreationDate}>
           <div className={styles.cocreationDateStart}>
-            <label>Startdatum: Cocreatie</label>
+            <Title size='h4' weight='regular'>Startdatum: Cocreatie</Title>
             <Input
               type='date'
               Size='small'
+              placeholder='dd-mm-yyyy'
+              min='2023-05-30'
               value={FormData.dateOfStartCocreation}
               onChange={
                 (event) => setFormData({ ...FormData, dateOfStartCocreation: event.target.value })
@@ -46,11 +50,13 @@ const Setup = ({ FormData, setFormData }) => {
             />
           </div>
           <div className={styles.cocreationDateEnd}>
-            <label>Einddatum: Cocreatie</label>
+            <Title size='h4' weight='regular'>Einddatum: Cocreatie</Title>
             <Input
               type='date'
               Size='small'
-              value={FormData.dateOfEndCocreation}
+              placeholder='dd-mm-yyyy'
+              min='2023-05-30'
+              value={FormData.dateOfEndCocreatio}
               onChange={
                 (event) => setFormData({ ...FormData, dateOfEndCocreation: event.target.value })
               }
@@ -59,10 +65,12 @@ const Setup = ({ FormData, setFormData }) => {
         </div>
         <div className={styles.voteDate}>
           <div className={styles.voteDateStart}>
-            <label>Startdatum: Stemmen</label>
+            <Title size='h4' weight='regular'>Startdatum: Stemmen</Title>
             <Input
               type='date'
               Size='small'
+              placeholder='dd-mm-yyyy'
+              min='2023-05-30'
               value={FormData.dateOfStartVote}
               onChange={
                 (event) => setFormData({ ...FormData, dateOfStartVote: event.target.value })
@@ -70,10 +78,12 @@ const Setup = ({ FormData, setFormData }) => {
             />
           </div>
           <div className={styles.voteDateEnd}>
-            <label>Einddatum: Stemmen</label>
+            <Title size='h4' weight='regular'>Einddatum: Stemmen</Title>
             <Input
               type='date'
               Size='small'
+              placeholder='dd-mm-yyyy'
+              min='2023-05-30'
               value={FormData.dateOfEndVote}
               onChange={
                 (event) => setFormData({ ...FormData, dateOfEndVote: event.target.value })
@@ -132,8 +142,11 @@ const Setup = ({ FormData, setFormData }) => {
           </div>
         </div>
       </fieldset>
-      <fieldset>
+      <div className={styles.info}>
         <Title size='h3' weight='semibold'>Informatie</Title>
+      </div>
+      <fieldset>
+        <Title size='h4' weight='regular'>Infotekst</Title>
         <Input
           type='text'
           Size='large'
@@ -145,7 +158,7 @@ const Setup = ({ FormData, setFormData }) => {
         />
       </fieldset>
       <fieldset>
-        <Title size='h3' weight='semibold'>Document/ Afbeelding</Title>
+        <Title size='h4' weight='regular'>Document/ Afbeelding</Title>
         <Input
           type='file'
           Size='small'

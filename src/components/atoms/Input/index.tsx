@@ -29,6 +29,7 @@ export interface InputProps
   type?: string
   value?: any
   onChange?: any
+  min?: string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -45,6 +46,7 @@ const Input: React.FC<InputProps> = ({
       placeholder={props.placeholder}
       value={props.value}
       onChange={props.onChange}
+      min={props.min}
     />
   )
 }

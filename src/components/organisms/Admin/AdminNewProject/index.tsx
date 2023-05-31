@@ -1,4 +1,3 @@
-import { redirect } from 'next/dist/server/api-utils'
 import Image from 'next/image'
 import { useState } from 'react'
 

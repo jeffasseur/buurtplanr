@@ -21,7 +21,7 @@ const ProjectRow = ({ project }: ProjectProps) => {
             <p className={styles.date}>{project.dateOfCreation}</p>
           </div>
           <div className={styles.btnContainer}>
-            <Button as='link' size='small' append='setting-3' theme='Warning' href={`/builder/${project._id}`}>
+            <Button as='link' size='small' append='setting-3' theme='Warning' href={`/admin/projects/edit/${project._id}`}>
               <span>Bewerken</span>
             </Button>
             <Button as='link' append='chevron-down' size='small' href={`/admin/project/${project._id}`}>
