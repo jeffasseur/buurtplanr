@@ -2,16 +2,10 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import React from 'react'
 
-import productList from '@/helpers/ProductList.json'
-
 import styles from './styles.module.css'
 
-const webpicons = productList.list
-
-export type WebpIcons = typeof webpicons[number]
-
 interface IconProps {
-  name: WebpIcons
+  name: string
   className?: string
 }
 

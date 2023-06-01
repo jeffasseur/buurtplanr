@@ -13,14 +13,18 @@ const fetcher = async (url) => {
 }
 
 const Dashboard = () => {
-  const baseURL = process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()
+  let baseURL: string = '/'
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+  }
+
   const { data } = useSWR(`${baseURL}projects/`, fetcher)
   const [filter, setFilter] = useState('Wachten tot opstart')
 
   return (
     <>
       <Nav />
-      <MapWrapper mapType='overview' projectData={data?.data} />
+      <MapWrapper mapType='overview' projectArray={data?.data} />
       <section className={styles.content}>
         <div className={styles.projectHeader}>
           <h2>Projecten</h2>

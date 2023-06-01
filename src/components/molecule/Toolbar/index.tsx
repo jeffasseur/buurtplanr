@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Product } from '@/components/atoms/Product'
-import Icon from '@components/atoms/Icon'
+import Icon, { type Icons } from '@components/atoms/Icon'
 
 import styles from './styles.module.css'
 
@@ -12,11 +12,9 @@ const Toolbar = () => {
     'light',
     'nature',
     'water'
-  ] as const
+  ]
 
-  type filtersTypes = typeof filterTypesArr[number]
-
-  const [filter, setFilter] = useState<filtersTypes | null>(null)
+  const [filter, setFilter] = useState<string | null>(null)
 
   return (
     <div className={styles.toolbarContainer}>
@@ -26,7 +24,7 @@ const Toolbar = () => {
             <p>Zoeken...</p>
             <Icon name='search' />
           </div>
-          {filterTypesArr.map((f, key) => {
+          {filterTypesArr.map((f: Icons, key) => {
             if (f === filter) {
               return (
                 <div key={key} className={styles.filter}>

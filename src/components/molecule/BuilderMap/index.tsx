@@ -4,7 +4,7 @@ import { type Vector2, type Object3D, type Vector3 } from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
-import { type mapOptions, type project } from '@/types/BUURTTYPES'
+import { type ProductModel, type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
 import Thermometer from '@components/atoms/Thermometer'
 import { Editor } from '@components/molecule/Editor'
@@ -13,14 +13,14 @@ import styles from './styles.module.css'
 
 interface MapProps {
   mapData: mapOptions
-  projectData: project
+  projectData: projectData
 }
 
 export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const mouseCapture = useRef<Vector3>()
   const [map, setMap] = useState<google.maps.Map>()
-  const [PID, setPID] = useState<number | null>(null)
+  const [PID, setPID] = useState<number | undefined>(undefined)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelName = useDroppedModel(state => state.model)
@@ -35,20 +35,26 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       mapData.mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_FLAT_MAP_ID
       mapData.center = projectData.location.coordinates
       mapData.tilt = 65
-      const mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
-      setMap(mapInstance)
-      setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
+      let mapInstance: google.maps.Map
+      if (mapContainer.current) {
+        mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
+        setMap(mapInstance)
+        setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
+      }
     }
   }, [map, mapData, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
     const updateRayMouse = (e) => {
       // calculation to get raycaster right
-      const { left, top, width, height } = mapContainer.current.getBoundingClientRect()
-      const x = e.domEvent.clientX - left
-      const y = e.domEvent.clientY - top
+      const bounding = mapContainer.current?.getBoundingClientRect()
+      if (bounding) {
+        const x = e.domEvent.clientX - bounding.left
+        const y = e.domEvent.clientY - bounding.top
 
-      rayMouse = { x: 2 * (x / width) - 1, y: 1 - 2 * (y / height) }
+        rayMouse.x = 2 * (x / bounding.width) - 1
+        rayMouse.y = 1 - 2 * (y / bounding.height)
+      }
     }
 
     const updateMouse = (e: google.maps.MapMouseEvent, updateType: string) => {
@@ -81,18 +87,18 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       // reset if no intersections found
       if (intersections.length === 0) {
         BUURTMAP.updateHighlight(false)
-        setPID(null)
+        setPID(undefined)
         setDraggable(null)
         return
       }
 
-      let current: THREE.Object3D = intersections[0].object
+      let current: ProductModel = intersections[0].object
 
       // if this item is a highlighter return
-      if (current.hasOwnProperty('isHighlighter')) return
+      if (current.hasOwnProperty.call('isHighlighter')) return
 
       // cycle oject upwards until top-level found
-      while (current?.parent?.parent !== null) {
+      while (current?.parent?.parent !== null && current.parent) {
         current = current.parent
         setDraggable(null)
       }
@@ -100,7 +106,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       if (current.isDraggable) {
         // has clicked on an active obj
         if (PID != null || draggable === current) {
-          setPID(null)
+          setPID(undefined)
           setDraggable(null)
         } else {
           BUURTMAP.dragOBJ = current
@@ -119,7 +125,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   const clicker = () => {
     // check for type of product placement || ground types need multiple markers while others just 1
-    if (modelName !== null && productType !== null && BUURTMAP) {
+    if (modelName !== null && productType !== null && BUURTMAP && mouseCapture.current) {
       switch (productType) {
         case 'ground':
           BUURTMAP.gnd = modelName

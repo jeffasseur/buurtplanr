@@ -3,23 +3,31 @@ import { type ReactElement, useEffect, useState } from 'react'
 
 import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap'
 import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap'
-import { ParamsMapBlueprint } from '@/components/molecule/ParamsMap'
-import { type mapOptions, type project } from '@/types/BUURTTYPES'
+import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { Loader3d } from '@components/molecule/3dloader'
 
 interface MapProps {
   mapType: string
   projectId?: string
-  projectData: project[]
+  projectArray?: projectData[]
+  singleProject?: projectData
 }
 
 const render = (status: Status): ReactElement => {
-  if (status === Status.LOADING) return <Loader3d />
-  if (status === Status.FAILURE) return <h3>error loading map</h3>
+  let render
+  switch (status) {
+    case Status.LOADING:
+      render = <Loader3d />
+      break
+    case Status.FAILURE:
+      render = <h3>error loading map</h3>
+      break
+  }
+  return render
 }
 
 /* send coordinates as props to mapblueprint so that the map is reusable */
-export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
+export const MapWrapper = ({ mapType, projectId, projectArray, singleProject }: MapProps) => {
   const [mapData, setMapData] = useState<mapOptions | null>(null)
   useEffect(() => {
     if (!mapData) {
@@ -41,13 +49,14 @@ export const MapWrapper = ({ mapType, projectId, projectData }: MapProps) => {
 
   return (
     <>
-      {mapData
-        ? <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
-          {mapType === 'overview' && <OverviewMapBlueprint mapData={mapData} projectData={projectData} />}
-          {mapType === 'builder' && projectData && <BuilderMapBlueprint mapData={mapData} projectData={projectData} />}
-          {mapType === 'params' && <ParamsMapBlueprint mapData={mapData} projectData={projects[0]} />}
-        </Wrapper>
-        : <Loader3d />}
+      {!mapData
+        ? <Loader3d />
+        : (
+          <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
+            {mapType === 'overview' && projectArray && <OverviewMapBlueprint mapData={mapData} projectData={projectArray} />}
+            {mapType === 'builder' && singleProject && <BuilderMapBlueprint mapData={mapData} projectData={singleProject} />}
+          </Wrapper>
+          )}
     </>
   )
 }

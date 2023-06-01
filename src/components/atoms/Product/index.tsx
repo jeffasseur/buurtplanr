@@ -30,7 +30,7 @@ export const Product = ({ productType }: ProductProps) => {
         if (productType == null) {
           return (
             <div key={index} className={`${modelName === product.name ? styles.active : ''} ${styles.productListing}`} onClick={handleClick} data-modelname={product.name} data-producttype={product.productType}>
-              <WebpIcon id='img' productType={null} name={product.name} />
+              <WebpIcon name={product.name} />
             </div>
           )
         }
@@ -38,11 +38,12 @@ export const Product = ({ productType }: ProductProps) => {
           if (product.name) {
             return (
               <div key={index} className={`${modelName === product.name ? styles.active : ''} ${styles.productListing}`} onClick={handleClick} data-modelname={product.name} data-producttype={product.productType}>
-                <WebpIcon id='img' productType={productType} name={product.name} />
+                <WebpIcon name={product.name} />
               </div>
             )
           }
         }
+        return null
       }
       )}
     </div>

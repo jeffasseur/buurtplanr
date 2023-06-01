@@ -18,24 +18,26 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   useEffect(() => {
     if (!map) {
-      const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
+      let mapInstance
+      if (mapContainer.current) {
+        mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
+        setMap(mapInstance)
+      }
       setMap(mapInstance)
     }
-    if (map) { initMarkers() }
   }, [map, mapData])
 
-  const initMarkers = () => {
+  if (map) {
     projectData.forEach((project) => {
       const Marker = new google.maps.Marker({
         position: project.location.coordinates,
-        title: project.title,
-        icon: '/img/map-pin.svg',
-        project_id: project._id
+        title: project._id,
+        icon: '/img/map-pin.svg'
       })
       Marker.addListener('click', () => {
-        setActiveProject(projectData.find(pr => pr._id === Marker.get('project_id')))
+        setActiveProject(projectData.find(pr => pr._id === Marker.get('title')))
       })
-      Marker.setMap(map)
+      if (map) { Marker.setMap(map) }
     })
   }
 
