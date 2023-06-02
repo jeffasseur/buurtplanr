@@ -6,16 +6,17 @@ import ProjectRow from '@/components/molecule/ProjectCard/Row'
 
 import styles from './styles.module.css'
 
-// const apiUrl = '/api/getAllProjects'
-const apiUrl = 'http://127.0.0.1:3002/projects/'
-
 const fetcher = async (url: string) => {
   const res = await fetch(url)
   return await res.json()
 }
 
 const AdminProjects = () => {
-  const { data, isLoading, error } = useSWR(apiUrl, fetcher)
+  let baseURL: string = '/'
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+  }
+  const { data, isLoading, error } = useSWR(`${baseURL}projects/`, fetcher)
   return (
     <div className={styles.adminProjects}>
       <div className={styles.header}>

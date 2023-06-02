@@ -11,7 +11,11 @@ const fetcher = async (url: string) => {
 }
 
 const AdminOccurrences = () => {
-  const { data, isLoading, error } = useSWR('http://127.0.0.1:3002/creaties/', fetcher)
+  let baseURL: string = '/'
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+  }
+  const { data, isLoading, error } = useSWR(`${baseURL}/creaties/`, fetcher)
   return (
     <div className={styles.adminOccerrences}>
       <div className={styles.adminOccurrences_search}>
