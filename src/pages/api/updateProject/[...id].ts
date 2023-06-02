@@ -1,4 +1,4 @@
-export default async function updateProject(req, res) {
+export const updateProject = async (req, res) => {
   const id: string = req.query.id
   const baseUrl: string = 'http://127.0.0.1:3002/projects/'
   const response = await fetch(`${baseUrl}+${id}`, {
