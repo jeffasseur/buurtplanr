@@ -9,11 +9,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
   border-radius: var(--radius-round);
   border: 10px solid transparent;
   width: 120px;
   aspect-ratio: 1 / 1;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .trackerCircleActive {
   background: var(--color-white);
@@ -25,5 +27,12 @@
   color: var(--color-blue-400);
 }
 .trackerNumberNonactive {
-  color: var(--color-blue-400);
+  background: var(--color-grey-500);
+  border-color: var(--color-grey-500);
+  color: var(--color-white);
+}
+.trackerCircleComplete {
+  background: var(--color-blue-500);
+  border-color: var(--color-blue-500);
+  color: var(--color-white);
 }

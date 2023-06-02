@@ -5,7 +5,7 @@ import styles from './styles.module.css'
 const Tracker = () => {
   return (
     <div className={styles.tracker}>
-      <TrackerBall />
+      <TrackerBall state='active' text='active' />
     </div>
   )
 }
