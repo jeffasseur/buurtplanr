@@ -6,16 +6,21 @@ import ProjectRow from '@/components/molecule/ProjectCard/Row'
 
 import styles from './styles.module.css'
 
+let baseURL: string = '/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
+
 const fetcher = async (url: string) => {
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    headers: {
+      'Access-Control-Allow-Origin': `${baseURL}`
+    }
+  })
   return await res.json()
 }
 
 const AdminProjects = () => {
-  let baseURL: string = '/'
-  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-  }
   const { data, isLoading, error } = useSWR(`${baseURL}projects/`, fetcher)
   return (
     <div className={styles.adminProjects}>
