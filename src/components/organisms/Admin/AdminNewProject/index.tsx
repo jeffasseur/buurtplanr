@@ -2,10 +2,10 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import Button from '@/components/atoms/Button'
-import Tracker from '@/components/molecule/Tracker'
 import Cocreation from '@/components/molecule/AdminNewProject/Cocreation'
 import Setup from '@/components/molecule/AdminNewProject/Setup'
 import Summary from '@/components/molecule/AdminNewProject/Summary'
+import Tracker from '@/components/molecule/Tracker'
 
 import styles from './styles.module.css'
 
