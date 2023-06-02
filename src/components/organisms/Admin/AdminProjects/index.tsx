@@ -14,7 +14,7 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 const fetcher = async (url: string) => {
   const res = await fetch(url, {
     headers: {
-      'Access-Control-Allow-Origin': 'https://buurtplanr.com, http://buurtplanr.com, https://www.buurtplanr.com, http://www.buurtplanr.com'
+      'Access-Control-Allow-Origin': 'https://buurtplanr.com, http://buurtplanr.com, https://www.buurtplanr.com, http://www.buurtplanr.com, http://app.buurtplanr.com, https://app.buurtplanr.com, https://www.app.buurtplanr.com, http://www.buurtplanr.com'
     }
   })
   return await res.json()
