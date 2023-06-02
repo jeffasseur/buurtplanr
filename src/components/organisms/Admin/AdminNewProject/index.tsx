@@ -82,53 +82,53 @@ const AdminNewProject = () => {
             </div>
           )}
         {page === 1 &&
-        (
-          <div className={styles.btnContainer}>
-            <Button
-              as='button'
-              size='small'
-              prepend='arrow-left'
-              theme='Primary'
-              onClick={() => {
-                setPage((currPage) => currPage - 1)
-              }}
-            >vorige stap
-            </Button>
-            <Button
-              as='button'
-              size='small'
-              append='arrow-right'
-              theme='Primary'
-              onClick={() => {
-                setPage((currPage) => currPage + 1)
-              }}
-            >volgende stap
-            </Button>
-          </div>
-        )}
+          (
+            <div className={styles.btnContainer}>
+              <Button
+                as='button'
+                size='small'
+                prepend='arrow-left'
+                theme='Primary'
+                onClick={() => {
+                  setPage((currPage) => currPage - 1)
+                }}
+              >vorige stap
+              </Button>
+              <Button
+                as='button'
+                size='small'
+                append='arrow-right'
+                theme='Primary'
+                onClick={() => {
+                  setPage((currPage) => currPage + 1)
+                }}
+              >volgende stap
+              </Button>
+            </div>
+          )}
         {page === 2 &&
-        (
-          <div className={styles.btnContainer}>
-            <Button
-              as='button'
-              size='small'
-              prepend='arrow-left'
-              theme='Primary'
-              onClick={() => {
-                setPage((currPage) => currPage - 1)
-              }}
-            >vorige stap
-            </Button>
-            <Button
-              as='button'
-              size='small'
-              append='save'
-              theme='Primary'
-              onClick={() => { void submitNewProject(FormData) }}
-            >opslaan
-            </Button>
-          </div>
-        )}
+          (
+            <div className={styles.btnContainer}>
+              <Button
+                as='button'
+                size='small'
+                prepend='arrow-left'
+                theme='Primary'
+                onClick={() => {
+                  setPage((currPage) => currPage - 1)
+                }}
+              >vorige stap
+              </Button>
+              <Button
+                as='button'
+                size='small'
+                append='save'
+                theme='Primary'
+                onClick={() => { void submitNewProject(FormData) }}
+              >opslaan
+              </Button>
+            </div>
+          )}
       </div>
     </div>
   )
