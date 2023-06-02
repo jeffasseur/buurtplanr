@@ -14,7 +14,7 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 const fetcher = async (url: string) => {
   const res = await fetch(url, {
     headers: {
-      'Access-Control-Allow-Origin': `${baseURL}`
+      'Access-Control-Allow-Origin': 'https://buurtplanr.com, http://buurtplanr.com'
     }
   })
   return await res.json()
