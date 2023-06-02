@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { MapWrapper } from '@/components/3d/MapWrapper'
+// import { MapWrapper } from '@/components/3d/MapWrapper'
 import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
@@ -37,7 +37,8 @@ const Summary = ({ FormData, setFormData }) => {
       <div className={styles.location}>
         <Title size='h3' weight='semibold'>Locatie</Title>
         <div className={styles.mapWrapper}>
-          <MapWrapper mapType='overview' />
+          Hier komt de map met de ingestelde locatie
+          {/* <MapWrapper mapType='overview' /> */}
         </div>
       </div>
       <div className={styles.cocreation}>
