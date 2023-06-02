@@ -6,7 +6,6 @@ import Icon from '@/components/atoms/Icon'
 import styles from './styles.module.css'
 
 const Occurrence = ({ occurrence }) => {
-  console.log(occurrence)
   return (
     <>
       <div className={styles.OccContainer}>
