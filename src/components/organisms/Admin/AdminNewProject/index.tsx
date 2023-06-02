@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import Button from '@/components/atoms/Button'
+import Tracker from '@/components/atoms/Tracker'
 import Cocreation from '@/components/molecule/AdminNewProject/Cocreation'
 import Setup from '@/components/molecule/AdminNewProject/Setup'
 import Summary from '@/components/molecule/AdminNewProject/Summary'
@@ -55,11 +56,16 @@ const AdminNewProject = () => {
   const FormElements = [<Setup key={0} FormData={FormData} setFormData={setFormData} />, <Cocreation key={1} FormData={FormData} setFormData={setFormData} />, <Summary key={2} FormData={FormData} setFormData={setFormData} />]
   return (
     <div className={styles.newProjectContainer}>
-      <div className={styles.header}>
-        <Image src='/img/donut.webp' alt='donut' width={250} height={220} />
-      </div>
+      {
+        page >= 1 &&
+        (
+          <div className={styles.header}>
+            <Image src='/img/donut.webp' alt='donut' width={250} height={220} />
+          </div>
+        )
+      }
       <div className={styles.tracker}>
-        <h1 className={styles.title}>Tracker</h1>
+        <Tracker />
       </div>
       <div className={styles.body}>
         {FormElements[page]}

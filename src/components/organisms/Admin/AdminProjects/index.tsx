@@ -20,7 +20,7 @@ const AdminProjects = () => {
     <div className={styles.adminProjects}>
       <div className={styles.header}>
         <Title size='h3'>Start een nieuw project</Title>
-        <Button as='link' href='/admin/projects/create' append='save' size='small'>Project starten</Button>
+        <Button as='link' href='/admin/projects/create' append='builder' size='small'>Project starten</Button>
       </div>
       <div className={styles.projectContainer}>
         <div className={styles.cardContainer}>

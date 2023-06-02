@@ -20,7 +20,19 @@
   gap: .75rem;
   align-items: center;
 }
-.link:hover, .link:active, .active {
-  color: blue;
+.link:hover, .link:active {
+  color: var(--color-blue-500);
   font-weight: 500;
+}
+
+.activeLink {
+  text-decoration: none;
+  color: var(--color-blue-500);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  padding: .5rem 0;
+  font-weight: 500;
+  display: flex;
+  gap: .75rem;
+  align-items: center;
 }

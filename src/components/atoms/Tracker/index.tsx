@@ -1,8 +1,12 @@
+import TrackerBall from '@/components/atoms/TrackerBall'
+
 import styles from './styles.module.css'
 
 const Tracker = () => {
   return (
-    <div className={styles.trackerContainer}>Tracker</div>
+    <div className={styles.tracker}>
+      <TrackerBall />
+    </div>
   )
 }
 

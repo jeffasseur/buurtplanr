@@ -1,0 +1,23 @@
+.adminContainer {
+  display: grid;
+  grid-template-columns: 263px 1fr;
+  grid-template-rows: auto auto;
+  gap: 2rem;
+}
+
+.adminNav {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+
+.adminSidenav {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  max-width: 221px;
+}
+
+.adminMain {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  padding-right: 2rem;
+}
