@@ -2,6 +2,9 @@ import { use, useEffect, useRef } from 'react'
 
 import { type BuurtMap } from '@/utils/BuurtMap'
 
+import Button from '../Button'
+import Icon from '../Icon'
+
 import styles from './styles.module.css'
 
 interface setupProps {
@@ -11,6 +14,8 @@ interface setupProps {
 
 export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
   const inputBox = useRef<HTMLInputElement | null>(null)
+  let Marker: google.maps.Marker
+  let placedMarker: boolean = false
   useEffect(() => {
     if (map && inputBox.current) {
       const searchBox = new google.maps.places.SearchBox(inputBox.current)
@@ -38,19 +43,60 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
     }
   }, [map])
 
+  const placeMarker = () => {
+    if (map && !placedMarker) {
+      Marker = new google.maps.Marker({
+        position: map.getCenter(),
+        icon: '/img/map-pin.svg',
+        title: 'herplaatsen',
+        draggable: true
+      })
+      Marker.setMap(map)
+      placedMarker = true
+    }
+  }
+  const save = () => {
+    const lat = Marker.getPosition()?.lat()
+    const lng = Marker.getPosition()?.lng()
+    console.log(lat, lng)
+  }
+
   return (
     <div className={styles.setupContainer}>
-      <div>
-        <p>nieuw project locatie zoeken</p>
-        <div className={styles.input}><input ref={inputBox} type='text' id='placeQuery' /></div>
+      <h2>Builder Opzet</h2>
+      <div className={styles.locationPicker}>
+        <p>zoek op locatie en plaats een pin</p>
+        <div className={styles.locationInputBox}>
+          <div className={styles.input}><input ref={inputBox} type='text' id='placeQuery' /></div>
+          <div className={styles.locationMark} onClick={placeMarker}>
+            <Icon name='location' />
+          </div>
+        </div>
       </div>
-      <div>
-        <div onClick={() => { BUURTMAP.placeBnds() }} className={styles.btnPrimary}>plaats project locatie op kaart</div>
+      <div className={styles.locationPicker}>
+        <p>plaats grenzen aan je project</p>
+        <div>
+          <Button
+            as='button'
+            size='small'
+            theme='Primary'
+            onClick={() => { BUURTMAP.placeBnds() }}
+          >
+            grenzen plaatsen
+          </Button>
+          <p>overige grenzen: 10</p>
+        </div>
       </div>
-      <div>
-        <div onClick={() => { BUURTMAP.placeBnds() }} className={styles.btnPrimary}>place bounds</div>
-        <p>bounds left: 10</p>
-      </div>
+      <Button
+        as='button'
+        size='small'
+        append='arrow-right'
+        theme='Primary'
+        onClick={() => { save() }}
+      >
+        opslaan
+      </Button>
+
     </div>
   )
 }
