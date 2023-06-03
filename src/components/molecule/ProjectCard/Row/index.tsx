@@ -1,5 +1,6 @@
 import Button from '@/components/atoms/Button'
 import Title from '@/components/atoms/Title'
+import { getFormattedDateFromTimestamp } from '@/helpers/dateFormatter'
 import { type projectData } from '@/types/BUURTTYPES'
 
 import styles from './styles.module.css'
@@ -9,6 +10,10 @@ interface ProjectProps {
 }
 
 const ProjectRow = ({ project }: ProjectProps) => {
+  const date = new Date(project?.dateOfCreation ?? '')
+
+  const formatedDate = getFormattedDateFromTimestamp(date)
+
   return (
     <>
       {project &&
@@ -18,7 +23,7 @@ const ProjectRow = ({ project }: ProjectProps) => {
             <p className={styles.fase}>{project.fase}</p>
           </div>
           <div>
-            <p className={styles.date}>{project.dateOfCreation}</p>
+            <p className={styles.date}>{formatedDate}</p>
           </div>
           <div className={styles.btnContainer}>
             <Button as='link' size='small' append='setting-3' theme='Warning' href={`/admin/projects/edit/${project._id}`}>

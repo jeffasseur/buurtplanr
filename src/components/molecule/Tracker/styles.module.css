@@ -1,0 +1,23 @@
+.tracker {
+  display: flex;
+  align-items: center;
+}
+
+.barNonactive {
+  width: 100px;
+  height: 1rem;
+  background: var(--color-grey-500);
+  margin-top: -2rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  color: transparent;
+}
+.barActive {
+  width: 100px;
+  height: 1rem;
+  background: var(--color-blue-500);
+  margin-top: -2rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  color: transparent;
+}

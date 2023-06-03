@@ -13,8 +13,9 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, {
+    method: 'GET',
     headers: {
-      'Access-Control-Allow-Origin': 'https://buurtplanr.com, http://buurtplanr.com, https://www.buurtplanr.com, http://www.buurtplanr.com, http://app.buurtplanr.com, https://app.buurtplanr.com, https://www.app.buurtplanr.com, http://www.buurtplanr.com'
+      'Access-Control-Allow-Origin': 'https://buurtplanr.com, http://buurtplanr.com, https://www.buurtplanr.com, http://www.buurtplanr.com, http://app.buurtplanr.com, https://app.buurtplanr.com, https://www.app.buurtplanr.com, http://www.buurtplanr.com, http://localhost:3000'
     }
   })
   return await res.json()
@@ -26,7 +27,7 @@ const AdminProjects = () => {
     <div className={styles.adminProjects}>
       <div className={styles.header}>
         <Title size='h3'>Start een nieuw project</Title>
-        <Button as='link' href='/admin/projects/create' append='save' size='small'>Project starten</Button>
+        <Button as='link' href='/admin/projects/create' append='builder' size='small'>Project starten</Button>
       </div>
       <div className={styles.projectContainer}>
         <div className={styles.cardContainer}>
@@ -43,12 +44,14 @@ const AdminProjects = () => {
             </form>
           </div>
         </div>
-        {isLoading && <p>Loading...</p>}
-        {data?.data &&
-          data.data.map((project, index) => (
-            <ProjectRow project={project} key={index} />
-          ))}
-        {error && <p>Er is iets misgegaan met het ophalen van de projecten</p>}
+        <div className={styles.projectRowContainer}>
+          {isLoading && <p>Loading...</p>}
+          {data?.data &&
+            data.data.map((project, index) => (
+              <ProjectRow project={project} key={index} />
+            ))}
+          {error && <p>Er is iets misgegaan met het ophalen van de projecten</p>}
+        </div>
       </div>
     </div>
   )

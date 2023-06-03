@@ -16,7 +16,7 @@ const baseURL: string = 'http://localhost:3002/'
 const submitLogin = async (data) => {
   if (data.email !== '' && data.password !== '') {
     const dataString = JSON.stringify(data)
-    await fetch(`${baseURL}burgers/login`, {
+    await fetch(`${baseURL}gemeentes/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const submitLogin = async (data) => {
       .then((data) => {
         if (data.status === 'success') {
           window.localStorage.setItem('token', data.token)
-          window.location.href = '/'
+          window.location.href = '/admin'
         } else {
           return { status: 'error', message: 'Er is iets misgegaan' }
         }
@@ -40,10 +40,11 @@ const submitLogin = async (data) => {
   }
 }
 
-const Login = () => {
+const AdminLogin = () => {
   const [FormData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    postalcode: ''
   })
   return (
     <div className={styles.loginContainer}>
@@ -68,6 +69,20 @@ const Login = () => {
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>
+            <label>Postcode</label>
+            <div className={styles.inputIcon}>
+              <Input
+                placeholder='Postalcode'
+                Size='medium'
+                className={styles.input}
+                required
+                value={FormData.postalcode}
+                onChange={(e) => { setFormData({ ...FormData, postalcode: e.target.value }) }}
+              />
+              <Icon name='location' className={styles.icon} />
+            </div>
+          </fieldset>
+          <fieldset className={styles.loginForm_fieldset}>
             <label>Wachtwoord</label>
             <div className={styles.inputIcon}>
               <Input
@@ -84,7 +99,7 @@ const Login = () => {
           </fieldset>
           <div>
             {
-              ((FormData.email === '' && FormData.password === '') || (FormData.email === '' || FormData.password === '')) &&
+              ((FormData.email === '' && FormData.password === '' && FormData.postalcode === '') || (FormData.email === '' || FormData.password === '' || FormData.postalcode === '')) &&
               (
                 <Button as='button' theme='Primary' disabled>
                   Aanmelden
@@ -92,7 +107,7 @@ const Login = () => {
               )
             }
             {
-              FormData.email !== '' && FormData.password !== '' &&
+              FormData.email !== '' && FormData.password !== '' && FormData.postalcode !== '' &&
               (
                 <Button
                   as='button'
@@ -110,4 +125,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default AdminLogin

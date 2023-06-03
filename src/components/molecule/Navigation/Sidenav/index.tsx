@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 const SideNavigation = () => {
   return (
     <div className={styles.sidenav}>
-      <Link className={styles.link} href='/admin/'>
+      <Link className={styles.activeLink} href='/admin/'>
         <Icon name='folder' />
         Projecten
       </Link>

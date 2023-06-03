@@ -2,11 +2,10 @@ import { type ParsedUrlQuery } from 'querystring'
 
 import { type GetStaticProps } from 'next'
 
-import Nav from '@/components/molecule/Navigation'
-import SideNav from '@/components/molecule/Navigation/Sidenav'
+import AdminLayout from '@/components/layouts/admin-layout'
 import AdminEditProject from '@components/organisms/Admin/AdminEditProject'
 
-import styles from './styles.module.css'
+// import styles from './styles.module.css'
 
 let baseURL: string = '/'
 if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
@@ -15,17 +14,9 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 
 const EditProject = ({ project }) => {
   return (
-    <div className={styles.editProject}>
-      <nav className={styles.nav}>
-        <Nav />
-      </nav>
-      <aside className={styles.aside}>
-        <SideNav />
-      </aside>
-      <main className={styles.main}>
-        <AdminEditProject project={project} />
-      </main>
-    </div>
+    <AdminLayout>
+      <AdminEditProject project={project} />
+    </AdminLayout>
   )
 }
 

@@ -1,14 +1,19 @@
 import Image from 'next/image'
 
 import Icon from '@/components/atoms/Icon'
+import { getFormattedDateFromTimestamp } from '@/helpers/dateFormatter'
 
 import styles from './styles.module.css'
 
 const AdminUser = ({ user }) => {
+  const date = new Date(user?.dateOfRegistration ?? '')
+  const formatedDate = getFormattedDateFromTimestamp(date)
+
   return (
     <>
       {
         user &&
+        (
           <div className={styles.adminUserContainer}>
             <div className={styles.adminUser_img}>
               {
@@ -31,7 +36,7 @@ const AdminUser = ({ user }) => {
               <p>{user.email}</p>
             </div>
             <div className={styles.adminUser_date}>
-              <p>{user.dateOfRegistration}</p>
+              <p>{formatedDate}</p>
             </div>
             <div className={styles.adminUser_role}>
               <p>Gebruiker</p>
@@ -40,6 +45,7 @@ const AdminUser = ({ user }) => {
               <Icon name='setting-3' />
             </div>
           </div>
+        )
       }
     </>
   )

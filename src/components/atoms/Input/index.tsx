@@ -14,9 +14,13 @@ const inputStyle = cva(styles.inputBasic, {
       small: styles.borderRadiusSmall,
       round: styles.borderRadiusRound
     },
+    Checkbox: {
+      true: styles.checkbox
+    },
     DefaultVariants: {
       size: 'medium',
-      borderRadius: 'medium'
+      borderRadius: 'medium',
+      Checkbox: false
     }
   }
 })
@@ -30,15 +34,18 @@ export interface InputProps
   value?: any
   onChange?: any
   min?: string
+  name?: string
+  id?: string
 }
 
 const Input: React.FC<InputProps> = ({
   className,
   Size,
   BorderRadius,
+  Checkbox,
   ...props
 }) => {
-  const classNames = cx([inputStyle({ Size, BorderRadius }), className])
+  const classNames = cx([inputStyle({ Size, BorderRadius, Checkbox }), className])
   return (
     <input
       type={props.type}
@@ -47,6 +54,8 @@ const Input: React.FC<InputProps> = ({
       value={props.value}
       onChange={props.onChange}
       min={props.min}
+      name={props.name}
+      id={props.id}
     />
   )
 }
