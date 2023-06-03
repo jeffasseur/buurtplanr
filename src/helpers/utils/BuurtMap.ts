@@ -77,7 +77,7 @@ export class BuurtMap {
       const bbox = new THREE.Box3().setFromObject(this.dragOBJ)
       const width = bbox.max.x - bbox.min.x
 
-      const geometry = new THREE.CircleGeometry(width, 32)
+      const geometry = new THREE.RingGeometry(width - 1, width - 0.5, 30, 5)
       const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.FrontSide })
       this.highlight = new THREE.Mesh(geometry, material)
       this.highlight.isHighlighter = true
