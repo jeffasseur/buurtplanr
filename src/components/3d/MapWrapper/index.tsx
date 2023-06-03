@@ -1,3 +1,4 @@
+import { type Libraries } from '@googlemaps/js-api-loader'
 import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { type ReactElement, useEffect, useState } from 'react'
 
@@ -29,6 +30,8 @@ const render = (status: Status): ReactElement => {
 
 /* send coordinates as props to mapblueprint so that the map is reusable */
 export const MapWrapper = ({ mapType, projectId, projectArray, singleProject }: MapProps) => {
+  // eslint-disable-next-line @typescript-eslint/quotes
+  const libs: Libraries = ["places"]
   const [mapData, setMapData] = useState<mapOptions | null>(null)
   useEffect(() => {
     if (!mapData) {
@@ -53,7 +56,7 @@ export const MapWrapper = ({ mapType, projectId, projectArray, singleProject }: 
       {!mapData
         ? <Loader3d />
         : (
-          <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
+          <Wrapper render={render} libraries={libs} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
             {mapType === 'overview' && projectArray && <OverviewMapBlueprint mapData={mapData} projectData={projectArray} />}
             {mapType === 'builder' && singleProject && <BuilderMapBlueprint mapData={mapData} projectData={singleProject} />}
             {mapType === 'NewProject' && <NewProjectMapBlueprint mapData={mapData} />}
