@@ -8,13 +8,17 @@ import Title from '@/components/atoms/Title'
 import styles from './styles.module.css'
 
 const submitEditProject = async (FormData, id) => {
+  let baseURL: string = '/'
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+  }
   const projectId: string = id
   const dataString = JSON.stringify(FormData)
-  const response = await fetch(`http://127.0.0.1:3002/projects/${projectId}`, {
+  const response = await fetch(`${baseURL}/projects/${projectId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://127.0.0.1:3002/',
+      'Access-Control-Allow-Origin': `${baseURL}`,
       'Access-Control-Allow-Methods': 'PUT',
       'Access-Control-Allow-Headers': 'Content-Type'
     },

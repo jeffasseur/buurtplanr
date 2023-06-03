@@ -3,6 +3,8 @@ import { create } from 'zustand'
 interface DroppedModel {
   model: string | null
   updateModel: (model: string | null) => void
+  productType: string | null
+  updateProductType: (productType: string | null) => void
 }
 
 interface User {
@@ -14,7 +16,9 @@ interface User {
 
 export const useDroppedModel = create<DroppedModel>((set) => ({
   model: null,
-  updateModel: (el) => { set(() => ({ model: el })) }
+  updateModel: (el) => { set(() => ({ model: el })) },
+  productType: null,
+  updateProductType: (el) => { set(() => ({ productType: el })) }
 }))
 
 export const useUser = create<User>((set) => ({

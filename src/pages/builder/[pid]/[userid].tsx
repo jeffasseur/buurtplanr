@@ -14,18 +14,22 @@ Builder.getInitialProps = async ({ query }) => {
   return { pid, userid }
 }
 
-export default function Builder ({ pid, userid }) {
+export default function Builder ({ pid }: { pid: string }, { userid }: { userid: string }) {
   const updateUID = useUser(state => state.updateUID)
   const updatePID = useUser(state => state.updatePID)
-  const baseURL = process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()
-  const { data } = useSWR(`${baseURL}projects/${pid}`, fetcher)
+  let baseURL: string = '/'
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK && pid) {
+    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}/projects/${pid}`
+  }
+
+  const { data } = useSWR(`${baseURL}`, fetcher)
   updateUID(userid)
   updatePID(pid)
 
   return (
     <>
-      {/* <Navigation /> */}
-      {data && <MapWrapper mapType='builder' projectData={data.message} />}
+      <Navigation />
+      {data && <MapWrapper mapType='builder' singleProject={data.data} />}
     </>
   )
 }

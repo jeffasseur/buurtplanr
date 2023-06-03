@@ -5,15 +5,17 @@ import AdminUser from '@/components/molecule/AdminUser'
 
 import styles from './styles.module.css'
 
-const apiUrl = 'http://127.0.0.1:3002/burgers'
-
 const fetcher = async (url) => {
   const res = await fetch(url)
   return await res.json()
 }
 
 const AdminUsers = () => {
-  const { data, isLoading, error } = useSWR(apiUrl, fetcher)
+  let baseURL: string = '/'
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+  }
+  const { data, isLoading, error } = useSWR(`${baseURL}burgers/`, fetcher)
   return (
     <div className={styles.adminUsers}>
       <div className={styles.adminUser_search}>

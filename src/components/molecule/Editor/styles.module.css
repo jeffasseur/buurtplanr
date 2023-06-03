@@ -44,6 +44,10 @@
   color: var(--color-blue-400);
 }
 
+.selected {
+  font-weight: 600;
+}
+
 .hidden {
   display: none;
 }

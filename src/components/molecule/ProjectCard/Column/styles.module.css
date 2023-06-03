@@ -6,14 +6,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-02);
-  width: 448px;
+  width: 100%;
   height: fit-content;
   padding: var(--spacing-03);
   background-color: var(--color-white);
   border-radius: var(--spacing-02);
   box-shadow: var(--shadow-xs);
   flex-grow: 1;
-
+  flex-shrink: 1;
 }
 
 .subCardHeader p,
@@ -47,4 +47,18 @@
 .btnContainer {
   display: flex;
   gap: var(--spacing-04);
+}
+
+@media (--md-n-above) {
+  .cardContainer {
+    max-width: 329px;
+    min-width: 304px;
+  }
+}
+
+@media (--lg-n-above) {
+  .cardContainer {
+    max-width: 448px;
+    min-width: 320px;
+  }
 }

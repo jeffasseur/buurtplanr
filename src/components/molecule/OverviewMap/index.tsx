@@ -1,94 +1,49 @@
 import { useEffect, useRef, useState } from 'react'
-import * as THREE from 'three'
 
-import { type mapOptions, type project } from '@/types/BUURTTYPES'
-import { BuurtMap } from '@/utils/BuurtMap'
+import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
 
 import { ProjectCard } from '../ProjectCard'
 
 import styles from './styles.module.css'
 
 interface MapProps {
-  projectData: project[]
+  projectData: projectData[]
   mapData: mapOptions
 }
 
 export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
-  const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
-  const [ActiveProject, setActiveProject] = useState<project | undefined>(undefined)
-  const mousePosition = new THREE.Vector2()
-  const markers: THREE.Object3D[] = []
-  let highlightedObject: THREE.Object3D<THREE.Event> | null = null
+  const [ActiveProject, setActiveProject] = useState<projectData | undefined>(undefined)
 
   useEffect(() => {
     if (!map) {
-      const mapInstance = new window.google.maps.Map(mapContainer.current!, mapData)
+      let mapInstance
+      if (mapContainer.current) {
+        mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
+        setMap(mapInstance)
+      }
       setMap(mapInstance)
-      setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
-    }
-
-    if (map) {
-      appendMarkers()
-      bindMapEvents()
     }
   }, [map, mapData])
 
-  const bindMapEvents = () => {
-    const updateMousePosition = (e) => {
-      const { left, top, width, height } = mapContainer.current!.getBoundingClientRect()
-      const x = e.domEvent.clientX - left
-      const y = e.domEvent.clientY - top
-
-      mousePosition.x = 2 * (x / width) - 1
-      mousePosition.y = 1 - 2 * (y / height)
-    }
-
-    if (map && BUURTMAP) {
-      map.addListener('click', (e: google.maps.MapMouseEvent) => {
-        updateMousePosition(e)
-
-        const intersections = BUURTMAP.threeOverlay.raycast(mousePosition)
-        setActiveProject(undefined)
-
-        if (highlightedObject) highlightedObject.material.color.setHex(0xff0000)
-
-        if (intersections.length === 0) return
-
-        highlightedObject = intersections[0].object
-        setActiveProject(projectData.find(pr => pr._id === highlightedObject.parent.projectId))
-        highlightedObject.material.color.setHex(0xffffff)
-
-        BUURTMAP.threeOverlay.requestRedraw()
+  if (map) {
+    projectData.forEach((project) => {
+      const Marker = new google.maps.Marker({
+        position: project.location.coordinates,
+        title: project._id,
+        icon: '/img/map-pin.svg'
       })
-    }
-  }
-
-  const appendMarkers = () => {
-    // create markers for each project ++ append to three-js-overlayview
-    projectData.forEach(el => {
-      if (BUURTMAP) { BUURTMAP.appendModel(el) }
-      getAllMarkers()
+      Marker.addListener('click', () => {
+        setActiveProject(projectData.find(pr => pr._id === Marker.get('title')))
+      })
+      if (map) { Marker.setMap(map) }
     })
-  }
-
-  // collect all marker in scene into an array
-  const getAllMarkers = () => {
-    if (BUURTMAP) {
-      BUURTMAP.scene.children.find(el => {
-        if ('projectId' in el) {
-          const admit = markers.findIndex(markers => markers.projectId === el.projectId)
-          if (admit === -1) markers.push(el)
-        }
-        return true
-      })
-    }
   }
 
   return (
     <div ref={mapContainer} id='map' className={styles.map}>
-      {BUURTMAP && <ProjectCard project={ActiveProject} />}
+      {ActiveProject && <ProjectCard project={ActiveProject} />}
     </div>
   )
 }

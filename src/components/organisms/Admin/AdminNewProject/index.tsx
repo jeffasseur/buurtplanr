@@ -11,11 +11,11 @@ import styles from './styles.module.css'
 
 const submitNewProject = async (data) => {
   const dataString = JSON.stringify(data)
-  await fetch('http://localhost:3000/api/createProject', {
+  await fetch('/api/createProject', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:3000/',
+      'Access-Control-Allow-Origin': 'http://localhost:3000/, https://buurtplanr.com',
       'Access-Control-Allow-Methods': 'POST',
       'Access-Control-Allow-Headers': 'Content-Type'
     },

@@ -23,16 +23,14 @@ const submitLogin = async (data) => {
     })
       .then(async (res) => await res.json())
       .then((data) => {
-        console.log(data)
         if (data.status === 'success') {
-          console.log('inlog succesvol')
           return data
         } else {
-          console.log('inlog niet succesvol')
+          return { status: 'error', message: 'Er is iets misgegaan' }
         }
       })
   } else {
-    console.log('not everything is filled in')
+    return { status: 'error', message: 'Vul alle velden in' }
   }
 }
 

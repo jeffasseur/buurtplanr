@@ -11,8 +11,17 @@ interface ProductProps {
 
 export const Product = ({ productType }: ProductProps) => {
   const updateModel = useDroppedModel(state => state.updateModel)
-  const handleDrag = (e) => {
-    updateModel(e.target.dataset.modelname)
+  const modelName = useDroppedModel(state => state.model)
+  const pType = useDroppedModel(state => state.productType)
+  const updateProductType = useDroppedModel(state => state.updateProductType)
+
+  const handleClick = (e) => {
+    let current = e.target
+    while (!current.dataset.modelname) {
+      current = current.parentNode
+    }
+    modelName === current.dataset.modelname ? updateModel(null) : updateModel(current.dataset.modelname)
+    pType === current.dataset.producttype ? updateProductType(null) : updateProductType(current.dataset.producttype)
   }
 
   return (
@@ -20,20 +29,21 @@ export const Product = ({ productType }: ProductProps) => {
       {productList.list.map((product, index) => {
         if (productType == null) {
           return (
-            <div key={index} className={styles.productListing} draggable='true' onDragStart={handleDrag} data-modelname={product.name}>
-              <WebpIcon productType={null} onDragStart={handleDrag} name={product.name} data-modelname={product.name} />
+            <div key={index} className={`${modelName === product.name ? styles.active : ''} ${styles.productListing}`} onClick={handleClick} data-modelname={product.name} data-producttype={product.productType}>
+              <WebpIcon name={product.name} />
             </div>
           )
         }
         if (productType === product.productType) {
           if (product.name) {
             return (
-              <div key={index} className={styles.productListing} draggable='true' onDragStart={handleDrag} data-modelname={product.name}>
-                <WebpIcon productType={productType} onDragStart={handleDrag} name={product.name} data-modelname={product.name} />
+              <div key={index} className={`${modelName === product.name ? styles.active : ''} ${styles.productListing}`} onClick={handleClick} data-modelname={product.name} data-producttype={product.productType}>
+                <WebpIcon name={product.name} />
               </div>
             )
           }
         }
+        return null
       }
       )}
     </div>

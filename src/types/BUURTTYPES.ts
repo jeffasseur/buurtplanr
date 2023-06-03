@@ -76,12 +76,36 @@ export interface projectData {
 
 export interface productUploadData {
   latlng: LatLngTypes | Vector3
-  modelType: string
+  modelName: string
 }
 
-export interface product extends THREE.Group {
+export interface productName {
+  name: string
+  productType: string | null
+}
+
+export interface buurtmarker extends google.maps.MarkerOptions {
+  project_id: string
+}
+
+export interface ProductMesh extends THREE.Mesh {
+  modelID?: number
+  isDraggable?: boolean
+  modelName?: string
+  isHighlighter?: boolean
+}
+
+export interface ProductModel extends THREE.Object3D {
+  modelName?: string
+  modelID?: number
+  isDraggable?: boolean
+  isHighlighter?: boolean
+}
+
+export interface ProductGroup extends THREE.Group {
   projectId?: number
   modelID?: number
   modelType?: string
   isDraggable?: boolean
+  modelName?: string
 }

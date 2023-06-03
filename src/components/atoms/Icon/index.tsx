@@ -6,7 +6,6 @@ import styles from './styles.module.css'
 const icons = [
   'chevron-down',
   'arrow-down',
-  'map-pin',
   'search',
   'move',
   'folder',
