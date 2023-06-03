@@ -5,10 +5,16 @@
   padding: var(--spacing-06) 6rem;
 }
 
-.date, .title {
+.date, .title, .fase {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-06);
+}
+
+.projectFase {
+  padding: var(--spacing-02);
+  background: var(--color-blue-100);
+  border-radius: var(--radius-1);
 }
 
 .publishDate, .cocreationDateStart, .cocreationDateEnd, .voteDateStart, .voteDateEnd {

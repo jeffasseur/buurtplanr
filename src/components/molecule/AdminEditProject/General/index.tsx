@@ -32,6 +32,7 @@ const AdminEditProjectGeneral = ({ project }) => {
   const [FormData, setFormData] = useState({
     title: project.title,
     description: project.description,
+    fase: project.fase,
     dateOfPublication: project.dateOfPublication,
     dateOfStartCocreation: project.dateOfStartCocreation,
     dateOfEndCocreation: project.dateOfEndCocreation,
@@ -57,8 +58,23 @@ const AdminEditProjectGeneral = ({ project }) => {
       link: project.projectData.link
     }
   })
+  const handleChange = (event) => {
+    setFormData({ ...FormData, fase: event.target.value })
+  }
   return (
     <div className={styles.generalContainer}>
+      <fieldset className={styles.fase}>
+        <Title as='h3' size='h3' weight='semibold'>Fase</Title>
+        <div className={styles.faseContainer}>
+          <select name='projectFase' defaultValue={FormData.fase} id='projectFase' onChange={handleChange} className={styles.projectFase}>
+            <option value='Fase 0: Wachten tot opstart'>Fase 0: Wachten tot opstart</option>
+            <option value='Fase 1: Informeren'>Fase 1: Informeren</option>
+            <option value='ase 2: Cocreatie'>Fase 2: Cocreatie</option>
+            <option value='Fase 3: Stemmen'>Fase 3: Stemmen</option>
+            <option value='Fase 4: Vervolg'>Fase 4: Vervolg</option>
+          </select>
+        </div>
+      </fieldset>
       <fieldset className={styles.title}>
         <Title as='h3' size='h3' weight='semibold'>Projectnaam</Title>
         <Input

@@ -1,50 +1,90 @@
-import { cva, cx, type VariantProps } from 'class-variance-authority'
-import { type Ref, forwardRef } from 'react'
-
 import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const trackerBallStyle = cva(styles.trackerCircle, {
-  variants: {
-    circle: {
-      base: styles['trackerCircle']
-    },
-    state: {
-      active: styles['trackerCircleActive'],
-      nonactive: styles['trackerCircleNonactive'],
-      completed: styles['trackerCircleComplete']
-    },
-    text: {
-      active: styles['trackerNumberActive'],
-      nonactive: styles['trackerNumberNonactive'],
-      completed: styles['trackerNumberComplete']
-    }
-  },
-  defaultVariants: {
-    circle: 'base',
-    state: 'nonactive',
-    text: 'nonactive'
-  }
-})
-
-interface TrackerBallProps extends VariantProps<typeof trackerBallStyle> {
-  className?: string
+const TrackerBall = ({ state, text, number }) => {
+  return (
+    <div className={styles.trackerCircleZindex}>
+      {
+        state === 'active' &&
+        (
+          <div className={styles.trackerCircleWrapper}>
+            <div className={styles.trackerCircleActive}>
+              <Title
+                as='h5'
+                size='h1'
+                weight='semibold'
+                className={styles.trackerNumberActive}
+              >{number}
+              </Title>
+            </div>
+            <p>
+              {text}
+            </p>
+          </div>
+        )
+      }
+      {
+        state === 'nonactive' &&
+        (
+          <div className={styles.trackerCircleWrapper}>
+            <div className={styles.trackerCircleNonactive}>
+              <Title
+                as='h5'
+                size='h1'
+                weight='semibold'
+                className={styles.trackerNumberNonactive}
+              >{number}
+              </Title>
+            </div>
+            <p>
+              {text}
+            </p>
+          </div>
+        )
+      }
+      {
+        state === 'completed' &&
+        (
+          <div className={styles.trackerCircleWrapper}>
+            <div className={styles.trackerCircleCompleted}>
+              <Title
+                as='h5'
+                size='h1'
+                weight='semibold'
+                className={styles.trackerNumberCompleted}
+              >{number}
+              </Title>
+            </div>
+            <p>
+              {text}
+            </p>
+          </div>
+        )
+      }
+      {
+        state === 'activeTransparent' &&
+        (
+          <div className={styles.trackerCircleWrapper}>
+            <div className={styles.trackerCircleActiveTransparent}>
+              <Title
+                as='h5'
+                size='h1'
+                weight='semibold'
+                className={styles.trackerNumberActive}
+              >{number}
+              </Title>
+            </div>
+            <p>
+              {text}
+            </p>
+          </div>
+        )
+      }
+    </div>
+  )
 }
 
-const TrackerBall = forwardRef<unknown, TrackerBallProps>(
-  ({ className, text, state, circle }, ref) => {
-    const classNamesCircle = cx([trackerBallStyle({ circle, state }), className])
-    const classNamesText = cx([trackerBallStyle({ text }), className])
-    return (
-      <div className={styles.trackerCircleWrapper}>
-        <div className={classNamesCircle}>
-          <Title as='h5' size='h1' weight='semibold' className={classNamesText}>1</Title>
-        </div>
-        <p>Opzet</p>
-      </div>
-    )
-  }
-)
+TrackerBall.displayName = 'TrackerBall'
 
 export default TrackerBall

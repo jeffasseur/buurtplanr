@@ -1,3 +1,7 @@
+.trackerCircleZindex {
+  z-index: 5;
+}
+
 .trackerCircleWrapper {
   display: flex;
   flex-direction: column;
@@ -5,34 +9,64 @@
   gap: var(--spacing-02);
 }
 
-.trackerCircle {
+.trackerCircleActive {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: var(--radius-round);
-  border: 10px solid transparent;
   width: 120px;
   aspect-ratio: 1 / 1;
+  background: var(--color-white);
+  border: 10px solid var(--color-blue-400);
   &:hover {
     cursor: pointer;
   }
 }
-.trackerCircleActive {
-  background: var(--color-white);
-  border-color: var(--color-blue-400);
-  color: var(--color-blue-400);
+.trackerCircleNonactive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-round);
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  background: var(--color-grey-500);
+  border: 10px solid var(--color-grey-500);
+  &:hover {
+    cursor: pointer;
+  }
+}
+.trackerCircleCompleted {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-round);
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  background: var(--color-blue-500);
+  border: 10px solid var(--color-blue-500);
+  &:hover {
+    cursor: pointer;
+  }
+}
+.trackerCircleActiveTransparent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-round);
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  border: 10px solid var(--color-blue-400);
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .trackerNumberActive {
   color: var(--color-blue-400);
 }
 .trackerNumberNonactive {
-  background: var(--color-grey-500);
-  border-color: var(--color-grey-500);
   color: var(--color-white);
 }
-.trackerCircleComplete {
-  background: var(--color-blue-500);
-  border-color: var(--color-blue-500);
+.trackerNumberCompleted {
   color: var(--color-white);
 }

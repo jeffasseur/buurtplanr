@@ -6,7 +6,13 @@ import Occurrence from '@/components/molecule/Occurrence'
 import styles from './styles.module.css'
 
 const fetcher = async (url: string) => {
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin': 'https://giddy-cummerbund-cod.cyclic.app/, http://localhost:3000/',
+      'Access-Control-Allow-Methods': 'GET'
+    }
+  })
   return await res.json()
 }
 
@@ -15,7 +21,7 @@ const AdminOccurrences = () => {
   if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
     baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
   }
-  const { data, isLoading, error } = useSWR(`${baseURL}/creaties/`, fetcher)
+  const { data, isLoading, error } = useSWR(`${baseURL}creaties/`, fetcher)
   return (
     <div className={styles.adminOccerrences}>
       <div className={styles.adminOccurrences_search}>
@@ -33,9 +39,15 @@ const AdminOccurrences = () => {
       <div className={styles.occurrencesContainer}>
         {isLoading && <p>Loading...</p>}
         {data?.data &&
-          data.data.map((occurrence, index) => (
+          data.data.map((occurrence: object, index) => (
             <Occurrence occurrence={occurrence} key={index} />
           ))}
+        {
+          data?.data?.length === 0 &&
+          (
+            <p>Er zijn geen gebeurtenissen gevonden</p>
+          )
+        }
         {error && <p>Er is iets misgegaan met het ophalen van de gebeurtenissen</p>}
       </div>
     </div>
