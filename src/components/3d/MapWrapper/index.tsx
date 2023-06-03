@@ -5,6 +5,7 @@ import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap'
 import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap'
 import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { Loader3d } from '@components/molecule/3dloader'
+import { NewProjectMapBlueprint } from '@components/molecule/NewProjectMap'
 
 interface MapProps {
   mapType: string
@@ -55,6 +56,7 @@ export const MapWrapper = ({ mapType, projectId, projectArray, singleProject }: 
           <Wrapper render={render} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
             {mapType === 'overview' && projectArray && <OverviewMapBlueprint mapData={mapData} projectData={projectArray} />}
             {mapType === 'builder' && singleProject && <BuilderMapBlueprint mapData={mapData} projectData={singleProject} />}
+            {mapType === 'NewProject' && <NewProjectMapBlueprint mapData={mapData} />}
           </Wrapper>
           )}
     </>

@@ -18,12 +18,11 @@ export const OverviewMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   useEffect(() => {
     if (!map) {
-      let mapInstance
+      let mapInstance: google.maps.Map
       if (mapContainer.current) {
         mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
         setMap(mapInstance)
       }
-      setMap(mapInstance)
     }
   }, [map, mapData])
 

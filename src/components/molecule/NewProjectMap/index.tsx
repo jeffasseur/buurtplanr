@@ -1,32 +1,31 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { MapSetup } from '@/components/atoms/MapSetup'
-import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
+import { type mapOptions } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
 
 import styles from './styles.module.css'
 
 interface MapProps {
   mapData: mapOptions
-  projectData: projectData
 }
 
-export const ParamsMapBlueprint = ({ projectData, mapData }: MapProps) => {
+export const NewProjectMapBlueprint = ({ mapData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
 
   useEffect(() => {
     if (!map) {
-      mapData.center = projectData.location.coordinates
-      let mapInstance
+      let mapInstance: google.maps.Map
       if (mapContainer.current) {
+        mapData.tilt = 65
         mapInstance = new window.google.maps.Map(mapContainer.current, mapData)
         setMap(mapInstance)
-        setBUURTMAP(new BuurtMap(mapInstance, projectData.location.coordinates))
+        setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
       }
     }
-  }, [map, mapData, projectData.location.coordinates])
+  }, [map, mapData])
 
   return (
     <div ref={mapContainer} id='map' className={styles.map}>

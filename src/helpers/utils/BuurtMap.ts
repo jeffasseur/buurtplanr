@@ -41,19 +41,6 @@ export class BuurtMap {
     this.loader.setDRACOLoader(dracoLoader)
   }
 
-  appendModel = (el) => {
-    this.loader.load('/models/marker.glb', (gltf) => {
-      const product: ProductGroup = gltf.scene
-      product.projectId = el._id
-      product.scale.set(20, 20, 20)
-      product.rotation.x = Math.PI / 2
-      const lat = el.location.coordinates.lat
-      const lng = el.location.coordinates.lng
-      product.position.copy(this.threeOverlay.latLngAltitudeToVector3({ lat, lng }))
-      this.scene.add(product)
-    })
-  }
-
   appendProducts = (modelName: string, mousePos: THREE.Vector3) => {
     this.loader.load(`/models/${modelName}.glb`, (gltf) => {
       const product: ProductGroup = gltf.scene
