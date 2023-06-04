@@ -1,4 +1,8 @@
 .map {
   width: 100vw;
-  height: 100vh;
+  height: var(--map-size-full);
+}
+
+.container {
+  height: 90vh;
 }

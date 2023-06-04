@@ -28,8 +28,10 @@ export const NewProjectMapBlueprint = ({ mapData }: MapProps) => {
   }, [map, mapData])
 
   return (
-    <div ref={mapContainer} id='map' className={styles.map}>
-      {BUURTMAP && <MapSetup BUURTMAP={BUURTMAP} map={map} />}
+    <div className={styles.container}>
+      <div ref={mapContainer} id='map' className={styles.map}>
+        {BUURTMAP && <MapSetup BUURTMAP={BUURTMAP} map={map} />}
+      </div>
     </div>
   )
 }

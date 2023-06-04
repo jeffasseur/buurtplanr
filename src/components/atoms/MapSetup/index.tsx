@@ -1,4 +1,4 @@
-import { use, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { type BuurtMap } from '@/utils/BuurtMap'
 
@@ -15,7 +15,7 @@ interface setupProps {
 export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
   const inputBox = useRef<HTMLInputElement | null>(null)
   let Marker: google.maps.Marker
-  let placedMarker: boolean = false
+  const [placedMarker, setPlacedMarker] = useState<boolean>(false)
   useEffect(() => {
     if (map && inputBox.current) {
       const searchBox = new google.maps.places.SearchBox(inputBox.current)
@@ -52,9 +52,10 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
         draggable: true
       })
       Marker.setMap(map)
-      placedMarker = true
+      setPlacedMarker(true)
     }
   }
+
   const save = () => {
     const lat = Marker.getPosition()?.lat()
     const lng = Marker.getPosition()?.lng()
@@ -68,7 +69,7 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
         <p>zoek op locatie en plaats een pin</p>
         <div className={styles.locationInputBox}>
           <div className={styles.input}><input ref={inputBox} type='text' id='placeQuery' /></div>
-          <div className={styles.locationMark} onClick={placeMarker}>
+          <div className={`${placedMarker ? `${styles.locationMark} ${styles.disabled}` : styles.locationMark}  `} onClick={placeMarker}>
             <Icon name='location' />
           </div>
         </div>
