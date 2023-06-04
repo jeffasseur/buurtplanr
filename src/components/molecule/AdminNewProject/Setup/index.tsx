@@ -2,10 +2,15 @@ import Image from 'next/image'
 
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
+import Button from '@components/atoms/Button'
+import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
-const Setup = ({ FormData, setFormData }) => {
+const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
+  const newFormData = { ...FormData }
+  const resetProgress = useNewProjectForm((state) => state.resetProgress)
+
   return (
     <div className={styles.setupContainer}>
       <fieldset className={styles.name}>
@@ -16,8 +21,8 @@ const Setup = ({ FormData, setFormData }) => {
           placeholder='Projectnaam'
           autoFocus
           required
-          value={FormData.title}
-          onChange={(event) => setFormData({ ...FormData, title: event.target.value })}
+          // value={newFormData.title}
+          onChange={(event) => { newFormData.title = event.target.value }}
         />
       </fieldset>
       <fieldset className={styles.date}>
@@ -29,9 +34,9 @@ const Setup = ({ FormData, setFormData }) => {
             Size='small'
             placeholder='dd-mm-yyyy'
             min='2023-05-30'
-            value={FormData.dateOfPublication}
+            // value={newFormData.dateOfPublication}
             onChange={
-              (event) => setFormData({ ...FormData, dateOfPublication: event.target.value })
+              (event) => { newFormData.dateOfPublication = event.target.value }
             }
           />
         </div>
@@ -43,9 +48,9 @@ const Setup = ({ FormData, setFormData }) => {
               Size='small'
               placeholder='dd-mm-yyyy'
               min='2023-05-30'
-              value={FormData.dateOfStartCocreation}
+              // value={newFormData.dateOfStartCocreation}
               onChange={
-                (event) => setFormData({ ...FormData, dateOfStartCocreation: event.target.value })
+                (event) => { newFormData.dateOfStartCocreation = event.target.value }
               }
             />
           </div>
@@ -56,9 +61,9 @@ const Setup = ({ FormData, setFormData }) => {
               Size='small'
               placeholder='dd-mm-yyyy'
               min='2023-05-30'
-              value={FormData.dateOfEndCocreatio}
+              // value={newFormData.dateOfEndCocreation}
               onChange={
-                (event) => setFormData({ ...FormData, dateOfEndCocreation: event.target.value })
+                (event) => { newFormData.dateOfEndCocreation = event.target.value }
               }
             />
           </div>
@@ -71,9 +76,9 @@ const Setup = ({ FormData, setFormData }) => {
               Size='small'
               placeholder='dd-mm-yyyy'
               min='2023-05-30'
-              value={FormData.dateOfStartVote}
+              // value={newFormData.dateOfStartVote}
               onChange={
-                (event) => setFormData({ ...FormData, dateOfStartVote: event.target.value })
+                (event) => { newFormData.dateOfStartVote = event.target.value }
               }
             />
           </div>
@@ -84,9 +89,9 @@ const Setup = ({ FormData, setFormData }) => {
               Size='small'
               placeholder='dd-mm-yyyy'
               min='2023-05-30'
-              value={FormData.dateOfEndVote}
+              // value={newFormData.dateOfEndVote}
               onChange={
-                (event) => setFormData({ ...FormData, dateOfEndVote: event.target.value })
+                (event) => { newFormData.dateOfEndVote = event.target.value }
               }
             />
           </div>
@@ -98,9 +103,9 @@ const Setup = ({ FormData, setFormData }) => {
           type='number'
           Size='large'
           placeholder='0'
-          value={FormData.budget}
+          // value={newFormData.budget}
           onChange={
-            (event) => setFormData({ ...FormData, budget: event.target.value })
+            (event) => { newFormData.budget = event.target.value }
           }
         />
       </fieldset>
@@ -110,9 +115,9 @@ const Setup = ({ FormData, setFormData }) => {
           type='text'
           Size='large'
           placeholder='text editor...'
-          value={FormData.description}
+          // value={newFormData.description}
           onChange={
-            (event) => setFormData({ ...FormData, description: event.target.value })
+            (event) => { newFormData.description = event.target.value }
           }
         />
       </fieldset>
@@ -123,21 +128,21 @@ const Setup = ({ FormData, setFormData }) => {
             <label className={styles.typePlein}>
               <span>Plein</span>
               <Image src='/img/donut.webp' alt='type plein' width={250} height={220} />
-              <input type='radio' name='type' id='plein' value='plein' />
+              {/* <input type='radio' name='type' id='plein' value='plein' /> */}
             </label>
           </div>
           <div>
             <label className={styles.typePark}>
               <span>Park</span>
               <Image src='/img/donut.webp' alt='type park' width={250} height={220} />
-              <input type='radio' name='type' id='park' value='park' />
+              {/* <input type='radio' name='type' id='park' value='park' /> */}
             </label>
           </div>
           <div>
             <label className={styles.typeStraat}>
               <span>Straat</span>
               <Image src='/img/donut.webp' alt='type straat' width={250} height={220} />
-              <input type='radio' name='type' id='straat' value='straat' />
+              {/* <input type='radio' name='type' id='straat' value='straat' /> */}
             </label>
           </div>
         </div>
@@ -151,9 +156,9 @@ const Setup = ({ FormData, setFormData }) => {
           type='text'
           Size='large'
           placeholder='text editor...'
-          value={FormData.information}
+          // value={newFormData.informatie}
           onChange={
-            (event) => setFormData({ ...FormData, informatie: event.target.value })
+            (event) => { newFormData.informatie = event.target.value }
           }
         />
       </fieldset>
@@ -163,12 +168,36 @@ const Setup = ({ FormData, setFormData }) => {
           type='file'
           Size='small'
           onChange={
-            (event) => {
-              setFormData({ ...FormData, document: event.target.files[0] })
-            }
+              (event) => { newFormData.document = event.target.files[0] }
           }
         />
       </fieldset>
+      <div className={styles.footer}>
+
+        <div className={styles.btnContainer}>
+          <Button
+            as='link'
+            href='/admin'
+            size='small'
+            theme='Primary'
+            onClick={() => {
+              resetProgress()
+            }}
+          >annuleren
+          </Button>
+          <Button
+            as='button'
+            size='small'
+            append='arrow-right'
+            theme='Primary'
+            onClick={() => {
+              setSetupProgress(newFormData)
+              updateFormStage(1)
+            }}
+          >volgende stap
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

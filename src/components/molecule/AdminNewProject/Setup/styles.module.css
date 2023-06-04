@@ -5,20 +5,33 @@
   padding: var(--spacing-06) 6rem;
 }
 
-.date, .name {
+.footer {
+  display: flex;
+  gap: var(--spacing-04);
+  padding-top: var(--spacing-06);
+  padding-bottom: var(--spacing-08);
+}
+
+.date,
+.name {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-06);
 }
 
-.publishDate, .cocreationDateStart, .cocreationDateEnd, .voteDateStart, .voteDateEnd {
+.publishDate,
+.cocreationDateStart,
+.cocreationDateEnd,
+.voteDateStart,
+.voteDateEnd {
   display: flex;
   justify-content: center;
   align-items: left;
   flex-direction: column;
 }
 
-.cocreationDate, .voteDate {
+.cocreationDate,
+.voteDate {
   display: flex;
   gap: var(--spacing-06);
 }
@@ -28,7 +41,9 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.typePlein, .typePark, .typeStraat {
+.typePlein,
+.typePark,
+.typeStraat {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-02);

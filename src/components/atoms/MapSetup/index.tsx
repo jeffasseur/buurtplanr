@@ -89,11 +89,12 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
         </div>
       </div>
       <Button
-        as='button'
+        as='link'
+        href='/admin/projects/create'
         size='small'
         append='arrow-right'
         theme='Primary'
-        onClick={() => { save() }}
+        // onClick={() => { save() }}
       >
         opslaan
       </Button>

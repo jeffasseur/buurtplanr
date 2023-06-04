@@ -2,10 +2,15 @@ import Image from 'next/image'
 
 // import { MapWrapper } from '@/components/3d/MapWrapper'
 import Title from '@/components/atoms/Title'
+import Button from '@components/atoms/Button'
+import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
-const Summary = ({ FormData, setFormData }) => {
+const Summary = ({ FormData, updateFormStage }) => {
+  const resetProgress = useNewProjectForm((state) => state.resetProgress)
+  console.log(FormData)
+
   return (
     <div className={styles.summaryContainer}>
       <div className={styles.dates}>
@@ -50,6 +55,31 @@ const Summary = ({ FormData, setFormData }) => {
         <ul>
           <li>Bouwstenen en aantallen</li>
         </ul>
+      </div>
+      <div className={styles.footer}>
+        <div className={styles.btnContainer}>
+          <Button
+            as='button'
+            size='small'
+            prepend='arrow-left'
+            theme='Primary'
+            onClick={() => {
+              updateFormStage(1)
+            }}
+          >vorige stap
+          </Button>
+          <Button
+            as='button'
+            size='small'
+            append='save'
+            theme='Primary'
+            onClick={() => {
+              resetProgress()
+            }}
+            // onClick={() => { void submitNewProject(FormData) }}
+          >opslaan
+          </Button>
+        </div>
       </div>
     </div>
   )

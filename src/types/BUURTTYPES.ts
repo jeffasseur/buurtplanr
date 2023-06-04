@@ -74,6 +74,36 @@ export interface projectData {
   __v: number
 }
 
+export interface newProjectFormData {
+  title: string
+  description: string
+  dateOfPublication: string
+  dateOfStartCocreation: string
+  dateOfEndCocreation: string
+  dateOfStartVote: string
+  dateOfEndVote: string
+  budget: number
+  informatie: string
+  document: object
+  location: {
+    coordinates: {
+      lat: number
+      lng: number
+    }
+    postalcode: string
+    city: string
+    street: string
+  }
+  border: object
+  projectData: {
+    type: string
+    file: null
+    description: string
+    link: string
+  }
+
+}
+
 export interface productUploadData {
   latlng: LatLngTypes | Vector3
   modelName: string

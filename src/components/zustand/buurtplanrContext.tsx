@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface DroppedModel {
   model: string | null
@@ -27,3 +28,78 @@ export const useUser = create<User>((set) => ({
   projectID: null,
   updatePID: (el) => { set(() => ({ projectID: el })) }
 }))
+
+export const useNewProjectForm = create(
+  persist(
+    (set, get) => ({
+      formStage: 0,
+      updateFormStage: (params) => {
+        set((state) => ({
+          formStage: params
+        }))
+      },
+
+      setupInit: {
+        // title: '',
+        // description: '',
+        // dateOfPublication: '',
+        // dateOfStartCocreation: '',
+        // dateOfEndCocreation: '',
+        // dateOfStartVote: '',
+        // dateOfEndVote: '',
+        budget: 0,
+        informatie: 'hnieuweraanlaeggabosl',
+        // document: '',
+        projectData: {
+          type: 'straat',
+          file: null,
+          // description: '',
+          link: 'https://arthuris.online'
+        }
+      },
+
+      setupProgress: {},
+      setSetupProgress: (params) => {
+        set((state) => ({
+          setupProgress: params
+        }))
+      },
+
+      cocreationInit: {
+        location: {
+          coordinates: {
+            lat: 0,
+            lng: 0
+          },
+          postalcode: '2800',
+          city: 'mechelen',
+          street: 'vleeshalleSteenweg'
+        },
+        border: [
+          { lat: 0, lng: 0 }
+        ]
+      },
+
+      cocreationProgress: {},
+      setCocreationProgress: (params) => {
+        set((state) => ({
+          cocreationProgress: params
+        }))
+      },
+
+      formData: {},
+      bindFormData: () => {
+        set((state) => ({
+          formData: { ...state.setupProgress, ...state.cocreationProgress }
+        }))
+      },
+
+      resetProgress: () => {
+        set((state) => ({
+          formStage: 0, setupProgress: state.setupInit, cocreationProgress: state.cocreationInit, formData: null
+        }))
+      }
+    }),
+    { name: 'newProjectData' }
+  )
+)

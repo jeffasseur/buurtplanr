@@ -5,7 +5,10 @@
   padding: var(--spacing-06) 6rem;
 }
 
-.location, .cocreation, .buildingpieces, .checkedBuildingPieces {
+.location,
+.cocreation,
+.buildingpieces,
+.checkedBuildingPieces {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-06);
@@ -27,9 +30,11 @@
   justify-content: center;
   box-shadow: 0 2px 10px black;
 }
+
 .CheckboxRoot:hover {
   background-color: var(--color-blue-500);
 }
+
 .CheckboxRoot:focus {
   box-shadow: 0 0 0 2px black;
 }
@@ -64,18 +69,26 @@
   gap: var(--spacing-06);
 }
 
+.footer {
+  display: flex;
+  gap: var(--spacing-04);
+  padding-top: var(--spacing-06);
+  padding-bottom: var(--spacing-08);
+}
 
-
-
-
-.publishDate, .cocreationDateStart, .cocreationDateEnd, .voteDateStart, .voteDateEnd {
+.publishDate,
+.cocreationDateStart,
+.cocreationDateEnd,
+.voteDateStart,
+.voteDateEnd {
   display: flex;
   justify-content: center;
   align-items: left;
   flex-direction: column;
 }
 
-.cocreationDate, .voteDate {
+.cocreationDate,
+.voteDate {
   display: flex;
   gap: var(--spacing-06);
 }
@@ -85,7 +98,9 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.typePlein, .typePark, .typeStraat {
+.typePlein,
+.typePark,
+.typeStraat {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-02);

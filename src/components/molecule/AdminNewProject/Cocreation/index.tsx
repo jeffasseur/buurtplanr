@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Button from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
+import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
@@ -55,16 +56,18 @@ const objects = [
   }
 ]
 
-const Cocreation = ({ FormData, setFormData }) => {
+const Cocreation = ({ FormData, setFormData, updateFormStage }) => {
+  const bindFormData = useNewProjectForm((state) => state.bindFormData)
+
   return (
     <div className={styles.cocreationContainer}>
-      <fieldset className={styles.location}>
+      {/* <fieldset className={styles.location}>
         <Title size='h3' weight='semibold'>Locatie</Title>
         <Button type='button' size='small' append='location'>Locatie kiezen</Button>
-      </fieldset>
+      </fieldset> */}
       <fieldset className={styles.cocreation}>
         <Title size='h3' weight='semibold'>Cocreatie</Title>
-        <Button type='button' size='small' append='builder'>Cocreatie configureren</Button>
+        <Button as='link' href='/admin/projects/create/location' size='small' append='builder'>Cocreatie configureren</Button>
       </fieldset>
       <fieldset className={styles.buildingpieces}>
         <Title size='h3' weight='semibold'>Bouwstukken</Title>
@@ -103,6 +106,31 @@ const Cocreation = ({ FormData, setFormData }) => {
           </div>
         </div>
       </fieldset>
+      <div className={styles.footer}>
+        <div className={styles.btnContainer}>
+          <Button
+            as='button'
+            size='small'
+            prepend='arrow-left'
+            theme='Primary'
+            onClick={() => {
+              updateFormStage(0)
+            }}
+          >vorige stap
+          </Button>
+          <Button
+            as='button'
+            size='small'
+            append='arrow-right'
+            theme='Primary'
+            onClick={() => {
+              bindFormData()
+              updateFormStage(2)
+            }}
+          >volgende stap
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
