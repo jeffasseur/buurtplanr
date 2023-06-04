@@ -180,10 +180,11 @@ const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
             href='/admin'
             size='small'
             theme='Primary'
-            onClick={() => {
-              resetProgress()
-            }}
-          >annuleren
+
+          >
+            <p onClick={() => { resetProgress() }}>
+              annuleren
+            </p>
           </Button>
           <Button
             as='button'

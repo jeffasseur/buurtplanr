@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { type BuurtMap } from '@/utils/BuurtMap'
+import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import Button from '../Button'
 import Icon from '../Icon'
@@ -13,9 +14,13 @@ interface setupProps {
 }
 
 export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
+  const cocreationProgress = useNewProjectForm((state) => state.cocreationProgress)
+  const newForm = { ...cocreationProgress }
+
   const inputBox = useRef<HTMLInputElement | null>(null)
-  let Marker: google.maps.Marker
+  // let Marker: google.maps.Marker
   const [placedMarker, setPlacedMarker] = useState<boolean>(false)
+  const [Marker, setMarker] = useState<google.maps.Marker>()
   useEffect(() => {
     if (map && inputBox.current) {
       const searchBox = new google.maps.places.SearchBox(inputBox.current)
@@ -41,25 +46,28 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
         map.setTilt(100)
       })
     }
-  }, [map])
+    if (Marker && map) {
+      Marker.setMap(map)
+      setPlacedMarker(true)
+    }
+  }, [Marker, map])
 
   const placeMarker = () => {
     if (map && !placedMarker) {
-      Marker = new google.maps.Marker({
+      setMarker(new google.maps.Marker({
         position: map.getCenter(),
         icon: '/img/map-pin.svg',
         title: 'herplaatsen',
         draggable: true
-      })
-      Marker.setMap(map)
-      setPlacedMarker(true)
+      }))
     }
   }
 
   const save = () => {
-    const lat = Marker.getPosition()?.lat()
-    const lng = Marker.getPosition()?.lng()
-    console.log(lat, lng)
+    if (Marker) {
+      newForm.location.coordinates.lat = Marker.getPosition()?.lat()
+      newForm.location.coordinates.lng = Marker.getPosition()?.lng()
+    }
   }
 
   return (
@@ -94,9 +102,10 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
         size='small'
         append='arrow-right'
         theme='Primary'
-        // onClick={() => { save() }}
       >
-        opslaan
+        <p onClick={() => { save() }}>
+          opslaan
+        </p>
       </Button>
 
     </div>

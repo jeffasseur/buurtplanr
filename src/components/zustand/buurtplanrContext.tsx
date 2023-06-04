@@ -68,7 +68,7 @@ export const useNewProjectForm = create(
       cocreationInit: {
         location: {
           coordinates: {
-            lat: 0,
+            lat: 5,
             lng: 0
           },
           postalcode: '2800',
@@ -96,7 +96,33 @@ export const useNewProjectForm = create(
 
       resetProgress: () => {
         set((state) => ({
-          formStage: 0, setupProgress: state.setupInit, cocreationProgress: state.cocreationInit, formData: null
+          setupProgress: {
+            budget: 0,
+            informatie: 'hnieuweraanlaeggabosl',
+            projectData: {
+              type: 'straat',
+              file: null,
+              link: 'https://arthuris.online'
+            }
+          },
+
+          cocreationProgress: {
+            location: {
+              coordinates: {
+                lat: 5,
+                lng: 0
+              },
+              postalcode: '2800',
+              city: 'mechelen',
+              street: 'vleeshalleSteenweg'
+            },
+            border: [
+              { lat: 0, lng: 0 }
+            ]
+          },
+
+          formStage: 0,
+          formData: null
         }))
       }
     }),

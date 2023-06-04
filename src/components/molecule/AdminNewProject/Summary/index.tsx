@@ -7,9 +7,22 @@ import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
+const submitNewProject = async (data) => {
+  const dataString = JSON.stringify(data)
+  await fetch('/api/createProject', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:3000/, https://buurtplanr.com',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    },
+    body: dataString
+  })
+}
+
 const Summary = ({ FormData, updateFormStage }) => {
   const resetProgress = useNewProjectForm((state) => state.resetProgress)
-  console.log(FormData)
 
   return (
     <div className={styles.summaryContainer}>
@@ -43,6 +56,9 @@ const Summary = ({ FormData, updateFormStage }) => {
         <Title size='h3' weight='semibold'>Locatie</Title>
         <div className={styles.mapWrapper}>
           Hier komt de map met de ingestelde locatie
+          {FormData.location.postalcode}
+          {FormData.location.city}
+          {FormData.location.street}
           {/* <MapWrapper mapType='overview' /> */}
         </div>
       </div>
@@ -69,15 +85,20 @@ const Summary = ({ FormData, updateFormStage }) => {
           >vorige stap
           </Button>
           <Button
-            as='button'
+            href='/admin'
+            as='link'
             size='small'
             append='save'
             theme='Primary'
-            onClick={() => {
+          >
+            <p onClick={() => {
               resetProgress()
+              void submitNewProject(FormData)
             }}
-            // onClick={() => { void submitNewProject(FormData) }}
-          >opslaan
+            >
+              opslaan
+            </p>
+
           </Button>
         </div>
       </div>

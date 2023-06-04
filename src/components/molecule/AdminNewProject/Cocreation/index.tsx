@@ -58,13 +58,8 @@ const objects = [
 
 const Cocreation = ({ FormData, setFormData, updateFormStage }) => {
   const bindFormData = useNewProjectForm((state) => state.bindFormData)
-
   return (
     <div className={styles.cocreationContainer}>
-      {/* <fieldset className={styles.location}>
-        <Title size='h3' weight='semibold'>Locatie</Title>
-        <Button type='button' size='small' append='location'>Locatie kiezen</Button>
-      </fieldset> */}
       <fieldset className={styles.cocreation}>
         <Title size='h3' weight='semibold'>Cocreatie</Title>
         <Button as='link' href='/admin/projects/create/location' size='small' append='builder'>Cocreatie configureren</Button>
