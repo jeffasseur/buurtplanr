@@ -1,0 +1,20 @@
+.title {
+  color: var(--color-title);
+  margin-bottom: var(--spacing-09);
+}
+
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+}
+
+.descriptionTitle {
+  color: var(--color-purple-500);
+}
+
+.descriptionText {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-large);
+  font-weight: 500;
+}

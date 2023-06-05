@@ -12,7 +12,8 @@ const buttonStyle = cva(styles.button, {
       Primary: styles.themePrimary,
       Secondary: styles.themeSecondary,
       Tertiary: styles.themeTertiary,
-      Warning: styles.themeWarning
+      Warning: styles.themeWarning,
+      Transparent: styles.themeTransparent
     },
     size: {
       large: styles.sizeLarge,
@@ -35,18 +36,15 @@ interface BaseProps extends VariantProps<typeof buttonStyle> {
   onClick?: any
 }
 
-type ButtonAsButton = BaseProps &
-Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseProps> & {
+type ButtonAsButton = BaseProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseProps> & {
   as?: 'button'
 }
 
-type ButtonAsLink = BaseProps &
-Omit<LinkProps, keyof BaseProps> & {
+type ButtonAsLink = BaseProps & Omit<LinkProps, keyof BaseProps> & {
   as: 'link'
 }
 
-type ButtonAsExternal = BaseProps &
-Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseProps> & {
+type ButtonAsExternal = BaseProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseProps> & {
   as: 'externalLink'
 }
 

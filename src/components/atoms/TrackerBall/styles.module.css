@@ -1,6 +1,10 @@
 .trackerCircleZindex {
   z-index: 5;
 }
+.text {
+  width: 140px;
+  text-align: center;
+}
 
 .trackerCircleWrapper {
   display: flex;
@@ -56,6 +60,7 @@
   width: 120px;
   aspect-ratio: 1 / 1;
   border: 10px solid var(--color-blue-400);
+  background: transparent;
   &:hover {
     cursor: pointer;
   }
