@@ -11,7 +11,7 @@ import styles from './styles.module.css'
 const AdminNewProject = () => {
   const setSetupProgress = useNewProjectForm((state) => state.setSetupProgress)
   const setupProgress = useNewProjectForm((state) => state.setupProgress)
-  const updateCocreationProgress = useNewProjectForm((state) => state.updateCocreationProgress)
+  const updateCocreationProgress = useNewProjectForm((state) => state.setCocreationProgress)
   const cocreationProgress = useNewProjectForm((state) => state.cocreationProgress)
   const formStage = useNewProjectForm((state) => state.formStage)
   const updateFormStage = useNewProjectForm((state) => state.updateFormStage)

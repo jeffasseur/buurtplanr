@@ -65,8 +65,11 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
 
   const save = () => {
     if (Marker) {
-      newForm.location.coordinates.lat = Marker.getPosition()?.lat()
-      newForm.location.coordinates.lng = Marker.getPosition()?.lng()
+      const position = Marker.getPosition()
+      if (position) {
+        newForm.location.coordinates.lat = position.lat()
+        newForm.location.coordinates.lng = position.lng()
+      }
     }
   }
 

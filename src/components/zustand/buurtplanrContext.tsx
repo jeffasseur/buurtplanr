@@ -29,43 +29,71 @@ export const useUser = create<User>((set) => ({
   updatePID: (el) => { set(() => ({ projectID: el })) }
 }))
 
-export const useNewProjectForm = create(
+interface setup {
+  budget: number | undefined
+  informatie: string | undefined
+  projectData: {
+    type: string | undefined
+    file: null | undefined
+    link: string | undefined
+  }
+}
+
+interface cocreation {
+  location: {
+    coordinates: {
+      lat: number | undefined
+      lng: number | undefined
+    }
+    postalcode: string | undefined
+    city: string | undefined
+    street: string | undefined
+  }
+  border: [{
+    lat: number | undefined
+    lng: number | undefined
+  }]
+}
+
+interface newProjectForm {
+  formStage: number
+  updateFormStage: (params: number) => void
+  setupProgress: setup
+  setSetupProgress: (params: any) => void
+  cocreationProgress: cocreation
+  setCocreationProgress: (params: any) => void
+  formData: object
+  bindFormData: () => void
+  resetProgress: () => void
+}
+
+export const useNewProjectForm = create<newProjectForm>()(
   persist(
     (set, get) => ({
       formStage: 0,
-      updateFormStage: (params) => {
-        set((state) => ({
+      updateFormStage: (params: number) => {
+        set(() => ({
           formStage: params
         }))
       },
 
-      setupInit: {
-        // title: '',
-        // description: '',
-        // dateOfPublication: '',
-        // dateOfStartCocreation: '',
-        // dateOfEndCocreation: '',
-        // dateOfStartVote: '',
-        // dateOfEndVote: '',
+      setupProgress: {
         budget: 0,
         informatie: 'hnieuweraanlaeggabosl',
-        // document: '',
         projectData: {
           type: 'straat',
           file: null,
-          // description: '',
           link: 'https://arthuris.online'
         }
       },
 
-      setupProgress: {},
       setSetupProgress: (params) => {
-        set((state) => ({
+        set(() => ({
           setupProgress: params
         }))
       },
 
-      cocreationInit: {
+      cocreationProgress: {
         location: {
           coordinates: {
             lat: 5,
@@ -79,10 +107,8 @@ export const useNewProjectForm = create(
           { lat: 0, lng: 0 }
         ]
       },
-
-      cocreationProgress: {},
       setCocreationProgress: (params) => {
-        set((state) => ({
+        set(() => ({
           cocreationProgress: params
         }))
       },
@@ -95,7 +121,7 @@ export const useNewProjectForm = create(
       },
 
       resetProgress: () => {
-        set((state) => ({
+        set({
           setupProgress: {
             budget: 0,
             informatie: 'hnieuweraanlaeggabosl',
@@ -122,8 +148,8 @@ export const useNewProjectForm = create(
           },
 
           formStage: 0,
-          formData: null
-        }))
+          formData: undefined
+        })
       }
     }),
     { name: 'newProjectData' }
