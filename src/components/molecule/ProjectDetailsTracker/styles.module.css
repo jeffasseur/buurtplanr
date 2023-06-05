@@ -2,6 +2,9 @@
   display: flex;
   align-items: flex-start;
 }
+.step0 {
+  opacity: .5;
+}
 
 .barNonactive {
   width: 100px;
@@ -15,9 +18,9 @@
 .barActive {
   width: 100px;
   height: 1rem;
-  background: transparent;
+  background: var(--color-blue-500);
   margin-top: calc(60px - .5rem);
   margin-left: -1rem;
   margin-right: -1rem;
-  color: var(--color-blue-400);
+  color: transparent;
 }

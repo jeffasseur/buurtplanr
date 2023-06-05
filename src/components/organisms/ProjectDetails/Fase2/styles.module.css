@@ -1,0 +1,10 @@
+.title {
+  color: var(--color-title);
+  margin-bottom: var(--spacing-09);
+}
+
+.bouwMee {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

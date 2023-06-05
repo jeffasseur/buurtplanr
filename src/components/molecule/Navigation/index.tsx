@@ -13,7 +13,9 @@ const Navigation = () => {
   return (
     <div className={styles.navigation}>
       <div>
-        <Icon name='logo' className={styles.logo} />
+        <Link href='/'>
+          <Icon name='logo' className={styles.logo} />
+        </Link>
       </div>
       <div className={styles.menu}>
         <Link href='/'>

@@ -83,6 +83,7 @@
   --color-white: #fff;
   --color-black: #191919;
   --color-title: #2D3653;
+  --color-gradient-variant: radial-gradient(31.87% 59.7% at 12.35% 86.21%, rgba(140, 149, 175, 0.2) 0%, rgba(255, 255, 255, 0.2) 71.06%), radial-gradient(45.24% 76.08% at 91.93% 5.76%, rgba(175, 181, 199, 0.2) 0%, rgba(255, 255, 255, 0.2) 56.21%), #FFFFFF;
   --bp-xxl: 1920px;
   --bp-xl: 1440px;
   --bp-lg: 1024px;
