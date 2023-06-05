@@ -100,6 +100,23 @@ export class BuurtMap {
     }
   }
 
+  rotateProduct = (dir: string) => {
+    // let currRotation: number
+    const step: number = 20
+    if (this.dragOBJ) {
+      switch (dir) {
+        case 'counter-clockwise':
+          if (this.dragOBJ.rotation.y > (340 - step)) this.dragOBJ.rotation.y = 0
+          this.dragOBJ.rotation.y = this.dragOBJ.rotation.y += step
+          break
+        case 'clockwise':
+          if (this.dragOBJ.rotation.y < (20 - step)) this.dragOBJ.rotation.y = 360
+          this.dragOBJ.rotation.y = this.dragOBJ.rotation.y -= step
+          break
+      }
+    }
+  }
+
   updateProductPosition = () => {
     if (this.dragOBJ) { this.dragOBJ.position.copy(this.mousePosition) }
   }

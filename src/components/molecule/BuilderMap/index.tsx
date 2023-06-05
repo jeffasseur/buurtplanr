@@ -146,7 +146,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   return (
     <div className={styles.container}>
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
-        <Thermometer />
+        {map && <Thermometer />}
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       </div>
       <div className={styles.navcontainer}>
