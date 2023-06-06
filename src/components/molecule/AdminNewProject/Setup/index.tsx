@@ -172,32 +172,29 @@ const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
           }
         />
       </fieldset>
+
       <div className={styles.footer}>
-
-        <div className={styles.btnContainer}>
-          <Button
-            as='link'
-            href='/admin'
-            size='small'
-            theme='Primary'
-
-          >
-            <p onClick={() => { resetProgress() }}>
-              annuleren
-            </p>
-          </Button>
-          <Button
-            as='button'
-            size='small'
-            append='arrow-right'
-            theme='Primary'
-            onClick={() => {
-              setSetupProgress(newFormData)
-              updateFormStage(1)
-            }}
-          >volgende stap
-          </Button>
-        </div>
+        <Button
+          as='link'
+          href='/admin'
+          size='small'
+          theme='Primary'
+        >
+          <p onClick={() => { resetProgress() }}>
+            annuleren
+          </p>
+        </Button>
+        <Button
+          as='button'
+          size='small'
+          append='arrow-right'
+          theme='Primary'
+          onClick={() => {
+            setSetupProgress(newFormData)
+            updateFormStage(1)
+          }}
+        >volgende stap
+        </Button>
       </div>
     </div>
   )

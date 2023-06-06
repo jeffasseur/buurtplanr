@@ -71,6 +71,7 @@
 
 .footer {
   display: flex;
+  justify-content: center;
   gap: var(--spacing-04);
   padding-top: var(--spacing-06);
   padding-bottom: var(--spacing-08);

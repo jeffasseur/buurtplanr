@@ -5,7 +5,13 @@
   padding: var(--spacing-06) 6rem;
 }
 
-.location, .cocreation, .dates, .budget, .beschrijving, .info, .vereisten {
+.location,
+.cocreation,
+.dates,
+.budget,
+.beschrijving,
+.info,
+.vereisten {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-06);
@@ -21,4 +27,12 @@
   height: 400px;
   border-radius: var(--radius-2);
   overflow: hidden;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-04);
+  padding-top: var(--spacing-06);
+  padding-bottom: var(--spacing-08);
 }

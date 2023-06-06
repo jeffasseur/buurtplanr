@@ -102,29 +102,27 @@ const Cocreation = ({ FormData, setFormData, updateFormStage }) => {
         </div>
       </fieldset>
       <div className={styles.footer}>
-        <div className={styles.btnContainer}>
-          <Button
-            as='button'
-            size='small'
-            prepend='arrow-left'
-            theme='Primary'
-            onClick={() => {
-              updateFormStage(0)
-            }}
-          >vorige stap
-          </Button>
-          <Button
-            as='button'
-            size='small'
-            append='arrow-right'
-            theme='Primary'
-            onClick={() => {
-              bindFormData()
-              updateFormStage(2)
-            }}
-          >volgende stap
-          </Button>
-        </div>
+        <Button
+          as='button'
+          size='small'
+          prepend='arrow-left'
+          theme='Primary'
+          onClick={() => {
+            updateFormStage(0)
+          }}
+        >vorige stap
+        </Button>
+        <Button
+          as='button'
+          size='small'
+          append='arrow-right'
+          theme='Primary'
+          onClick={() => {
+            bindFormData()
+            updateFormStage(2)
+          }}
+        >volgende stap
+        </Button>
       </div>
     </div>
   )

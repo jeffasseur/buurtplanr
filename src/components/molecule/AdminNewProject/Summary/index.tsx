@@ -72,34 +72,32 @@ const Summary = ({ FormData, updateFormStage }) => {
         </ul>
       </div>
       <div className={styles.footer}>
-        <div className={styles.btnContainer}>
-          <Button
-            as='button'
-            size='small'
-            prepend='arrow-left'
-            theme='Primary'
-            onClick={() => {
-              updateFormStage(1)
-            }}
-          >vorige stap
-          </Button>
-          <Button
-            href='/admin'
-            as='link'
-            size='small'
-            append='save'
-            theme='Primary'
+        <Button
+          as='button'
+          size='small'
+          prepend='arrow-left'
+          theme='Primary'
+          onClick={() => {
+            updateFormStage(1)
+          }}
+        >vorige stap
+        </Button>
+        <Button
+          href='/admin'
+          as='link'
+          size='small'
+          append='save'
+          theme='Primary'
+        >
+          <p onClick={() => {
+            void submitNewProject(FormData)
+            resetProgress()
+          }}
           >
-            <p onClick={() => {
-              void submitNewProject(FormData)
-              resetProgress()
-            }}
-            >
-              opslaan
-            </p>
+            opslaan
+          </p>
 
-          </Button>
-        </div>
+        </Button>
       </div>
     </div>
   )
