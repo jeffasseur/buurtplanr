@@ -64,6 +64,12 @@ export interface projectData {
     isDeleted: boolean
     whenDeleted: string
   }
+  projectData: {
+    type: string
+    file: string
+    description: string
+    link: string
+  }
   _id: string
   fase: string
   dateOfCreation: string

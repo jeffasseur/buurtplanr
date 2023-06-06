@@ -8,10 +8,10 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://localhost:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
+let baseURL: string = '/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const submitLogin = async (data) => {
   if (data.email !== '' && data.password !== '') {
@@ -64,7 +64,7 @@ const Login = () => {
                 value={FormData.email}
                 onChange={(e) => { setFormData({ ...FormData, email: e.target.value }) }}
               />
-              <Icon name='profile-user' className={styles.icon} />
+              <Icon name='user' className={styles.icon} />
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>

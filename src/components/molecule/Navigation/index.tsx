@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import Button from '@/components/atoms/Button'
+import DropdownNavUser from '@components/atoms/Dropdown/NavUser'
 
 import Icon from '../../atoms/Icon'
 
@@ -18,13 +19,13 @@ const Navigation = () => {
         </Link>
       </div>
       <div className={styles.menu}>
-        <Link href='/'>
+        <Link href='/' className={styles.desktop}>
           <Icon name='home' />
         </Link>
         {
           isAdmin && loggedIn &&
           (
-            <Button as='link' href='/admin' append='security-user' size='small'>
+            <Button as='link' href='/admin' append='security-user' size='small' className={styles.desktopFlex}>
               Admin
             </Button>
           )
@@ -42,12 +43,10 @@ const Navigation = () => {
             </div>
           )
         }
-        <Link href='/'>
+        <Link href='/' className={styles.desktop}>
           <Icon name='notification' />
         </Link>
-        <Link href='/'>
-          <i>Dropdown</i>
-        </Link>
+        <DropdownNavUser />
       </div>
     </div>
   )

@@ -122,21 +122,27 @@ const Setup = ({ FormData, setFormData }) => {
           <div>
             <label className={styles.typePlein}>
               <span>Plein</span>
-              <Image src='/img/donut.webp' alt='type plein' width={250} height={220} />
-              <input type='radio' name='type' id='plein' value='plein' />
+              <div className={styles.imgContainer}>
+                <Image src='/img/types/TOWN.png' alt='type dorp' fill />
+              </div>
+              <input type='radio' name='type' id='dorp' value='dorp' />
             </label>
           </div>
           <div>
             <label className={styles.typePark}>
               <span>Park</span>
-              <Image src='/img/donut.webp' alt='type park' width={250} height={220} />
+              <div className={styles.imgContainer}>
+                <Image src='/img/types/PARK.png' alt='type park' fill />
+              </div>
               <input type='radio' name='type' id='park' value='park' />
             </label>
           </div>
           <div>
             <label className={styles.typeStraat}>
               <span>Straat</span>
-              <Image src='/img/donut.webp' alt='type straat' width={250} height={220} />
+              <div className={styles.imgContainer}>
+                <Image src='/img/types/STREET.png' alt='type straat' fill />
+              </div>
               <input type='radio' name='type' id='straat' value='straat' />
             </label>
           </div>

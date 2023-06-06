@@ -18,7 +18,24 @@ const ProjectColumn = ({ project }: ProjectProps) => {
       {project &&
         <div className={styles.cardContainer}>
           <div className={styles.cardImg}>
-            <Image src='' alt='image' className={styles.cardImg} />
+            {
+              (project.projectData.type === 'Park' || project.projectData.type === 'park') &&
+              (
+                <Image src='/img/types/PARK.png' alt='type park' className={styles.imageBorderRadius} fill />
+              )
+            }
+            {
+              (project.projectData.type === 'Straat' || project.projectData.type === 'straat') &&
+              (
+                <Image src='/img/types/STREET.png' alt='type straat' className={styles.imageBorderRadius} fill />
+              )
+            }
+            {
+              (project.projectData.type === 'Dorp' || project.projectData.type === 'dorp') &&
+              (
+                <Image src='/img/types/TOWN.png' alt='type dorp' className={styles.imageBorderRadius} fill />
+              )
+            }
           </div>
           <div className={styles.cardHeader}>
             <h3>{project.title}</h3>
@@ -33,12 +50,17 @@ const ProjectColumn = ({ project }: ProjectProps) => {
           <div className={styles.btnContainer}>
             {userID && (
               <>
-                <Button as='link' size='small' href={`/builder/${project._id}/${userID}`}>
-                  <span>Deelnemen</span>
+                <Button as='link' theme='Secondary' append='arrow-right' size='small' href={`/project/${project._id}`}>
+                  <span>Meer lezen</span>
                 </Button>
-                <Button as='link' theme='Tertiary' size='small' href={`/builder/${project._id}/${userID}`}>
-                  <span>Info</span>
-                </Button>
+                {
+                  project.fase === 'Fase 2: Cocreatie' &&
+                  (
+                    <Button as='link' size='small' append='builder' href={`/builder/${project._id}/${userID}`}>
+                      <span>Deelnemen</span>
+                    </Button>
+                  )
+                }
               </>
             )}
           </div>

@@ -65,7 +65,7 @@ const AdminLogin = () => {
                 value={FormData.email}
                 onChange={(e) => { setFormData({ ...FormData, email: e.target.value }) }}
               />
-              <Icon name='profile-user' className={styles.icon} />
+              <Icon name='user' className={styles.icon} />
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>

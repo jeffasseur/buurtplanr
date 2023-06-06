@@ -29,21 +29,21 @@ const AdminProjects = () => {
         <Title size='h3'>Start een nieuw project</Title>
         <Button as='link' href='/admin/projects/create' append='builder' size='small'>Project starten</Button>
       </div>
-      <div className={styles.projectContainer}>
-        <div className={styles.cardContainer}>
-          <p>project naam</p>
-          <div>
-            <p className={styles.fase}>fase</p>
-          </div>
-          <div>
-            <p className={styles.date}>startdatum</p>
-          </div>
-          <div className={styles.searchContainer}>
-            <form action=''>
-              <input type='text' name='search' id='search' placeholder='Zoek project' />
-            </form>
-          </div>
+      <div className={styles.cardContainer}>
+        <p>project naam</p>
+        <div>
+          <p className={styles.fase}>fase</p>
         </div>
+        <div>
+          <p className={styles.date}>startdatum</p>
+        </div>
+        <div className={styles.searchContainer}>
+          <form action=''>
+            <input type='text' name='search' id='search' placeholder='Zoek project' />
+          </form>
+        </div>
+      </div>
+      <div className={styles.projectContainer}>
         <div className={styles.projectRowContainer}>
           {isLoading && <p>Loading...</p>}
           {data?.data &&

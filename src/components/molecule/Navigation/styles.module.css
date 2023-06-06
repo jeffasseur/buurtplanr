@@ -1,3 +1,10 @@
+.desktop {
+  display: block;
+}
+.desktopFlex {
+  display:flex
+}
+
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -30,4 +37,10 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+@media screen and ( max-width: 768px ) {
+  .desktop {
+    display: none;
+  }
 }

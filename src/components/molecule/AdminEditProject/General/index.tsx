@@ -61,6 +61,9 @@ const AdminEditProjectGeneral = ({ project }) => {
   const handleChange = (event) => {
     setFormData({ ...FormData, fase: event.target.value })
   }
+  const handleChangeType = (event) => {
+    setFormData({ ...FormData.projectData, type: event.target.value })
+  }
   return (
     <div className={styles.generalContainer}>
       <fieldset className={styles.fase}>
@@ -148,6 +151,16 @@ const AdminEditProjectGeneral = ({ project }) => {
           value={project.budget}
           onChange={(event) => { setFormData({ ...FormData, budget: event.target.value }) }}
         />
+      </fieldset>
+      <fieldset className={styles.fase}>
+        <Title as='h3' size='h3' weight='semibold'>Type</Title>
+        <div className={styles.faseContainer}>
+          <select name='projectType' defaultValue={FormData.projectData.type} id='projectFase' onChange={handleChangeType} className={styles.projectFase}>
+            <option value='Dorp'>Dorp</option>
+            <option value='Straat'>Straat</option>
+            <option value='Park'>Park</option>
+          </select>
+        </div>
       </fieldset>
       <fieldset>
         <Button

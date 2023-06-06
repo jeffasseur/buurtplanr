@@ -1,6 +1,7 @@
 import { type ParsedUrlQuery } from 'querystring'
 
 import { redirect } from 'next/dist/server/api-utils'
+import Image from 'next/image'
 import Router from 'next/router'
 
 import Button from '@/components/atoms/Button'
@@ -28,6 +29,24 @@ const ProjectDetailPage = ({ project }) => {
     <>
       <UserLayout>
         <header className={styles.header}>
+          {
+            (project.projectData.type === 'Park' || project.projectData.type === 'park') &&
+            (
+              <Image src='/img/types/PARK.png' alt='type park' fill className={styles.bgImage} />
+            )
+          }
+          {
+            (project.projectData.type === 'Straat' || project.projectData.type === 'straat') &&
+            (
+              <Image src='/img/types/STREET.png' alt='type straat' fill className={styles.bgImage} />
+            )
+          }
+          {
+            (project.projectData.type === 'Dorp' || project.projectData.type === 'dorp') &&
+            (
+              <Image src='/img/types/TOWN.png' alt='type dorp' fill className={styles.bgImage} />
+            )
+          }
           <Button
             as='link'
             href=''
@@ -43,7 +62,7 @@ const ProjectDetailPage = ({ project }) => {
         </header>
         <main className={styles.main}>
           {
-            faseNumberInt > 1 &&
+            (faseNumberInt > 1 && faseNumberInt < 4) &&
             (
               <>
                 {pageElements[faseNumberInt - 2]}
@@ -51,6 +70,14 @@ const ProjectDetailPage = ({ project }) => {
             )
           }
           <Fase1 project={project} />
+          {
+            faseNumberInt === 4 &&
+            (
+              <>
+                {pageElements[faseNumberInt - 2]}
+              </>
+            )
+          }
         </main>
       </UserLayout>
     </>

@@ -19,7 +19,7 @@ const Dashboard = () => {
   }
 
   const { data } = useSWR(`${baseURL}projects/`, fetcher)
-  const [filter, setFilter] = useState('Wachten tot opstart')
+  const [filter, setFilter] = useState('Informeren')
 
   return (
     <>
@@ -31,11 +31,10 @@ const Dashboard = () => {
           <div className={styles.filterContainer}>
             <select className={styles.filter} value={filter} onChange={(e) => { setFilter(e.target.value) }}>
               <option value=''>filter op </option>
-              <option value='Wachten tot opstart ...'>Fase 0: Wachten tot opstart</option>
-              <option value='Informeren'>Fase 1: Informeren</option>
-              <option value='Cocreatie'>Fase 2: Cocreatie</option>
-              <option value='Stemmen'>Fase 3: Stemmen</option>
-              <option value='Vervolg'>Fase 4: Vervolg</option>
+              <option value='Fase 1: Informeren'>Fase 1: Informeren</option>
+              <option value='Fase 2: Cocreatie'>Fase 2: Cocreatie</option>
+              <option value='Fase 3: Stemmen'>Fase 3: Stemmen</option>
+              <option value='Fase 4: Vervolg'>Fase 4: Vervolg</option>
             </select>
             <div className='search'>
               <Icon name='search' />

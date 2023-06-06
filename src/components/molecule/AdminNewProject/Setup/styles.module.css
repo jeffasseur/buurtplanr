@@ -28,6 +28,13 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.imgContainer {
+  position: relative;
+  width: 250px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
 .typePlein, .typePark, .typeStraat {
   display: flex;
   flex-direction: column;

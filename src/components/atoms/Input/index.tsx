@@ -56,6 +56,7 @@ const Input: React.FC<InputProps> = ({
       min={props.min}
       name={props.name}
       id={props.id}
+      {...props}
     />
   )
 }
