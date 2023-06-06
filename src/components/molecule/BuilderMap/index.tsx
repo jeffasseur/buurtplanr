@@ -43,7 +43,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
         setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
       }
     }
-  }, [map, mapData, projectData.location.coordinates])
+    if (BUURTMAP?.scene) {
+      BUURTMAP.boundLats = projectData.border
+      BUURTMAP.joinBounds()
+    }
+  }, [BUURTMAP, map, mapData, projectData.border, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
     const updateRayMouse = (e) => {

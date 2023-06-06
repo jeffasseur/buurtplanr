@@ -72,6 +72,7 @@ export interface projectData {
   dateOfStart: string
   dateOfEnd: string
   __v: number
+  border: object[]
 }
 
 export interface newProjectFormData {

@@ -77,6 +77,47 @@ export class BuurtMap {
     }
   }
 
+  joinBounds = () => {
+    // Create a BufferGeometry object
+
+    // const geometry: THREE.BufferGeometry = new THREE.BufferGeometry()
+
+    // const indices: number[] = [0, 1, 2]
+    const convertedBounds: THREE.Vector3[] = []
+
+    this.boundLats.forEach((bound: LatLngTypes) => {
+      const obj = this.threeOverlay.latLngAltitudeToVector3(bound)
+      obj.x = parseFloat(obj.x.toFixed(8))
+      obj.y = parseFloat(obj.y.toFixed(8))
+      obj.z = 2
+      convertedBounds.push(obj)
+    })
+    convertedBounds.push(convertedBounds[0])
+    const planeGeometry = new THREE.BufferGeometry()
+
+    const positions = new Float32Array(convertedBounds.length * 3)
+    for (let i = 0; i < convertedBounds.length; i++) {
+      positions[i * 3] = convertedBounds[i].x
+      positions[i * 3 + 1] = convertedBounds[i].y
+      positions[i * 3 + 2] = convertedBounds[i].z
+    }
+
+    planeGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+
+    const indices: number[] = []
+    for (let i = 2; i < convertedBounds.length; i++) {
+      indices.push(0, i - 1, i)
+    }
+
+    planeGeometry.setIndex(indices)
+    planeGeometry.computeVertexNormals()
+
+    const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+
+    const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
+    this.scene.add(planeMesh)
+  }
+
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
     if (!this.initgndPos && mousePos) this.initgndPos = mousePos.clone()
     else if (this.initgndPos && this.finalgndPos && mousePos) {
