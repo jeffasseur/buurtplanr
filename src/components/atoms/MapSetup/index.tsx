@@ -15,8 +15,9 @@ interface setupProps {
 
 export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
   const cocreationProgress = useNewProjectForm((state) => state.cocreationProgress)
+  const setCocreationProgress = useNewProjectForm((state) => state.setCocreationProgress)
   const newForm = { ...cocreationProgress }
-
+  const [boundNumber, setBoundNumber] = useState<number>(0)
   const inputBox = useRef<HTMLInputElement | null>(null)
   // let Marker: google.maps.Marker
   const [placedMarker, setPlacedMarker] = useState<boolean>(false)
@@ -65,11 +66,13 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
 
   const save = () => {
     if (Marker) {
+      newForm.border = BUURTMAP.boundLats
       const position = Marker.getPosition()
       if (position) {
         newForm.location.coordinates.lat = position.lat()
         newForm.location.coordinates.lng = position.lng()
       }
+      setCocreationProgress(newForm)
     }
   }
 
@@ -92,7 +95,10 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
             as='button'
             size='small'
             theme='Primary'
-            onClick={() => { BUURTMAP.placeBnds() }}
+            onClick={() => {
+              BUURTMAP.placeBnds(boundNumber)
+              setBoundNumber(boundNumber + 1)
+            }}
           >
             grenzen plaatsen
           </Button>

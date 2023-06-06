@@ -49,10 +49,7 @@ interface cocreation {
     city: string | undefined
     street: string | undefined
   }
-  border: [{
-    lat: number | undefined
-    lng: number | undefined
-  }]
+  border: object[]
 }
 
 interface newProjectForm {
@@ -96,16 +93,17 @@ export const useNewProjectForm = create<newProjectForm>()(
       cocreationProgress: {
         location: {
           coordinates: {
-            lat: 5,
+            lat: 0,
             lng: 0
           },
           postalcode: '2800',
           city: 'mechelen',
           street: 'vleeshalleSteenweg'
         },
-        border: [
-          { lat: 0, lng: 0 }
-        ]
+        border: [{
+          lat: 0,
+          lng: 0
+        }]
       },
       setCocreationProgress: (params) => {
         set(() => ({
@@ -135,16 +133,17 @@ export const useNewProjectForm = create<newProjectForm>()(
           cocreationProgress: {
             location: {
               coordinates: {
-                lat: 5,
+                lat: 0,
                 lng: 0
               },
               postalcode: '2800',
               city: 'mechelen',
               street: 'vleeshalleSteenweg'
             },
-            border: [
-              { lat: 0, lng: 0 }
-            ]
+            border: [{
+              lat: 0,
+              lng: 0
+            }]
           },
 
           formStage: 0,

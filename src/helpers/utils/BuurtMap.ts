@@ -18,6 +18,7 @@ export class BuurtMap {
   initgndPos: THREE.Vector3 | undefined
   finalgndPos: THREE.Vector3 | undefined
   highlight: ProductModel | null
+  boundLats: object[]
 
   constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -27,14 +28,15 @@ export class BuurtMap {
     this.mousePosition = new THREE.Vector3()
     this.dragOBJ = null
     this.productformData = []
-    this.initDracoLoader()
+    this.initThree()
     this.gnd = undefined
     this.initgndPos = undefined
     this.finalgndPos = undefined
     this.highlight = null
+    this.boundLats = []
   }
 
-  initDracoLoader = () => {
+  initThree = () => {
     const dracoLoader = new DRACOLoader()
     dracoLoader.setDecoderConfig({ type: 'js' })
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
@@ -153,8 +155,10 @@ export class BuurtMap {
       })
   }
 
-  placeBnds = () => {
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
+  placeBnds = (number) => {
+    const dot: ProductMesh = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
+    dot.modelName = 'bound'
+    dot.bndNumber = number
     this.scene.add(dot)
     this.dragOBJ = dot
   }

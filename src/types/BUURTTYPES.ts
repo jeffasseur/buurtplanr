@@ -123,6 +123,7 @@ export interface ProductMesh extends THREE.Mesh {
   isDraggable?: boolean
   modelName?: string
   isHighlighter?: boolean
+  bndNumber?: number
 }
 
 export interface ProductModel extends THREE.Object3D {
@@ -130,6 +131,7 @@ export interface ProductModel extends THREE.Object3D {
   modelID?: number
   isDraggable?: boolean
   isHighlighter?: boolean
+  bndNumber?: number
 }
 
 export interface ProductGroup extends THREE.Group {
@@ -138,4 +140,5 @@ export interface ProductGroup extends THREE.Group {
   modelType?: string
   isDraggable?: boolean
   modelName?: string
+  bndNumber?: number
 }

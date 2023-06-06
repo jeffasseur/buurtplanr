@@ -23,7 +23,6 @@ const submitNewProject = async (data) => {
 
 const Summary = ({ FormData, updateFormStage }) => {
   const resetProgress = useNewProjectForm((state) => state.resetProgress)
-
   return (
     <div className={styles.summaryContainer}>
       <div className={styles.dates}>
@@ -92,8 +91,8 @@ const Summary = ({ FormData, updateFormStage }) => {
             theme='Primary'
           >
             <p onClick={() => {
-              resetProgress()
               void submitNewProject(FormData)
+              resetProgress()
             }}
             >
               opslaan
