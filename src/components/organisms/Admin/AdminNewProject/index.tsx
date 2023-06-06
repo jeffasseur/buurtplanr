@@ -43,7 +43,12 @@ const AdminNewProject = () => {
       city: 'Mechelen',
       street: 'vleeshalsesteenweg'
     },
-    border: {},
+    border: [
+      {
+        lat: 0,
+        lng: 0
+      }
+    ],
     projectData: {
       type: 'Straat',
       file: null,
