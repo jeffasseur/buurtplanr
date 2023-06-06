@@ -18,7 +18,7 @@ const TrackerBall = ({ state, text, number }) => {
               >{number}
               </Title>
             </div>
-            <p>
+            <p className={styles.text}>
               {text}
             </p>
           </div>
@@ -37,7 +37,7 @@ const TrackerBall = ({ state, text, number }) => {
               >{number}
               </Title>
             </div>
-            <p>
+            <p className={styles.text}>
               {text}
             </p>
           </div>
@@ -56,7 +56,7 @@ const TrackerBall = ({ state, text, number }) => {
               >{number}
               </Title>
             </div>
-            <p>
+            <p className={styles.text}>
               {text}
             </p>
           </div>
@@ -75,7 +75,7 @@ const TrackerBall = ({ state, text, number }) => {
               >{number}
               </Title>
             </div>
-            <p>
+            <p className={styles.text}>
               {text}
             </p>
           </div>
