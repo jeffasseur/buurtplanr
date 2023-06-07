@@ -25,7 +25,7 @@ const DropdownNavUser = () => {
   }
   return (
     <div className={styles.dropdownWrapper}>
-      <Button id='Dropdown' append='chevron-down' size='small' className={styles.button} style={{ background: active, color }} onClick={toggleDropdown}>
+      <Button id='Dropdown' append='chevron-down' size='small' theme='Primary' className={styles.button} style={{ background: active, color }} onClick={toggleDropdown}>
         <div className={styles.buttonInfo}>
           <Image src='/img/productThumbnails/donut.webp' alt='profielfoto' width={24} height={24} />
           Username

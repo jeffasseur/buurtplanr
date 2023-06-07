@@ -79,7 +79,7 @@ const Cocreation = ({ FormData, setFormData }) => {
                     <CheckIcon />
                   </Checkbox.Indicator>
                 </Checkbox.Root>
-                {/* <Input type='checkbox' name='object' id={object.value} /> */}
+                {/* <Input type='checkbox name='object' id={object.value} /> */}
               </label>
             ))
           }
@@ -99,7 +99,7 @@ const Cocreation = ({ FormData, setFormData }) => {
                   <Input type='number' Size='small' placeholder='0' />
                 </label>
               ))
-            }
+            }'
           </div>
         </div>
       </fieldset>

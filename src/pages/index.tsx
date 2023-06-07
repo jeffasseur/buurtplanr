@@ -18,7 +18,7 @@ const Dashboard = () => {
     baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
   }
 
-  const { data } = useSWR(`${baseURL}projects/`, fetcher)
+  const { data, isLoading, error } = useSWR(`${baseURL}projects/`, fetcher)
   const [filter, setFilter] = useState('Informeren')
 
   return (
@@ -42,9 +42,18 @@ const Dashboard = () => {
             </div>
           </div>
           <div className={styles.projectList}>
+            {
+              isLoading && <div>Loading...</div>
+            }
+            {
+              data?.status === 'error' && <div>Er is iets mis gegaan met het ophalen van de projecten</div>
+            }
             {data?.data.map((project) => {
               return <ProjectColumn key={project._id} project={project} />
             })}
+            {
+              error && <div>Er is iets mis gegaan met het ophalen van de projecten</div>
+            }
           </div>
         </section>
       </UserLayout>
