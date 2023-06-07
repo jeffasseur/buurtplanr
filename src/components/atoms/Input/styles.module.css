@@ -1,18 +1,33 @@
 .inputBasic {
+  width: 100%;
   padding: var(--spacing-02) var(--spacing-01);
+  font-size: var(--font-size-medium);
   background: var(--color-white);
   border-radius: var(--radius-1);
-  border: 1px solid var(--color-grey-500);
-  font-size: var(--font-size-medium);
-  width: 100%;
+  outline: 1px solid var(--color-grey-500);
+
+  &:active {
+    outline-color: var(--color-blue-300);
+  }
+
+  &:focus {
+    outline-width: 2px;
+    outline-color: var(--color-blue-400);
+  }
+}
+
+.error {
+  border-color: var(--color-red-400);
 }
 
 .sizeSmall {
   max-width: 300px;
 }
+
 .sizeMedium {
   max-width: 509px;
 }
+
 .sizeLarge {
   max-width: 100%;
 }

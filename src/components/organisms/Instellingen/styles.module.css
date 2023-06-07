@@ -1,0 +1,117 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+  align-items: center;
+  padding-block: var(--spacing-08);
+  padding-inline: 25%;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+  width: 100%;
+}
+
+.profile {
+  border-radius: var(--radius-round);
+}
+
+.background-selector {
+  display: flex;
+  justify-content: space-between;
+
+  @media (--lg-n-below) {
+    flex-direction: column;
+    gap: var(--spacing-08);
+  }
+} 
+
+.background {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  align-items: center;
+}
+
+.park {
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -10;
+    content: '';
+    background-image: url('/img/park.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .1;
+  }
+}
+
+.street {
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -10;
+    content: '';
+    background-image: url('/img/street.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .1;
+  }
+}
+
+.square {
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -10;
+    content: '';
+    background-image: url('/img/square.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .1;
+  }
+}
+
+
+.image-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.image {
+  border-radius: var(--radius-2);
+  object-fit: cover;
+}
+
+.CheckboxRoot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-06);
+  height: var(--spacing-06);
+  background-color: white;
+  border-radius: 4px;
+  outline: 1px solid var(--color-grey-500);
+}
+
+.CheckboxRoot[data-state='checked'] {
+  background-color: var(--color-purple-500);
+  outline: none;
+}
+
+.CheckboxIndicator {
+  color: white;
+}

@@ -24,6 +24,8 @@ const icons = [
   'adjust',
   'arrow-left',
   'gps',
+  'user',
+  'mail',
   'location',
   'profile-circle',
   'builder',

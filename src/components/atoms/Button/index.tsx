@@ -108,7 +108,7 @@ const Button = forwardRef<unknown, ButtonProps>(
 
         {props.children}
 
-        {append && <Icon name={append} />}
+        {append && <Icon name={append} className={styles[`icon-${size ?? ''}`]} />}
       </button>
     )
   }
