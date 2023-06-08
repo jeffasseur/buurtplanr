@@ -112,10 +112,25 @@ export class BuurtMap {
     planeGeometry.setIndex(indices)
     planeGeometry.computeVertexNormals()
 
-    const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
-
+    const planeMaterial = new THREE.MeshBasicMaterial({
+      color: 0x0000ff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.2
+    })
     const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
     this.scene.add(planeMesh)
+
+    const outlineGeometry = new THREE.EdgesGeometry(planeGeometry)
+    const outlineMaterial = new THREE.LineBasicMaterial({
+      color: 0x0000ff,
+      linewidth: 100,
+      linecap: 'round',
+      linejoin: 'round'
+    })
+    const outline = new THREE.LineSegments(outlineGeometry, outlineMaterial)
+
+    this.scene.add(outline)
   }
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
