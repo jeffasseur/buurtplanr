@@ -19,7 +19,6 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
   const newForm = { ...cocreationProgress }
   const [boundNumber, setBoundNumber] = useState<number>(0)
   const inputBox = useRef<HTMLInputElement | null>(null)
-  // let Marker: google.maps.Marker
   const [placedMarker, setPlacedMarker] = useState<boolean>(false)
   const [Marker, setMarker] = useState<google.maps.Marker>()
   useEffect(() => {
@@ -102,7 +101,7 @@ export const MapSetup = ({ BUURTMAP, map }: setupProps) => {
           >
             grenzen plaatsen
           </Button>
-          <p>overige grenzen: 10</p>
+          <p>overige grenzen: {10 - boundNumber}</p>
         </div>
       </div>
       <Button

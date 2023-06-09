@@ -78,12 +78,8 @@ export class BuurtMap {
   }
 
   joinBounds = () => {
-    // Create a BufferGeometry object
-
-    // const geometry: THREE.BufferGeometry = new THREE.BufferGeometry()
-
-    // const indices: number[] = [0, 1, 2]
     const convertedBounds: THREE.Vector3[] = []
+    const group = new THREE.Group()
 
     this.boundLats.forEach((bound: LatLngTypes) => {
       const obj = this.threeOverlay.latLngAltitudeToVector3(bound)
@@ -118,8 +114,8 @@ export class BuurtMap {
       transparent: true,
       opacity: 0.2
     })
-    const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
-    this.scene.add(planeMesh)
+    const planeMesh: ProductMesh = new THREE.Mesh(planeGeometry, planeMaterial)
+    planeMesh.isDraggable = false
 
     const outlineGeometry = new THREE.EdgesGeometry(planeGeometry)
     const outlineMaterial = new THREE.LineBasicMaterial({
@@ -130,7 +126,10 @@ export class BuurtMap {
     })
     const outline = new THREE.LineSegments(outlineGeometry, outlineMaterial)
 
-    this.scene.add(outline)
+    group.add(planeMesh)
+    group.add(outline)
+
+    this.scene.add(group)
   }
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
