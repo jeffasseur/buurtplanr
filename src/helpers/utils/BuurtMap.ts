@@ -43,14 +43,15 @@ export class BuurtMap {
     this.loader.setDRACOLoader(dracoLoader)
   }
 
-  appendProducts = (modelName: string, mousePos: THREE.Vector3) => {
+  appendProducts = (modelName: string, mousePos: { x: number, y: number, z: number } | THREE.Vector3) => {
     this.loader.load(`/models/${modelName}.glb`, (gltf) => {
+      const position = new THREE.Vector3(mousePos.x, mousePos.y, mousePos.z)
       const product: ProductGroup = gltf.scene
       product.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
       product.modelName = modelName
       product.scale.set(1, 1, 1)
       product.rotation.x = Math.PI / 2
-      product.position.copy(mousePos)
+      product.position.copy(position)
       product.isDraggable = true
       this.scene.add(product)
     })
@@ -67,7 +68,7 @@ export class BuurtMap {
       const width = bbox.max.x - bbox.min.x
 
       const geometry = new THREE.RingGeometry(width - 1, width - 0.5, 30, 5)
-      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.FrontSide })
+      const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.FrontSide })
       this.highlight = new THREE.Mesh(geometry, material)
       this.highlight.isHighlighter = true
       this.highlight.position.x = this.dragOBJ.position.x
@@ -197,27 +198,29 @@ export class BuurtMap {
 
   sendCreation = (url) => {
     this.productformData = []
-    this.scene.children.forEach((product: ProductModel) => {
-      if (product.hasOwnProperty.call('modelID')) {
-        if (product.modelName) {
-          const newProduct: productUploadData = { latlng: product.position, modelName: product.modelName }
+    const toCheck = 'modelID'
+    this.scene.children.forEach((el: ProductModel) => {
+      if (toCheck in el) {
+        if (el.modelName) {
+          const newProduct: productUploadData = { latlng: el.position, modelName: el.modelName }
           this.productformData.push(newProduct)
         }
       }
     })
+    console.log(this.productformData)
 
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(this.productformData),
-      headers: { 'Content-type': 'application/json; charset=UTF-8' }
-    })
-      .then(async (response) => await response.json())
-      .then((data) => {
-        return data
-      })
-      .catch((err) => {
-        return err
-      })
+    // fetch('http://localhost:3002/creaties/new/647f13b8004f0bc27f7795ab/124', {
+    //   method: 'POST',
+    //   body: JSON.stringify(this.productformData),
+    //   headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    // })
+    //   .then(async (response) => await response.json())
+    //   .then((data) => {
+    //     console.log(data)
+    //   })
+    //   .catch((err) => {
+    //     return err
+    //   })
   }
 
   placeBnds = (number) => {

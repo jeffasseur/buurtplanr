@@ -5,7 +5,7 @@ import * as THREE from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
-import { type ProductModel, type mapOptions, type projectData } from '@/types/BUURTTYPES'
+import { type productUploadData, type ProductModel, type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
 import Thermometer from '@components/atoms/Thermometer'
 import { Editor } from '@components/molecule/Editor'
@@ -15,9 +15,10 @@ import styles from './styles.module.css'
 interface MapProps {
   mapData: mapOptions
   projectData: projectData
+  creationData?: productUploadData[] | undefined
 }
 
-export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
+export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const mouseCapture = useRef<Vector3>()
   const [map, setMap] = useState<google.maps.Map>()
@@ -46,8 +47,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (BUURTMAP?.scene) {
       BUURTMAP.boundLats = projectData.border
       BUURTMAP.joinBounds()
+      creationData?.forEach(el => {
+        BUURTMAP.appendProducts(el.modelName, el.latlng)
+      })
     }
-  }, [BUURTMAP, map, mapData, projectData.border, projectData.location.coordinates])
+  }, [BUURTMAP, creationData, map, mapData, projectData.border, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
     const updateRayMouse = (e) => {

@@ -105,7 +105,11 @@ export interface newProjectFormData {
 }
 
 export interface productUploadData {
-  latlng: LatLngTypes | THREE.Vector3
+  latlng: {
+    x: number
+    y: number
+    z: number
+  } | THREE.Vector3
   modelName: string
 }
 
