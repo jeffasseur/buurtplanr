@@ -8,10 +8,10 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-let baseURL: string = '/'
-if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-}
+const baseURL: string = 'http://127.0.0.1:3002/'
+// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+// }
 
 const submitLogin = async (data) => {
   if (data.email !== '' && data.password !== '') {
@@ -29,7 +29,6 @@ const submitLogin = async (data) => {
       .then(async (res) => await res.json())
       .then((data) => {
         if (data.status === 'success') {
-          window.localStorage.setItem('token', data.token)
           window.location.href = '/'
         } else {
           return { status: 'error', message: 'Er is iets misgegaan' }

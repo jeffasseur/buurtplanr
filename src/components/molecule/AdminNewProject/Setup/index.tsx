@@ -1,3 +1,5 @@
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 
 import Input from '@/components/atoms/Input'
@@ -126,6 +128,11 @@ const Setup = ({ FormData, setFormData }) => {
                 <Image src='/img/types/TOWN.png' alt='type dorp' fill />
               </div>
               <input type='radio' name='type' id='dorp' value='dorp' />
+              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
+                <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </label>
           </div>
           <div>
@@ -135,6 +142,11 @@ const Setup = ({ FormData, setFormData }) => {
                 <Image src='/img/types/PARK.png' alt='type park' fill />
               </div>
               <input type='radio' name='type' id='park' value='park' />
+              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
+                <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </label>
           </div>
           <div>
@@ -144,6 +156,11 @@ const Setup = ({ FormData, setFormData }) => {
                 <Image src='/img/types/STREET.png' alt='type straat' fill />
               </div>
               <input type='radio' name='type' id='straat' value='straat' />
+              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
+                <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </label>
           </div>
         </div>

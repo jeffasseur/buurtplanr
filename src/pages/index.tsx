@@ -13,10 +13,10 @@ const fetcher = async (url) => {
 }
 
 const Dashboard = () => {
-  let baseURL: string = '/'
-  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-  }
+  const baseURL: string = 'http://127.0.0.1:3002/'
+  // if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  //   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+  // }
 
   const { data, isLoading, error } = useSWR(`${baseURL}projects/`, fetcher)
   const [filter, setFilter] = useState('Informeren')
@@ -46,11 +46,14 @@ const Dashboard = () => {
               isLoading && <div>Loading...</div>
             }
             {
-              data?.status === 'error' && <div>Er is iets mis gegaan met het ophalen van de projecten</div>
+              data?.status === 'error' &&
+              (<div>Er is iets mis gegaan met het ophalen van de projecten</div>)
             }
-            {data?.data.map((project) => {
-              return <ProjectColumn key={project._id} project={project} />
-            })}
+            {
+              data?.data.map((project) => {
+                return <ProjectColumn key={project._id} project={project} />
+              })
+            }
             {
               error && <div>Er is iets mis gegaan met het ophalen van de projecten</div>
             }
@@ -60,4 +63,5 @@ const Dashboard = () => {
     </>
   )
 }
+
 export default Dashboard

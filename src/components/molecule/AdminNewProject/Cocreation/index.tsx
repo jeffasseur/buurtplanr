@@ -74,12 +74,11 @@ const Cocreation = ({ FormData, setFormData }) => {
             objects.map((object, index) => (
               <label htmlFor='object' className={styles.buildingPiece} key={index}>
                 <Image src={object.path} alt={object.value} width={120} height={120} />
-                <Checkbox.Root className='CheckboxRoot' defaultChecked id='c1'>
-                  <Checkbox.Indicator className='CheckboxIndicator'>
+                <Checkbox.Root className={styles.CheckboxRoot} defaultChecked id='c1'>
+                  <Checkbox.Indicator className={styles.CheckboxIndicator}>
                     <CheckIcon />
                   </Checkbox.Indicator>
                 </Checkbox.Root>
-                {/* <Input type='checkbox name='object' id={object.value} /> */}
               </label>
             ))
           }

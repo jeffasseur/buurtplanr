@@ -10,7 +10,9 @@ import styles from './styles.module.css'
 const isAdmin = true
 const loggedIn = true
 
-const Navigation = () => {
+const Navigation = ({ burger }) => {
+  const burgerSession = burger
+  console.log(burgerSession)
   return (
     <div className={styles.navigation}>
       <div>
