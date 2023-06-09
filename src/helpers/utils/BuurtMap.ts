@@ -77,10 +77,20 @@ export class BuurtMap {
     }
   }
 
-  joinBounds = () => {
-    const convertedBounds: THREE.Vector3[] = []
-    const group = new THREE.Group()
+  checkBoundsScene = () => {
+    const toCheck = 'isBound'
+    this.scene.children.forEach((el) => {
+      if (toCheck in el) {
+        this.scene.remove(el)
+      }
+    })
+  }
 
+  joinBounds = () => {
+    // check if there are previous instances of the bound class in scene
+    this.checkBoundsScene()
+
+    const convertedBounds: THREE.Vector3[] = []
     this.boundLats.forEach((bound: LatLngTypes) => {
       const obj = this.threeOverlay.latLngAltitudeToVector3(bound)
       obj.x = parseFloat(obj.x.toFixed(8))
@@ -114,8 +124,7 @@ export class BuurtMap {
       transparent: true,
       opacity: 0.2
     })
-    const planeMesh: ProductMesh = new THREE.Mesh(planeGeometry, planeMaterial)
-    planeMesh.isDraggable = false
+    const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
 
     const outlineGeometry = new THREE.EdgesGeometry(planeGeometry)
     const outlineMaterial = new THREE.LineBasicMaterial({
@@ -126,9 +135,10 @@ export class BuurtMap {
     })
     const outline = new THREE.LineSegments(outlineGeometry, outlineMaterial)
 
-    group.add(planeMesh)
+    const group: ProductGroup = new THREE.Group()
+    group.isBound = true
     group.add(outline)
-
+    group.add(planeMesh)
     this.scene.add(group)
   }
 

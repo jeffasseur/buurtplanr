@@ -1,5 +1,4 @@
 import { type LatLngTypes } from '@googlemaps/three'
-import { type Vector3 } from 'three'
 
 export interface mapOptions {
   tilt: number
@@ -106,7 +105,7 @@ export interface newProjectFormData {
 }
 
 export interface productUploadData {
-  latlng: LatLngTypes | Vector3
+  latlng: LatLngTypes | THREE.Vector3
   modelName: string
 }
 
@@ -142,4 +141,5 @@ export interface ProductGroup extends THREE.Group {
   isDraggable?: boolean
   modelName?: string
   bndNumber?: number
+  isBound?: boolean
 }
