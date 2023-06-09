@@ -9,27 +9,39 @@ const fetcher = async (url) => {
   return await res.json()
 }
 
-Builder.getInitialProps = async ({ query }) => {
-  const { pid, userid } = query
-  return { pid, userid }
+export const getServerSideProps = async (context) => {
+  const { pid, userid } = context.query
+  return {
+    props: { pid, userid }
+  }
 }
 
-export default function Builder ({ pid }: { pid: string }, { userid }: { userid: string }) {
+interface serve {
+  pid: string
+  userid: string
+}
+
+export default function Builder ({ pid, userid }: serve) {
   const updateUID = useUser(state => state.updateUID)
   const updatePID = useUser(state => state.updatePID)
-  let baseURL: string = '/'
+  let projectURL: string = '/'
+  let creationURL: string = '/'
   if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK && pid) {
-    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}/projects/${pid}`
+    projectURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}/projects/${pid}`
+  }
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK && userid) {
+    creationURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}/creaties/${pid}/${userid}`
   }
 
-  const { data } = useSWR(`${baseURL}`, fetcher)
+  const projectData = useSWR(`${projectURL}`, fetcher)
+  // const creationData = useSWR(`${creationURL}`, fetcher)
   updateUID(userid)
   updatePID(pid)
 
   return (
     <>
       <Navigation />
-      {data && <MapWrapper mapType='builder' singleProject={data.data} />}
+      {projectData.data && <MapWrapper mapType='builder' singleProject={projectData.data.data} />}
     </>
   )
 }
