@@ -19,23 +19,6 @@
   border-radius: var(--radius-round);
 }
 
-.background-selector {
-  display: flex;
-  justify-content: space-between;
-
-  @media (--lg-n-below) {
-    flex-direction: column;
-    gap: var(--spacing-08);
-  }
-} 
-
-.background {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-06);
-  align-items: center;
-}
-
 .park {
   &::before {
     position: absolute;
@@ -82,36 +65,4 @@
     background-size: cover;
     opacity: .1;
   }
-}
-
-
-.image-container {
-  position: relative;
-  width: 150px;
-  height: 150px;
-}
-
-.image {
-  border-radius: var(--radius-2);
-  object-fit: cover;
-}
-
-.CheckboxRoot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--spacing-06);
-  height: var(--spacing-06);
-  background-color: white;
-  border-radius: 4px;
-  outline: 1px solid var(--color-grey-500);
-}
-
-.CheckboxRoot[data-state='checked'] {
-  background-color: var(--color-purple-500);
-  outline: none;
-}
-
-.CheckboxIndicator {
-  color: white;
 }

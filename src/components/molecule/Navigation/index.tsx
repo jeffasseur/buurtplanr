@@ -12,7 +12,7 @@ const loggedIn = true
 const Navigation = () => {
   return (
     <div className={styles.navigation}>
-      <div>
+      <div className={styles['logo-container']}>
         <Icon name='logo' className={styles.logo} />
       </div>
       <div className={styles.menu}>

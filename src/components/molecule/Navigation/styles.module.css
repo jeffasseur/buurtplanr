@@ -1,15 +1,15 @@
 .navigation {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem 2rem;
   background: white;
 }
 
 .menu {
   display: flex;
-  align-items: center;
   gap: 1rem;
+  align-items: center;
 }
 
 .logo {
@@ -19,15 +19,20 @@
 
 .btnAdmin {
   display: flex;
-  align-items: center;
   gap: .5rem;
-  background: blue;
+  align-items: center;
   padding: .5rem;
+  background: blue;
   border-radius: 70px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
 }
 
 .accountBtns {
   display: flex;
-  align-items: center;
   gap: 1rem;
+  align-items: center;
 }

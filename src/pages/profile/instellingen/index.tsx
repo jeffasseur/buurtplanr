@@ -15,7 +15,7 @@ const instellingen = () => {
   return (
     <>
       <Nav />
-      <Instellingen profileInfo={profileInfo} background='park' />
+      <Instellingen profileInfo={profileInfo} background='street' />
     </>
   )
 }
