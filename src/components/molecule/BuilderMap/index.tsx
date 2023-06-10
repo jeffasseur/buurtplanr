@@ -91,11 +91,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
 
       // place obj on map after repositioning product
       BUURTMAP.dragOBJ = null
-      BUURTMAP.updateHighlight(false)
+      BUURTMAP.updateHighlight(false, false)
 
       // reset if no intersections found
       if (intersections.length === 0) {
-        BUURTMAP.updateHighlight(false)
+        BUURTMAP.updateHighlight(false, false)
         setPID(undefined)
         setDraggable(null)
         return
@@ -119,7 +119,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
           setDraggable(null)
         } else {
           BUURTMAP.dragOBJ = current
-          BUURTMAP.updateHighlight(true)
+          BUURTMAP.updateHighlight(true, false)
           setPID(current.modelID)
           setDraggable(current)
         }
@@ -129,6 +129,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
 
     map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
       updateMouse(e, 'move')
+      BUURTMAP.updateHighlight(true, true)
     })
   }
 

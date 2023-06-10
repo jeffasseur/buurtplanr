@@ -59,11 +59,20 @@ export class BuurtMap {
     this.threeOverlay.requestStateUpdate()
   }
 
-  updateHighlight = (visible: boolean) => {
+  updateHighlight = (visible: boolean, moving: boolean) => {
     if (!visible && this.highlight) {
       this.scene.remove(this.highlight)
       this.highlight = null
-    } else if (this.dragOBJ) {
+    }
+
+    if (moving && this.highlight && this.dragOBJ) {
+      this.highlight.position.x = this.dragOBJ.position.x
+      this.highlight.position.y = this.dragOBJ.position.y
+      this.highlight.position.z = this.dragOBJ.position.z
+      return
+    }
+
+    if (this.dragOBJ) {
       const bbox = new THREE.Box3().setFromObject(this.dragOBJ)
       const width = (bbox.max.x - bbox.min.x) + (Math.PI / 2)
 
@@ -96,7 +105,7 @@ export class BuurtMap {
       const obj = this.threeOverlay.latLngAltitudeToVector3(bound)
       obj.x = parseFloat(obj.x.toFixed(8))
       obj.y = parseFloat(obj.y.toFixed(8))
-      obj.z = 2
+      obj.z = -2
       convertedBounds.push(obj)
     })
     convertedBounds.push(convertedBounds[0])
