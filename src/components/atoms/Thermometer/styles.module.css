@@ -28,3 +28,19 @@
   top: var(--spacing-06);
   left: 10rem;
 }
+
+.sm {
+  background-color: var(--color-green-300);
+}
+
+.md {
+  background-color: var(--color-green-300);
+}
+
+.xl {
+  background-color: var(--color-yellow-300);
+}
+
+.full {
+  background-color: var(--color-red-300);
+}

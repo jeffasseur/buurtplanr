@@ -25,6 +25,9 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
   const mouseCapture = useRef<Vector3>()
   const [map, setMap] = useState<google.maps.Map>()
   const [PID, setPID] = useState<number | undefined>(undefined)
+
+  // change productweightchanges budget color && fill
+  const [productWeight, setProductWeight] = useState<number>(100)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelName = useDroppedModel(state => state.model)
@@ -172,7 +175,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
           <WebpIcon name={modelName} />
         </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
-        {map && <Thermometer />}
+        {map && <Thermometer productWeight={productWeight} />}
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       </div>
       <div className={styles.navcontainer}>
