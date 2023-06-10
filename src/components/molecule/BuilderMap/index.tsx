@@ -21,6 +21,7 @@ interface MapProps {
 
 export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
+  const previewProduct = useRef<HTMLDivElement>(null)
   const mouseCapture = useRef<Vector3>()
   const [map, setMap] = useState<google.maps.Map>()
   const [PID, setPID] = useState<number | undefined>(undefined)
@@ -128,9 +129,20 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
       BUURTMAP.threeOverlay.requestRedraw()
     })
 
-    map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
+    map.addListener('mousemove', (e) => {
       updateMouse(e, 'move')
+      const clientX: number = e.domEvent.clientX
+      const clientY: number = e.domEvent.clientY
+
+      const x: string = String(clientX + 10)
+      const y: string = String(clientY + 10)
+
       BUURTMAP.updateHighlight(true, true)
+      if (previewProduct.current) {
+        previewProduct.current.style.display = 'flex'
+        previewProduct.current.style.left = `${x}px`
+        previewProduct.current.style.top = `${y}px`
+      }
     })
   }
 
@@ -156,7 +168,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
   return (
     <div className={styles.container}>
       {modelName &&
-        <div className={styles.productPreviewContainer}>
+        <div ref={previewProduct} className={styles.productPreviewContainer}>
           <WebpIcon name={modelName} />
         </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
