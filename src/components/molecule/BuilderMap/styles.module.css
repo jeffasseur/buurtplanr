@@ -15,3 +15,20 @@
   width: 100vw;
   height: fit-content;
 }
+
+.productPreviewContainer {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  background-color: var(--color-white);
+  border-radius: var(--radius-2);
+}
+
+.productPreviewContainer div {
+  width: 3rem;
+  height: 3rem;
+}

@@ -8,6 +8,7 @@ import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
 import { type productUploadData, type ProductModel, type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
 import Thermometer from '@components/atoms/Thermometer'
+import WebpIcon from '@components/atoms/webpIcons'
 import { Editor } from '@components/molecule/Editor'
 
 import styles from './styles.module.css'
@@ -154,6 +155,10 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
 
   return (
     <div className={styles.container}>
+      {modelName &&
+        <div className={styles.productPreviewContainer}>
+          <WebpIcon name={modelName} />
+        </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
         {map && <Thermometer />}
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
