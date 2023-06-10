@@ -107,7 +107,9 @@
 .DialogOverlay {
   position: fixed;
   inset: 0;
+  z-index: 100;
   background-color: black;
+  opacity: 0.5;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -115,13 +117,16 @@
   position: fixed;
   top: 50%;
   left: 50%;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
   width: 90vw;
   max-width: 450px;
   max-height: 85vh;
   padding: 25px;
   background-color: white;
-  border-radius: 6px;
-  box-shadow: hsl(206deg 22% 7% / 35%) 0 10px 38px -10px, hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
+  border-radius: var(--radius-2);
   transform: translate(-50%, -50%);
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -132,14 +137,31 @@
 
 .DialogTitle {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--font-size-medium);
   font-weight: 500;
-  color: var(--mauve12);
 }
 
 .DialogDescription {
   margin: 10px 0 20px;
-  font-size: 15px;
+  font-size: var(--font-size-small);
   line-height: 1.5;
-  color: var(--mauve11);
+}
+
+.IconButton {
+  position: absolute;
+  top: var(--spacing-03);
+  right: var(--spacing-03);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-06);
+  height: var(--spacing-06);
+  font-family: inherit;
+  border-radius: 100%;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: var(--spacing-06);
+  width: 100%;
 }

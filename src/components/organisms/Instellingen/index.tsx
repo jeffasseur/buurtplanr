@@ -1,5 +1,4 @@
-import * as Dialog from '@radix-ui/react-dialog'
-import { Cross2Icon } from '@radix-ui/react-icons'
+import * as Dialog from '@radix-ui/react-alert-dialog'
 import { cx } from 'class-variance-authority'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -67,18 +66,18 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
                   <Dialog.Description className={styles.DialogDescription}>
                     Deze actie kan niet ongedaan worden gemaakt. Weet je zeker dat je je account wilt verwijderen?
                   </Dialog.Description>
-                  <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-                    <Dialog.Close asChild>
+                  <div className={styles['button-wrapper']}>
+                    <Dialog.Cancel asChild>
+                      <Button size='small' theme='Cancel'>
+                        annuleren
+                      </Button>
+                    </Dialog.Cancel>
+                    <Dialog.Action asChild>
                       <Button size='small' theme='Warning'>
                         account verwijderen
                       </Button>
-                    </Dialog.Close>
+                    </Dialog.Action>
                   </div>
-                  <Dialog.Close asChild>
-                    <button className='IconButton' aria-label='Close'>
-                      <Cross2Icon />
-                    </button>
-                  </Dialog.Close>
                 </Dialog.Content>
               </Dialog.Portal>
             </Dialog.Root>

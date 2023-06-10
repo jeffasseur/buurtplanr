@@ -109,6 +109,25 @@
   }
 }
 
+.themeCancel {
+  color: var(--color-black);
+  background-color: var(--color-grey-500);
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-grey-300);
+  }
+
+  &:active {
+    background-color: var(--color-grey-400);
+  }
+
+  &:disabled {
+    color: var(--color-grey-500);
+    background-color: var(--color-grey-200);
+  }
+}
+
 .sizeSmall {
   padding-block: var(--spacing-02);
   padding-inline: var(--spacing-04);

@@ -13,6 +13,7 @@ const buttonStyle = cva(styles.button, {
       Secondary: styles.themeSecondary,
       Tertiary: styles.themeTertiary,
       Warning: styles.themeWarning,
+      Cancel: styles.themeCancel,
       Transparent: styles.themeTransparent
     },
     size: {
