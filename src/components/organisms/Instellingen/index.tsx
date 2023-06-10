@@ -1,7 +1,7 @@
-import * as Dialog from '@radix-ui/react-alert-dialog'
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { cx } from 'class-variance-authority'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 import Button from '@components/atoms/Button'
 import Input from '@components/molecule/Input'
@@ -26,9 +26,11 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
   const [backgroundState, setBackgroundState] = useState(background)
   const className = cx([styles.banner, styles[backgroundState]])
   const [changePassword, setChangePassword] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
   const setChangePasswordState = () => {
     setChangePassword(!changePassword)
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const handleBackgroundChange = (background: 'park' | 'street' | 'square') => {
@@ -43,44 +45,63 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
       <div className={styles.subContainer}>
         <div className={styles.content}>
           <div className={styles['button-container']}>
-            {!changePassword && (
-              <Button size='small' append='shield-security' onClick={setChangePasswordState}>
-                wachtwoord wijzigen
-              </Button>
-            )}
-            {changePassword && (
-              <Button size='small' append='shield-security' onClick={setChangePasswordState}>
-                nieuw wachtwoord bewaren
-              </Button>
-            )}
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <Button size='small' theme='Warning'>
-                  account verwijderen
+            <AlertDialog.Root>
+              <AlertDialog.Trigger asChild>
+                <Button size='small' append='shield-security' onClick={setChangePasswordState}>
+                  wachtwoord wijzigen
                 </Button>
-              </Dialog.Trigger>
-              <Dialog.Portal>
-                <Dialog.Overlay className={styles.DialogOverlay} />
-                <Dialog.Content className={styles.DialogContent}>
-                  <Dialog.Title className={styles.DialogTitle}>Account verwijderen</Dialog.Title>
-                  <Dialog.Description className={styles.DialogDescription}>
-                    Deze actie kan niet ongedaan worden gemaakt. Weet je zeker dat je je account wilt verwijderen?
-                  </Dialog.Description>
+              </AlertDialog.Trigger>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className={styles.DialogOverlay} />
+                <AlertDialog.Content className={cx([styles.DialogContent, styles.passwordContent])}>
+                  <AlertDialog.Title className={styles.DialogTitle}>Wachtwoord wijzigen</AlertDialog.Title>
+                  <AlertDialog.Description className={styles.DialogPasswordDescription}>
+                    <Input label='Oud wachtwoord' type='password' icon='shield-security' />
+                    <Input label='Nieuw wachtwoord' type='password' icon='shield-security' />
+                  </AlertDialog.Description>
                   <div className={styles['button-wrapper']}>
-                    <Dialog.Cancel asChild>
+                    <AlertDialog.Cancel asChild>
                       <Button size='small' theme='Cancel'>
                         annuleren
                       </Button>
-                    </Dialog.Cancel>
-                    <Dialog.Action asChild>
+                    </AlertDialog.Cancel>
+                    <AlertDialog.Action asChild>
+                      <Button size='small' append='shield-security' onClick={setChangePasswordState}>
+                        nieuw wachtwoord bewaren
+                      </Button>
+                    </AlertDialog.Action>
+                  </div>
+                </AlertDialog.Content>
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
+            <AlertDialog.Root>
+              <AlertDialog.Trigger asChild>
+                <Button size='small' theme='Warning'>
+                  account verwijderen
+                </Button>
+              </AlertDialog.Trigger>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className={styles.DialogOverlay} />
+                <AlertDialog.Content className={styles.DialogContent}>
+                  <AlertDialog.Title className={styles.DialogTitle}>Account verwijderen</AlertDialog.Title>
+                  <AlertDialog.Description className={styles.DialogDescription}>
+                    Deze actie kan niet ongedaan worden gemaakt. Weet je zeker dat je je account wilt verwijderen?
+                  </AlertDialog.Description>
+                  <div className={styles['button-wrapper']}>
+                    <AlertDialog.Cancel asChild>
+                      <Button size='small' theme='Cancel'>
+                        annuleren
+                      </Button>
+                    </AlertDialog.Cancel>
+                    <AlertDialog.Action asChild>
                       <Button size='small' theme='Warning'>
                         account verwijderen
                       </Button>
-                    </Dialog.Action>
+                    </AlertDialog.Action>
                   </div>
-                </Dialog.Content>
-              </Dialog.Portal>
-            </Dialog.Root>
+                </AlertDialog.Content>
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
             <Button size='small' append='save'>
               wijzigigen opslaan
             </Button>
@@ -92,12 +113,6 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
           <Input label='Housenummer' text={profileInfo.housenummer} icon='location' />
           <span>Profiel achtergrond</span>
           <TypeSelector background={backgroundState} onChange={handleBackgroundChange} />
-          {changePassword && (
-            <>
-              <Input label='Oud wachtwoord' type='password' icon='shield-security' />
-              <Input label='Nieuw wachtwoord' type='password' icon='shield-security' />
-            </>
-          )}
         </div>
       </div>
     </div>
