@@ -27,7 +27,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
   const [PID, setPID] = useState<number | undefined>(undefined)
 
   // change productweightchanges budget color && fill
-  const [productWeight, setProductWeight] = useState<number>(100)
+  const [productWeight, setProductWeight] = useState<number>(20)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelName = useDroppedModel(state => state.model)
@@ -163,6 +163,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
           BUURTMAP.appendProducts(modelName, mouseCapture.current)
           updateModel(null)
           updateProductType(null)
+          setProductWeight(productWeight + 10)
           break
       }
     }
