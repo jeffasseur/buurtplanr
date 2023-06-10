@@ -27,7 +27,7 @@ export const Product = ({ productType, productWeight }: ProductProps) => {
 
   return (
     <div className={styles.productList}>
-      {productWeight <= 100
+      {productWeight < 100
         ? (
             productList.list.map((product, index) => {
               if (productType == null) {
