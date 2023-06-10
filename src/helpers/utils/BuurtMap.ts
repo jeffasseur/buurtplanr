@@ -19,6 +19,7 @@ export class BuurtMap {
   finalgndPos: THREE.Vector3 | undefined
   highlight: ProductModel | null
   boundLats: object[]
+  texture: THREE.TextureLoader
 
   constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -34,6 +35,7 @@ export class BuurtMap {
     this.finalgndPos = undefined
     this.highlight = null
     this.boundLats = []
+    this.texture = new THREE.TextureLoader()
   }
 
   initThree = () => {
@@ -154,22 +156,30 @@ export class BuurtMap {
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
     if (!this.initgndPos && mousePos) this.initgndPos = mousePos.clone()
-    else if (this.initgndPos && mousePos) {
+    else if (this.initgndPos && mousePos && this.gnd) {
       this.finalgndPos = mousePos.clone()
+
       const width = Math.abs(this.finalgndPos.x - this.initgndPos.x)
       const height = Math.abs(this.finalgndPos.y - this.initgndPos.y)
+      const x1 = this.initgndPos.x
+      const y1 = this.initgndPos.y
+      const x2 = this.finalgndPos.x
+      const y2 = this.finalgndPos.y
 
       // ground geo
       const geometry = new THREE.PlaneGeometry(width, height)
-      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
-      const ground: ProductMesh = new THREE.Mesh(geometry, material)
-      ground.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
-      ground.modelName = this.gnd
-      ground.isDraggable = true
-      ground.isGround = true
-      ground.position.x = (this.finalgndPos.x + this.initgndPos.x) / 2
-      ground.position.y = (this.finalgndPos.y + this.initgndPos.y) / 2
-      this.scene.add(ground)
+      this.texture.load(`/textures/${this.gnd}.jpg`, (texture) => {
+        // const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+        const material = new THREE.MeshBasicMaterial({ map: texture })
+        const ground: ProductMesh = new THREE.Mesh(geometry, material)
+        ground.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
+        ground.modelName = this.gnd
+        ground.isDraggable = true
+        ground.isGround = true
+        ground.position.x = (x2 + x1) / 2
+        ground.position.y = (y2 + y1) / 2
+        this.scene.add(ground)
+      })
 
       // reset ground data
       this.gnd = undefined
@@ -207,7 +217,10 @@ export class BuurtMap {
   }
 
   updateProductPosition = () => {
-    if (this.dragOBJ) { this.dragOBJ.position.copy(this.mousePosition) }
+    if (this.dragOBJ?.isGround) {
+      this.dragOBJ.position.copy(this.mousePosition)
+      this.dragOBJ.position.z = -1.8
+    } else if (this.dragOBJ) { this.dragOBJ.position.copy(this.mousePosition) }
   }
 
   removeProductById = (productID: number) => {
