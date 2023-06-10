@@ -65,7 +65,7 @@ export class BuurtMap {
       this.highlight = null
     } else if (this.dragOBJ) {
       const bbox = new THREE.Box3().setFromObject(this.dragOBJ)
-      const width = bbox.max.x - bbox.min.x
+      const width = (bbox.max.x - bbox.min.x) + (Math.PI / 2)
 
       const geometry = new THREE.RingGeometry(width - 1, width - 0.5, 30, 5)
       const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.FrontSide })
