@@ -31,6 +31,8 @@ export const Product = ({ productType }: ProductProps) => {
           return (
             <div key={index} className={`${modelName === product.name ? styles.active : ''} ${styles.productListing}`} onClick={handleClick} data-modelname={product.name} data-producttype={product.productType}>
               <WebpIcon name={product.name} />
+              <p className={styles.productName}>{product.name}</p>
+              <p className={styles.productWeight}>$$</p>
             </div>
           )
         }
@@ -39,6 +41,8 @@ export const Product = ({ productType }: ProductProps) => {
             return (
               <div key={index} className={`${modelName === product.name ? styles.active : ''} ${styles.productListing}`} onClick={handleClick} data-modelname={product.name} data-producttype={product.productType}>
                 <WebpIcon name={product.name} />
+                <p className={styles.productName}>{product.name}</p>
+                <p className={styles.productWeight}>$$</p>
               </div>
             )
           }
