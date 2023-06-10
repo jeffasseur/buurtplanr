@@ -7,17 +7,17 @@ import type { Icons } from '@components/atoms/Icon'
 
 interface InputProps {
   label: string
-  text: string
+  text?: string
   icon?: Icons
-
+  type?: string
 }
 
-const Input = ({ label, text, icon }: InputProps) => {
+const Input = ({ label, text, icon, type }: InputProps) => {
   return (
     <div className={styles.container}>
       <span className={styles.label}>{label}</span>
       <div className={styles.input}>
-        <InputField placeholder={text} />
+        <InputField placeholder={text} type={type} />
         {icon && <Icon name={icon} className={styles.icon} />}
       </div>
     </div>

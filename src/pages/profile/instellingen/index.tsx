@@ -1,6 +1,8 @@
 import Nav from '@/components/molecule/Navigation'
 import Instellingen from '@components/organisms/Instellingen'
 
+import styles from './styles.module.css'
+
 const profileInfo = {
   username: 'jeffasseur',
   email: 'jef.mail.com',
@@ -13,10 +15,10 @@ const profileInfo = {
 
 const instellingen = () => {
   return (
-    <>
+    <div className={styles.main}>
       <Nav />
       <Instellingen profileInfo={profileInfo} background='street' />
-    </>
+    </div>
   )
 }
 

@@ -112,6 +112,7 @@
 .sizeSmall {
   padding-block: var(--spacing-02);
   padding-inline: var(--spacing-04);
+  font-size: var(--font-size-small);
 }
 
 .sizeMedium {
@@ -122,6 +123,7 @@
 .sizeLarge {
   padding-block: var(--spacing-04);
   padding-inline: var(--spacing-06);
+  font-size: var(--font-size-large);
 }
 
 .icon-small {

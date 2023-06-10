@@ -1,4 +1,5 @@
 import * as RadioGroup from '@radix-ui/react-radio-group'
+import { cx } from 'class-variance-authority'
 import Image from 'next/image'
 
 import styles from './styles.module.css'
@@ -23,13 +24,13 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
               src='/img/park.png'
               alt='park'
               fill
-              className={styles.image}
+              className={cx([styles.image, background === 'park' && styles.border])}
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />
+            <RadioGroup.Item className={styles.RadioGroupItem} value='park' id='r1'>
+              <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
+            </RadioGroup.Item>
           </div>
-          <RadioGroup.Item className={styles.RadioGroupItem} value='park' id='r1'>
-            <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
-          </RadioGroup.Item>
         </label>
         <label className={styles.background}>
           <div className={styles['image-container']}>
@@ -37,13 +38,13 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
               src='/img/street.png'
               alt='street'
               fill
-              className={styles.image}
+              className={cx([styles.image, background === 'street' && styles.border])}
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />
+            <RadioGroup.Item className={styles.RadioGroupItem} value='street' id='r2'>
+              <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
+            </RadioGroup.Item>
           </div>
-          <RadioGroup.Item className={styles.RadioGroupItem} value='street' id='r1'>
-            <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
-          </RadioGroup.Item>
         </label>
         <label className={styles.background}>
           <div className={styles['image-container']}>
@@ -51,13 +52,13 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
               src='/img/square.png'
               alt='square'
               fill
-              className={styles.image}
+              className={cx([styles.image, background === 'square' && styles.border])}
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />
+            <RadioGroup.Item className={styles.RadioGroupItem} value='square' id='r3'>
+              <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
+            </RadioGroup.Item>
           </div>
-          <RadioGroup.Item className={styles.RadioGroupItem} value='square' id='r1'>
-            <RadioGroup.Indicator className={styles.RadioGroupIndicator} />
-          </RadioGroup.Item>
         </label>
       </RadioGroup.Root>
     </form>

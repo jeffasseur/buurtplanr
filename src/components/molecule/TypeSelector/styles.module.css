@@ -27,11 +27,21 @@
 }
 
 .RadioGroupItem {
+  position: absolute;
+  top: 0;
+  right: 0;
   width: var(--spacing-06);
   height: var(--spacing-06);
+  visibility: hidden;
   background-color: white;
-  border-radius: var(--radiis-1);
   outline: 1px solid var(--color-grey-500);
+}
+
+.RadioGroupItem[data-state='checked'] {
+  visibility: visible;
+  background-color: var(--color-purple-500);
+  border-radius: 0 var(--radius-1) 0 var(--radius-1);
+  outline: none;
 }
 
 .RadioGroupIndicator {
@@ -50,9 +60,9 @@
   content: '';
   background-image: url('/img/Tick.svg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
-.RadioGroupIndicator[data-state='checked'] {
-  background-color: var(--color-purple-500);
+.border {
+  outline: 3px solid var(--color-purple-500);
 }
