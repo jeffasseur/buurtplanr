@@ -179,7 +179,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       </div>
       <div className={styles.navcontainer}>
-        {map && <Toolbar />}
+        {map && <Toolbar productWeight={productWeight} />}
       </div>
     </div>
   )

@@ -5,7 +5,11 @@ import Icon, { type Icons } from '@components/atoms/Icon'
 
 import styles from './styles.module.css'
 
-const Toolbar = () => {
+interface toolProps {
+  productWeight: number
+}
+
+const Toolbar = ({ productWeight }: toolProps) => {
   const filterTypesArr = [
     'furniture',
     'ground',
@@ -48,7 +52,7 @@ const Toolbar = () => {
         </div>
         <Icon name='arrow-down' />
       </div>
-      <Product productType={filter} />
+      <Product productType={filter} productWeight={productWeight} />
     </div>
   )
 }

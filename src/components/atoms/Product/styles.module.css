@@ -55,7 +55,15 @@
   opacity: 1;
 }
 
-
+.noPlace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+  width: 100%;
+  font-weight: 600;
+  color: var(--color-purple-500)
+}
 
 .active {
   background-color: var(--color-purple-200);
