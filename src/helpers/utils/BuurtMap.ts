@@ -154,7 +154,7 @@ export class BuurtMap {
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
     if (!this.initgndPos && mousePos) this.initgndPos = mousePos.clone()
-    else if (this.initgndPos && this.finalgndPos && mousePos) {
+    else if (this.initgndPos && mousePos) {
       this.finalgndPos = mousePos.clone()
       const width = Math.abs(this.finalgndPos.x - this.initgndPos.x)
       const height = Math.abs(this.finalgndPos.y - this.initgndPos.y)
@@ -166,6 +166,7 @@ export class BuurtMap {
       ground.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
       ground.modelName = this.gnd
       ground.isDraggable = true
+      ground.isGround = true
       ground.position.x = (this.finalgndPos.x + this.initgndPos.x) / 2
       ground.position.y = (this.finalgndPos.y + this.initgndPos.y) / 2
       this.scene.add(ground)
@@ -180,7 +181,7 @@ export class BuurtMap {
   rotateProduct = (dir: string) => {
     // let currRotation: number
     const step: number = 20
-    if (this.dragOBJ) {
+    if (this.dragOBJ && !this.dragOBJ.isGround) {
       switch (dir) {
         case 'counter-clockwise':
           if (this.dragOBJ.rotation.y > (340 - step)) this.dragOBJ.rotation.y = 0
@@ -189,6 +190,17 @@ export class BuurtMap {
         case 'clockwise':
           if (this.dragOBJ.rotation.y < (20 - step)) this.dragOBJ.rotation.y = 360
           this.dragOBJ.rotation.y = this.dragOBJ.rotation.y -= step
+          break
+      }
+    } else if (this.dragOBJ?.isGround) {
+      switch (dir) {
+        case 'counter-clockwise':
+          if (this.dragOBJ.rotation.z > (340 - step)) this.dragOBJ.rotation.z = 0
+          this.dragOBJ.rotation.z = this.dragOBJ.rotation.z += step
+          break
+        case 'clockwise':
+          if (this.dragOBJ.rotation.z < (20 - step)) this.dragOBJ.rotation.z = 360
+          this.dragOBJ.rotation.z = this.dragOBJ.rotation.z -= step
           break
       }
     }

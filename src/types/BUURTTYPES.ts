@@ -128,6 +128,7 @@ export interface ProductMesh extends THREE.Mesh {
   modelName?: string
   isHighlighter?: boolean
   bndNumber?: number
+  isGround?: boolean
 }
 
 export interface ProductModel extends THREE.Object3D {
@@ -136,6 +137,7 @@ export interface ProductModel extends THREE.Object3D {
   isDraggable?: boolean
   isHighlighter?: boolean
   bndNumber?: number
+  isGround?: boolean
 }
 
 export interface ProductGroup extends THREE.Group {
