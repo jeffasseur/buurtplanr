@@ -134,7 +134,7 @@ export class BuurtMap {
       color: 0x0000ff,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.2
+      opacity: 0.1
     })
     const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
 
@@ -230,7 +230,7 @@ export class BuurtMap {
     this.dragOBJ = null
   }
 
-  sendCreation = (url) => {
+  sendCreation = (url: string, isNewCreation: boolean) => {
     this.productformData = []
     const toCheck = 'modelID'
     this.scene.children.forEach((el: ProductModel) => {
@@ -241,20 +241,38 @@ export class BuurtMap {
         }
       }
     })
-    console.log(this.productformData)
+    const formData = JSON.stringify({
+      creation: this.productformData
+    })
+    if (isNewCreation) {
+      fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+      })
+        .then(async (response) => await response.json())
+        .then((data) => {
+          // console.log(data)
+        })
+        .catch((err) => {
+          return err
+        })
 
-    // fetch('http://localhost:3002/creaties/new/647f13b8004f0bc27f7795ab/124', {
-    //   method: 'POST',
-    //   body: JSON.stringify(this.productformData),
-    //   headers: { 'Content-type': 'application/json; charset=UTF-8' }
-    // })
-    //   .then(async (response) => await response.json())
-    //   .then((data) => {
-    //     console.log(data)
-    //   })
-    //   .catch((err) => {
-    //     return err
-    //   })
+      return
+    }
+
+    fetch(url, {
+      method: 'PUT',
+      body: formData,
+      headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    })
+      .then(async (response) => await response.json())
+      .then((data) => {
+        // console.log(data)
+      })
+      .catch((err) => {
+        return err
+      })
   }
 
   placeBnds = (number) => {

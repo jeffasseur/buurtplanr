@@ -16,7 +16,7 @@ import styles from './styles.module.css'
 interface MapProps {
   mapData: mapOptions
   projectData: projectData
-  creationData?: productUploadData[] | undefined
+  creationData?: productUploadData[]
 }
 
 export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapProps) => {
@@ -177,7 +177,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
         </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
         {map && <Thermometer productWeight={productWeight} />}
-        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
+        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} />}
       </div>
       <div className={styles.navcontainer}>
         {map && <Toolbar productWeight={productWeight} />}

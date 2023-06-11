@@ -13,6 +13,8 @@ interface User {
   updateUID: (userID: string | null) => void
   projectID: string | null
   updatePID: (projectID: string | null) => void
+  creationID: string | null
+  updateCreationID: (creationID: string | null) => void
 }
 
 export const useDroppedModel = create<DroppedModel>((set) => ({
@@ -26,7 +28,9 @@ export const useUser = create<User>((set) => ({
   userID: '1',
   updateUID: (el) => { set(() => ({ userID: el })) },
   projectID: null,
-  updatePID: (el) => { set(() => ({ projectID: el })) }
+  updatePID: (el) => { set(() => ({ projectID: el })) },
+  creationID: null,
+  updateCreationID: (el) => { set(() => ({ creationID: el })) }
 }))
 
 interface setup {
