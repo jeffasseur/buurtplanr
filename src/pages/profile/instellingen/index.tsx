@@ -1,5 +1,5 @@
 import Nav from '@/components/molecule/Navigation'
-import Instellingen from '@components/organisms/Instellingen'
+import InstellingenOrg from '@components/organisms/Instellingen'
 
 import styles from './styles.module.css'
 
@@ -13,13 +13,13 @@ const profileInfo = {
   profilePicture: '/img/park.png'
 }
 
-const instellingen = () => {
+const Instellingen = () => {
   return (
     <div className={styles.main}>
       <Nav />
-      <Instellingen profileInfo={profileInfo} background='street' />
+      <InstellingenOrg profileInfo={profileInfo} background='street' />
     </div>
   )
 }
 
-export default instellingen
+export default Instellingen
