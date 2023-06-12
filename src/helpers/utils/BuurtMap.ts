@@ -18,6 +18,7 @@ export class BuurtMap {
   initgndPos: THREE.Vector3 | undefined
   finalgndPos: THREE.Vector3 | undefined
   highlight: ProductModel | null
+  boundLats: object[]
 
   constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -27,31 +28,19 @@ export class BuurtMap {
     this.mousePosition = new THREE.Vector3()
     this.dragOBJ = null
     this.productformData = []
-    this.initDracoLoader()
+    this.initThree()
     this.gnd = undefined
     this.initgndPos = undefined
     this.finalgndPos = undefined
     this.highlight = null
+    this.boundLats = []
   }
 
-  initDracoLoader = () => {
+  initThree = () => {
     const dracoLoader = new DRACOLoader()
     dracoLoader.setDecoderConfig({ type: 'js' })
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
     this.loader.setDRACOLoader(dracoLoader)
-  }
-
-  appendModel = (el) => {
-    this.loader.load('/models/marker.glb', (gltf) => {
-      const product: ProductGroup = gltf.scene
-      product.projectId = el._id
-      product.scale.set(20, 20, 20)
-      product.rotation.x = Math.PI / 2
-      const lat = el.location.coordinates.lat
-      const lng = el.location.coordinates.lng
-      product.position.copy(this.threeOverlay.latLngAltitudeToVector3({ lat, lng }))
-      this.scene.add(product)
-    })
   }
 
   appendProducts = (modelName: string, mousePos: THREE.Vector3) => {
@@ -77,7 +66,7 @@ export class BuurtMap {
       const bbox = new THREE.Box3().setFromObject(this.dragOBJ)
       const width = bbox.max.x - bbox.min.x
 
-      const geometry = new THREE.CircleGeometry(width, 32)
+      const geometry = new THREE.RingGeometry(width - 1, width - 0.5, 30, 5)
       const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.FrontSide })
       this.highlight = new THREE.Mesh(geometry, material)
       this.highlight.isHighlighter = true
@@ -86,6 +75,47 @@ export class BuurtMap {
       this.highlight.position.z = this.dragOBJ.position.z
       this.scene.add(this.highlight)
     }
+  }
+
+  joinBounds = () => {
+    // Create a BufferGeometry object
+
+    // const geometry: THREE.BufferGeometry = new THREE.BufferGeometry()
+
+    // const indices: number[] = [0, 1, 2]
+    const convertedBounds: THREE.Vector3[] = []
+
+    this.boundLats.forEach((bound: LatLngTypes) => {
+      const obj = this.threeOverlay.latLngAltitudeToVector3(bound)
+      obj.x = parseFloat(obj.x.toFixed(8))
+      obj.y = parseFloat(obj.y.toFixed(8))
+      obj.z = 2
+      convertedBounds.push(obj)
+    })
+    convertedBounds.push(convertedBounds[0])
+    const planeGeometry = new THREE.BufferGeometry()
+
+    const positions = new Float32Array(convertedBounds.length * 3)
+    for (let i = 0; i < convertedBounds.length; i++) {
+      positions[i * 3] = convertedBounds[i].x
+      positions[i * 3 + 1] = convertedBounds[i].y
+      positions[i * 3 + 2] = convertedBounds[i].z
+    }
+
+    planeGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+
+    const indices: number[] = []
+    for (let i = 2; i < convertedBounds.length; i++) {
+      indices.push(0, i - 1, i)
+    }
+
+    planeGeometry.setIndex(indices)
+    planeGeometry.computeVertexNormals()
+
+    const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+
+    const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
+    this.scene.add(planeMesh)
   }
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
@@ -110,6 +140,23 @@ export class BuurtMap {
       this.gnd = undefined
       this.initgndPos = undefined
       this.finalgndPos = undefined
+    }
+  }
+
+  rotateProduct = (dir: string) => {
+    // let currRotation: number
+    const step: number = 20
+    if (this.dragOBJ) {
+      switch (dir) {
+        case 'counter-clockwise':
+          if (this.dragOBJ.rotation.y > (340 - step)) this.dragOBJ.rotation.y = 0
+          this.dragOBJ.rotation.y = this.dragOBJ.rotation.y += step
+          break
+        case 'clockwise':
+          if (this.dragOBJ.rotation.y < (20 - step)) this.dragOBJ.rotation.y = 360
+          this.dragOBJ.rotation.y = this.dragOBJ.rotation.y -= step
+          break
+      }
     }
   }
 
@@ -149,8 +196,10 @@ export class BuurtMap {
       })
   }
 
-  placeBnds = () => {
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
+  placeBnds = (number) => {
+    const dot: ProductMesh = new THREE.Mesh(new THREE.SphereGeometry(2, 15, 8), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
+    dot.modelName = 'bound'
+    dot.bndNumber = number
     this.scene.add(dot)
     this.dragOBJ = dot
   }

@@ -2,10 +2,27 @@ import Image from 'next/image'
 
 // import { MapWrapper } from '@/components/3d/MapWrapper'
 import Title from '@/components/atoms/Title'
+import Button from '@components/atoms/Button'
+import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
-const Summary = ({ FormData, setFormData }) => {
+const submitNewProject = async (data) => {
+  const dataString = JSON.stringify(data)
+  await fetch('/api/createProject', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:3000/, https://buurtplanr.com',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    },
+    body: dataString
+  })
+}
+
+const Summary = ({ FormData, updateFormStage }) => {
+  const resetProgress = useNewProjectForm((state) => state.resetProgress)
   return (
     <div className={styles.summaryContainer}>
       <div className={styles.dates}>
@@ -38,6 +55,9 @@ const Summary = ({ FormData, setFormData }) => {
         <Title size='h3' weight='semibold'>Locatie</Title>
         <div className={styles.mapWrapper}>
           Hier komt de map met de ingestelde locatie
+          {FormData.location.postalcode}
+          {FormData.location.city}
+          {FormData.location.street}
           {/* <MapWrapper mapType='overview' /> */}
         </div>
       </div>
@@ -50,6 +70,34 @@ const Summary = ({ FormData, setFormData }) => {
         <ul>
           <li>Bouwstenen en aantallen</li>
         </ul>
+      </div>
+      <div className={styles.footer}>
+        <Button
+          as='button'
+          size='small'
+          prepend='arrow-left'
+          theme='Primary'
+          onClick={() => {
+            updateFormStage(1)
+          }}
+        >vorige stap
+        </Button>
+        <Button
+          href='/admin'
+          as='link'
+          size='small'
+          append='save'
+          theme='Primary'
+        >
+          <p onClick={() => {
+            void submitNewProject(FormData)
+            resetProgress()
+          }}
+          >
+            opslaan
+          </p>
+
+        </Button>
       </div>
     </div>
   )

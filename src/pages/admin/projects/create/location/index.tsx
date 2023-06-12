@@ -1,9 +1,11 @@
 import { MapWrapper } from '@/components/3d/MapWrapper'
+import Navigation from '@components/molecule/Navigation'
 
 const Builder = () => {
   return (
     <>
-      <MapWrapper mapType='params' />
+      <Navigation />
+      <MapWrapper mapType='NewProject' />
     </>
   )
 }

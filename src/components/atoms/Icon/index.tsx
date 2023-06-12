@@ -37,7 +37,9 @@ const icons = [
   'shield-security',
   'medal-star',
   'user',
-  'sms'
+  'sms',
+  'rotate-left',
+  'rotate-right'
 ] as const
 
 export type Icons = typeof icons[number]

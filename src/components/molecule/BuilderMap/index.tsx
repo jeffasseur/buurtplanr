@@ -1,6 +1,7 @@
 import { type LatLngTypes } from '@googlemaps/three'
 import { useEffect, useRef, useState } from 'react'
 import { type Vector2, type Object3D, type Vector3 } from 'three'
+import * as THREE from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
@@ -28,7 +29,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   const productType = useDroppedModel(state => state.productType)
   const updateProductType = useDroppedModel(state => state.updateProductType)
   let mousePosition: Vector3
-  let rayMouse: Vector2
+  const rayMouse: Vector2 = new THREE.Vector2()
 
   useEffect(() => {
     if (!map) {
@@ -42,7 +43,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
         setBUURTMAP(new BuurtMap(mapInstance, mapData.center))
       }
     }
-  }, [map, mapData, projectData.location.coordinates])
+    if (BUURTMAP?.scene) {
+      BUURTMAP.boundLats = projectData.border
+      BUURTMAP.joinBounds()
+    }
+  }, [BUURTMAP, map, mapData, projectData.border, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
     const updateRayMouse = (e) => {
@@ -145,7 +150,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
   return (
     <div className={styles.container}>
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
-        <Thermometer />
+        {map && <Thermometer />}
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
       </div>
       <div className={styles.navcontainer}>

@@ -78,6 +78,37 @@ export interface projectData {
   dateOfStart: string
   dateOfEnd: string
   __v: number
+  border: object[]
+}
+
+export interface newProjectFormData {
+  title: string
+  description: string
+  dateOfPublication: string
+  dateOfStartCocreation: string
+  dateOfEndCocreation: string
+  dateOfStartVote: string
+  dateOfEndVote: string
+  budget: number
+  informatie: string
+  document: object
+  location: {
+    coordinates: {
+      lat: number
+      lng: number
+    }
+    postalcode: string
+    city: string
+    street: string
+  }
+  border: object
+  projectData: {
+    type: string
+    file: null
+    description: string
+    link: string
+  }
+
 }
 
 export interface productUploadData {
@@ -99,6 +130,7 @@ export interface ProductMesh extends THREE.Mesh {
   isDraggable?: boolean
   modelName?: string
   isHighlighter?: boolean
+  bndNumber?: number
 }
 
 export interface ProductModel extends THREE.Object3D {
@@ -106,6 +138,7 @@ export interface ProductModel extends THREE.Object3D {
   modelID?: number
   isDraggable?: boolean
   isHighlighter?: boolean
+  bndNumber?: number
 }
 
 export interface ProductGroup extends THREE.Group {
@@ -114,4 +147,5 @@ export interface ProductGroup extends THREE.Group {
   modelType?: string
   isDraggable?: boolean
   modelName?: string
+  bndNumber?: number
 }

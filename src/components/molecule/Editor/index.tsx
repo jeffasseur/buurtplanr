@@ -46,6 +46,28 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
           <div
             className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
             onClick={() => {
+              BUURTMAP.rotateProduct('counter-clockwise')
+            }}
+          >
+            <Icon name='rotate-left' />
+          </div>
+          <div className={styles.actionName}>rotate left</div>
+        </div>
+        <div className={styles.action}>
+          <div
+            className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
+            onClick={() => {
+              BUURTMAP.rotateProduct('clockwise')
+            }}
+          >
+            <Icon name='rotate-right' />
+          </div>
+          <div className={styles.actionName}>rotate right</div>
+        </div>
+        <div className={styles.action}>
+          <div
+            className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
+            onClick={() => {
               if (activePID) BUURTMAP.removeProductById(activePID)
               setPID(undefined)
             }}
