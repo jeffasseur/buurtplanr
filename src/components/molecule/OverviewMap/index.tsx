@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
 
-import { ProjectCard } from '../ProjectCard'
+import ProjectCard from '@/components/molecule/ProjectCard'
 
 import styles from './styles.module.css'
 
