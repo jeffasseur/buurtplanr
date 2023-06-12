@@ -15,10 +15,10 @@ import Fase4 from '@/components/organisms/ProjectDetails/Fase4'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://127.0.0.1:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
+let baseURL: string = 'http://127.0.0.1:3002/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const ProjectDetailPage = ({ project }) => {
   const fase = project.fase.split(' ')[1]
