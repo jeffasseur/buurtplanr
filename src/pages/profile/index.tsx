@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -28,7 +30,17 @@ export const fetchUser = async (token: string) => {
 }
 
 const UserProfile = () => {
-  const [user, setUser] = useState<object>({})
+  const [user, setUser] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    postalCode: '',
+    city: '',
+    street: '',
+    houseNumber: '',
+    image: ''
+  })
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (!token) {

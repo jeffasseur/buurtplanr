@@ -1,14 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import Button from '@/components/atoms/Button'
+import { logOut } from '@/redux/features/auth-slice'
+import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
-
-const logOut = () => {
-  console.log('logout')
-}
 
 const DropdownNavUser = ({ user }) => {
   const [display, setDisplay] = useState('none')
@@ -25,6 +24,13 @@ const DropdownNavUser = ({ user }) => {
       setColor('var(--color-black)')
     }
   }
+
+  const dispatch: AppDispatch = useDispatch()
+  const submitLogOut = () => {
+    dispatch(logOut())
+    window.location.href = '/login'
+  }
+
   return (
     <div className={styles.dropdownWrapper}>
       <Button id='Dropdown' append='chevron-down' size='small' theme='Primary' className={styles.button} style={{ background: active, color }} onClick={toggleDropdown}>
@@ -48,7 +54,7 @@ const DropdownNavUser = ({ user }) => {
         <Link href='/profile' className={styles.mobile}>Meldingen</Link>
         <Link href='/'>Projecten</Link>
         <Link href='/profile/settings'>Instellingen</Link>
-        <Link href='#logout' onClick={logOut}>Afmelden</Link>
+        <Link href='#logout' onClick={submitLogOut}>Afmelden</Link>
       </div>
     </div>
   )
