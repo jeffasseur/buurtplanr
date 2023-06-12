@@ -23,6 +23,7 @@ const Login = () => {
     email: '',
     password: ''
   })
+  const [error, setError] = useState('')
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -53,15 +54,18 @@ const Login = () => {
             dispatch(burgerLogin(dispatchData))
             localStorage.setItem('token', data.token)
             localStorage.setItem('user', JSON.stringify(data.data))
+            window.location.href = '/'
+          } else if (data.status === 'error' || data.status !== 'success') {
+            setError(data.message)
+            return false
           } else {
-            return { status: 'error', message: 'Er is iets misgegaan' }
+            setError('Er is iets misgegaan')
+            return false
           }
-        })
-        .then(() => {
-          window.location.href = '/'
         })
         .catch((err) => {
           alert(err)
+          return false
         })
     } else {
       return { status: 'error', message: 'Vul alle velden in' }
@@ -86,6 +90,7 @@ const Login = () => {
                 required
                 value={FormData.email}
                 onChange={(e) => { setFormData({ ...FormData, email: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='user' className={styles.icon} />
             </div>
@@ -101,10 +106,19 @@ const Login = () => {
                 required
                 value={FormData.password}
                 onChange={(e) => { setFormData({ ...FormData, password: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='shield-security' className={styles.icon} />
             </div>
           </fieldset>
+          {
+            error !== '' &&
+            (
+              <div className={styles.error}>
+                <p>{error}</p>
+              </div>
+            )
+          }
           <div>
             {
               ((FormData.email === '' && FormData.password === '') || (FormData.email === '' || FormData.password === '')) &&

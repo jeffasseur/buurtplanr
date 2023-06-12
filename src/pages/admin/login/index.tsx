@@ -24,6 +24,7 @@ const AdminLogin = () => {
     password: '',
     postalcode: ''
   })
+  const [error, setError] = useState('')
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -54,12 +55,14 @@ const AdminLogin = () => {
             dispatch(gemeenteLogin(dispatchData))
             window.localStorage.setItem('token', data.token)
             window.localStorage.setItem('gemeente', JSON.stringify(data.data))
+            window.location.href = '/admin'
+          } else if (data.status === 'error' || data.status !== 'success') {
+            setError(data.message)
+            return false
           } else {
-            return { status: 'error', message: 'Er is iets misgegaan' }
+            setError('Er is iets misgegaan')
+            return false
           }
-        })
-        .then(() => {
-          window.location.href = '/admin'
         })
     } else {
       return { status: 'error', message: 'Vul alle velden in' }
@@ -84,6 +87,7 @@ const AdminLogin = () => {
                 required
                 value={FormData.email}
                 onChange={(e) => { setFormData({ ...FormData, email: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='user' className={styles.icon} />
             </div>
@@ -98,6 +102,7 @@ const AdminLogin = () => {
                 required
                 value={FormData.postalcode}
                 onChange={(e) => { setFormData({ ...FormData, postalcode: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='location' className={styles.icon} />
             </div>
@@ -113,10 +118,19 @@ const AdminLogin = () => {
                 required
                 value={FormData.password}
                 onChange={(e) => { setFormData({ ...FormData, password: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='shield-security' className={styles.icon} />
             </div>
           </fieldset>
+          {
+            error !== '' &&
+            (
+              <div className={styles.error}>
+                <p>{error}</p>
+              </div>
+            )
+          }
           <div>
             {
               ((FormData.email === '' && FormData.password === '' && FormData.postalcode === '') || (FormData.email === '' || FormData.password === '' || FormData.postalcode === '')) &&
