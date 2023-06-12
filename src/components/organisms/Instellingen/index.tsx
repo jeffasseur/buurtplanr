@@ -1,10 +1,11 @@
-import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { cx } from 'class-variance-authority'
 import Image from 'next/image'
 import { useState } from 'react'
 
 import Button from '@components/atoms/Button'
 import Input from '@components/atoms/Input'
+import ChangePassword from '@components/molecule/Dialog/ChangePassword'
+import DeleteAccount from '@components/molecule/Dialog/DeleteAccount'
 import TypeSelector from '@components/molecule/TypeSelector'
 
 import styles from './styles.module.css'
@@ -26,8 +27,41 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
   const [backgroundState, setBackgroundState] = useState(background)
   const className = cx([styles.banner, styles[backgroundState]])
 
+  const [formData, setFormData] = useState({
+    username: profileInfo.username,
+    email: profileInfo.email,
+    adress: profileInfo.adress,
+    postalcode: profileInfo.postalcode,
+    housenummer: profileInfo.housenummer,
+    background: backgroundState
+  })
+
+  const updateFormData = (name: string, value: string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
+    }))
+  }
+
   const handleBackgroundChange = (background: 'park' | 'street' | 'square') => {
     setBackgroundState(background)
+    updateFormData('background', background)
+  }
+
+  const onSubmit = () => {
+    const updatedFormData = new FormData()
+    updatedFormData.append('username', formData.username)
+    updatedFormData.append('email', formData.email)
+    updatedFormData.append('adress', formData.adress)
+    updatedFormData.append('postalcode', formData.postalcode)
+    updatedFormData.append('housenummer', formData.housenummer)
+    updatedFormData.append('background', formData.background)
+
+    const formDataObject = Object.fromEntries([...updatedFormData.entries()])
+    /* TODO: remove console.log */
+    console.log(formDataObject)
+
+    /* TODO: add call to api to update user info */
   }
 
   return (
@@ -38,87 +72,67 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
       <div className={styles.subContainer}>
         <div className={styles.content}>
           <div className={styles['button-container']}>
-            <AlertDialog.Root>
-              <AlertDialog.Trigger asChild>
-                <Button size='small' append='shield-security'>
-                  wachtwoord wijzigen
-                </Button>
-              </AlertDialog.Trigger>
-              <AlertDialog.Portal>
-                <AlertDialog.Overlay className={styles.DialogOverlay} />
-                <AlertDialog.Content className={cx([styles.DialogContent, styles.passwordContent])}>
-                  <AlertDialog.Title className={styles.DialogTitle}>Wachtwoord wijzigen</AlertDialog.Title>
-                  <AlertDialog.Description className={styles.DialogPasswordDescription}>
-                    <Input placeholder='Oud wachtwoord' type='password' />
-                    <Input placeholder='Nieuw wachtwoord' type='password' />
-                  </AlertDialog.Description>
-                  <div className={styles['button-wrapper']}>
-                    <AlertDialog.Cancel asChild>
-                      <Button size='small' theme='Cancel'>
-                        annuleren
-                      </Button>
-                    </AlertDialog.Cancel>
-                    <AlertDialog.Action asChild>
-                      <Button size='small' append='shield-security'>
-                        nieuw wachtwoord bewaren
-                      </Button>
-                    </AlertDialog.Action>
-                  </div>
-                </AlertDialog.Content>
-              </AlertDialog.Portal>
-            </AlertDialog.Root>
-            <AlertDialog.Root>
-              <AlertDialog.Trigger asChild>
-                <Button size='small' theme='Warning'>
-                  account verwijderen
-                </Button>
-              </AlertDialog.Trigger>
-              <AlertDialog.Portal>
-                <AlertDialog.Overlay className={styles.DialogOverlay} />
-                <AlertDialog.Content className={styles.DialogContent}>
-                  <AlertDialog.Title className={styles.DialogTitle}>Account verwijderen</AlertDialog.Title>
-                  <AlertDialog.Description className={styles.DialogDescription}>
-                    Deze actie kan niet ongedaan worden gemaakt. Weet je zeker dat je je account wilt verwijderen?
-                  </AlertDialog.Description>
-                  <div className={styles['button-wrapper']}>
-                    <AlertDialog.Cancel asChild>
-                      <Button size='small' theme='Cancel'>
-                        annuleren
-                      </Button>
-                    </AlertDialog.Cancel>
-                    <AlertDialog.Action asChild>
-                      <Button size='small' theme='Warning'>
-                        account verwijderen
-                      </Button>
-                    </AlertDialog.Action>
-                  </div>
-                </AlertDialog.Content>
-              </AlertDialog.Portal>
-            </AlertDialog.Root>
-            <Button size='small' append='save'>
+            <ChangePassword />
+            <DeleteAccount />
+            <Button as='button' size='small' append='save' onClick={onSubmit}>
               wijzigigen opslaan
             </Button>
           </div>
           <form className={styles.form}>
             <div className={styles.field}>
-              <label htmlFor='username' className={styles.label}>Gebruikersnaam</label>
-              <Input type='text' placeholder={profileInfo.username} icon='user' />
+              <label className={styles.label}>Gebruikersnaam</label>
+              <Input
+                type='text'
+                placeholder={profileInfo.username}
+                icon='user'
+                onChange={(event) => {
+                  updateFormData('username', event.target.value)
+                }}
+              />
             </div>
             <div className={styles.field}>
-              <label htmlFor='email' className={styles.label}>Email</label>
-              <Input type='text' placeholder={profileInfo.email} icon='mail' />
+              <label className={styles.label}>Email</label>
+              <Input
+                type='text'
+                placeholder={profileInfo.email}
+                icon='mail'
+                onChange={(event) => {
+                  updateFormData('email', event.target.value)
+                }}
+              />
             </div>
             <div className={styles.field}>
-              <label htmlFor='adress' className={styles.label}>Adress</label>
-              <Input type='text' placeholder={profileInfo.adress} icon='location' />
+              <label className={styles.label}>Adress</label>
+              <Input
+                type='text'
+                placeholder={profileInfo.adress}
+                icon='location'
+                onChange={(event) => {
+                  updateFormData('adress', event.target.value)
+                }}
+              />
             </div>
             <div className={styles.field}>
-              <label htmlFor='postalcode' className={styles.label}>Postcode</label>
-              <Input type='text' placeholder={profileInfo.postalcode} icon='location' />
+              <label className={styles.label}>Postcode</label>
+              <Input
+                type='text'
+                placeholder={profileInfo.postalcode}
+                icon='location'
+                onChange={(event) => {
+                  updateFormData('postalcode', event.target.value)
+                }}
+              />
             </div>
             <div className={styles.field}>
-              <label htmlFor='housenummer' className={styles.label}>Huisnummer</label>
-              <Input type='text' placeholder={profileInfo.housenummer} icon='location' />
+              <label className={styles.label}>Huisnummer</label>
+              <Input
+                type='text'
+                placeholder={profileInfo.housenummer}
+                icon='location'
+                onChange={(event) => {
+                  updateFormData('housenummer', event.target.value)
+                }}
+              />
             </div>
           </form>
           <span>Profiel achtergrond</span>
