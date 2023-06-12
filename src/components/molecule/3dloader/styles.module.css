@@ -4,4 +4,53 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+}
+
+.bubble_left,
+.bubble_right {
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--color-purple-200);
+  border-radius: var(--radius-round);
+}
+
+.bubble_left {
+  animation: bubble-left 2s ease 0s infinite normal forwards;
+}
+
+.bubble_right {
+  animation: bubble-right 2s ease 0s infinite normal forwards;
+}
+
+@keyframes bubble-left {
+
+  0%,
+  50%,
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    transform: scale(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bubble-right {
+
+  0%,
+  50%,
+  100% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    transform: scale(10);
+    opacity: 0;
+  }
 }
