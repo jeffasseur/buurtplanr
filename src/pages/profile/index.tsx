@@ -32,6 +32,7 @@ export const fetchUser = async (token: string) => {
 
 const UserProfile = () => {
   const [user, setUser] = useState({
+    _id: '',
     firstname: '',
     lastname: '',
     email: '',
@@ -76,7 +77,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className={styles.bijdragen}>
-          <ProfileBijdragen />
+          <ProfileBijdragen burgerId={user?._id} />
         </div>
       </main>
     </UserLayout>

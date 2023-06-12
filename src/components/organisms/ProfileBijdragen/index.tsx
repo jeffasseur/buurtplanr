@@ -11,15 +11,15 @@ const baseURL: string = 'http://127.0.0.1:3002/'
 //   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
 // }
 
-const ProfileBijdragen = () => {
-  const reduxUser: object = useAppSelector((state) => state.authReducer.data)
+const ProfileBijdragen = ({ burgerId }) => {
+  const reduxUser = useAppSelector((state) => state.authReducer.data)
   const reduxToken: string = useAppSelector((state) => state.authReducer.token)
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState<string>('')
   const [token, setToken] = useState<string>('')
   useEffect(() => {
-    setUserId(reduxUser._id)
+    setUserId(burgerId)
     setToken(reduxToken)
-  }, [reduxUser, reduxToken])
+  }, [reduxUser, burgerId, reduxToken])
 
   const fetcher = async (url: string) => {
     const res = await fetch(url, {
