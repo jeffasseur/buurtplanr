@@ -1,10 +1,10 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { cx } from 'class-variance-authority'
 import Image from 'next/image'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 import Button from '@components/atoms/Button'
-import Input from '@components/molecule/Input'
+import Input from '@components/atoms/Input'
 import TypeSelector from '@components/molecule/TypeSelector'
 
 import styles from './styles.module.css'
@@ -25,13 +25,6 @@ interface instellingenProps {
 const Instellingen = ({ profileInfo, background }: instellingenProps) => {
   const [backgroundState, setBackgroundState] = useState(background)
   const className = cx([styles.banner, styles[backgroundState]])
-  const [changePassword, setChangePassword] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  const setChangePasswordState = () => {
-    setChangePassword(!changePassword)
-    ref.current?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   const handleBackgroundChange = (background: 'park' | 'street' | 'square') => {
     setBackgroundState(background)
@@ -47,7 +40,7 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
           <div className={styles['button-container']}>
             <AlertDialog.Root>
               <AlertDialog.Trigger asChild>
-                <Button size='small' append='shield-security' onClick={setChangePasswordState}>
+                <Button size='small' append='shield-security'>
                   wachtwoord wijzigen
                 </Button>
               </AlertDialog.Trigger>
@@ -56,8 +49,8 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
                 <AlertDialog.Content className={cx([styles.DialogContent, styles.passwordContent])}>
                   <AlertDialog.Title className={styles.DialogTitle}>Wachtwoord wijzigen</AlertDialog.Title>
                   <AlertDialog.Description className={styles.DialogPasswordDescription}>
-                    <Input label='Oud wachtwoord' type='password' icon='shield-security' />
-                    <Input label='Nieuw wachtwoord' type='password' icon='shield-security' />
+                    <Input placeholder='Oud wachtwoord' type='password' />
+                    <Input placeholder='Nieuw wachtwoord' type='password' />
                   </AlertDialog.Description>
                   <div className={styles['button-wrapper']}>
                     <AlertDialog.Cancel asChild>
@@ -66,7 +59,7 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
                       </Button>
                     </AlertDialog.Cancel>
                     <AlertDialog.Action asChild>
-                      <Button size='small' append='shield-security' onClick={setChangePasswordState}>
+                      <Button size='small' append='shield-security'>
                         nieuw wachtwoord bewaren
                       </Button>
                     </AlertDialog.Action>
@@ -106,11 +99,28 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
               wijzigigen opslaan
             </Button>
           </div>
-          <Input label='Username' text={profileInfo.username} icon='user' />
-          <Input label='Email' text={profileInfo.email} icon='mail' />
-          <Input label='Adress' text={profileInfo.adress} icon='location' />
-          <Input label='Postalcode' text={profileInfo.postalcode} icon='location' />
-          <Input label='Housenummer' text={profileInfo.housenummer} icon='location' />
+          <form className={styles.form}>
+            <div className={styles.field}>
+              <label htmlFor='username' className={styles.label}>Gebruikersnaam</label>
+              <Input type='text' placeholder={profileInfo.username} icon='user' />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='email' className={styles.label}>Email</label>
+              <Input type='text' placeholder={profileInfo.email} icon='mail' />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='adress' className={styles.label}>Adress</label>
+              <Input type='text' placeholder={profileInfo.adress} icon='location' />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='postalcode' className={styles.label}>Postcode</label>
+              <Input type='text' placeholder={profileInfo.postalcode} icon='location' />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='housenummer' className={styles.label}>Huisnummer</label>
+              <Input type='text' placeholder={profileInfo.housenummer} icon='location' />
+            </div>
+          </form>
           <span>Profiel achtergrond</span>
           <TypeSelector background={backgroundState} onChange={handleBackgroundChange} />
         </div>
