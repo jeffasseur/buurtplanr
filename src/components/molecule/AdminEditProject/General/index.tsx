@@ -58,12 +58,11 @@ const AdminEditProjectGeneral = ({ project }) => {
       link: project.projectData.link
     }
   })
+
   const handleChangeFase = (event) => {
     setFormData({ ...FormData, fase: event.target.value })
   }
-  // const handleChangeType = (event) => {
-  //   setFormData({ ...FormData.projectData, type: event.target.value })
-  // }
+
   const handleChangeType = (event) => {
     setFormData({
       ...FormData,
@@ -71,7 +70,7 @@ const AdminEditProjectGeneral = ({ project }) => {
         ...FormData.projectData,
         type: event.target.value
       }
-    });
+    })
   }
   return (
     <div className={styles.generalContainer}>

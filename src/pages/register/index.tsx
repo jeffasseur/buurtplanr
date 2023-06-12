@@ -15,7 +15,6 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 
 const submitRegister = async (data) => {
   const dataString = JSON.stringify(data)
-  console.log(dataString)
   await fetch(`${baseURL}burgers/register`, {
     method: 'POST',
     headers: {
