@@ -36,6 +36,7 @@ export interface InputProps
   min?: string
   name?: string
   id?: string
+  error?: boolean
 }
 
 const Input: React.FC<InputProps> = ({
@@ -43,9 +44,10 @@ const Input: React.FC<InputProps> = ({
   Size,
   BorderRadius,
   Checkbox,
+  error,
   ...props
 }) => {
-  const classNames = cx([inputStyle({ Size, BorderRadius, Checkbox }), className])
+  const classNames = cx([inputStyle({ Size, BorderRadius, Checkbox }), className, error ? styles.error : ''])
   return (
     <input
       type={props.type}
@@ -56,6 +58,7 @@ const Input: React.FC<InputProps> = ({
       min={props.min}
       name={props.name}
       id={props.id}
+      {...props}
     />
   )
 }

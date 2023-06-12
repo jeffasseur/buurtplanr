@@ -8,10 +8,10 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://localhost:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
+let baseURL: string = '/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const submitRegister = async (data) => {
   if (data.email !== '' && data.password !== '') {
@@ -57,7 +57,7 @@ const AdminRegister = () => {
         </Title>
       </div>
       <div className={styles.loginWrapper}>
-        <div className={styles.loginForm}>
+        <form className={styles.loginForm}>
           <Image src='/img/logo.svg' alt='logo' width={300} height={76} />
           <fieldset className={styles.loginForm_fieldset}>
             <label>Voor- en achternaam</label>
@@ -70,7 +70,7 @@ const AdminRegister = () => {
                 value={FormData.name}
                 onChange={(e) => { setFormData({ ...FormData, name: e.target.value }) }}
               />
-              <Icon name='profile-user' className={styles.icon} />
+              <Icon name='user' className={styles.icon} />
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>
@@ -126,7 +126,7 @@ const AdminRegister = () => {
                 value={FormData.email}
                 onChange={(e) => { setFormData({ ...FormData, email: e.target.value }) }}
               />
-              <Icon name='profile-user' className={styles.icon} />
+              <Icon name='sms' className={styles.icon} />
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>
@@ -145,7 +145,7 @@ const AdminRegister = () => {
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>
-            <label>Herhaal wachtwoord</label>
+            <label>Bevestig wachtwoord</label>
             <div className={styles.inputIcon}>
               <Input
                 type='password'
@@ -160,28 +160,19 @@ const AdminRegister = () => {
             </div>
           </fieldset>
           <div>
-            {
-              ((FormData.email === '' && FormData.password === '' && FormData.postalcode === '') || (FormData.email === '' || FormData.password === '' || FormData.postalcode === '')) &&
-              (
-                <Button as='button' theme='Primary' disabled>
-                  Registreer
-                </Button>
-              )
-            }
-            {
-              FormData.email !== '' && FormData.password !== '' && FormData.postalcode !== '' &&
-              (
-                <Button
-                  as='button'
-                  theme='Primary'
-                  onClick={() => { void submitRegister(FormData) }}
-                >
-                  Registreer
-                </Button>
-              )
-            }
+            <Button
+              as='button'
+              theme='Primary'
+              // onClick={() => { void submitRegister(FormData) }}
+              onSubmit={(e) => {
+                e.preventDefault()
+                void submitRegister(FormData)
+              }}
+            >
+              Registreer
+            </Button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )

@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+import ProjectCard from '@/components/molecule/ProjectCard'
 import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
-
-import { ProjectCard } from '../ProjectCard'
 
 import styles from './styles.module.css'
 

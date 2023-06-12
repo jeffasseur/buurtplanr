@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.error {
+  border-color: var(--color-red-400);
+}
+
 .sizeSmall {
   max-width: 300px;
 }

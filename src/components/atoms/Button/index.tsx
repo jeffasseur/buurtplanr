@@ -34,6 +34,7 @@ interface BaseProps extends VariantProps<typeof buttonStyle> {
   prepend?: Icons
   href?: string
   onClick?: any
+  onSubmit?: any
 }
 
 type ButtonAsButton = BaseProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseProps> & {

@@ -1,0 +1,60 @@
+.mobile {
+  display: none;
+}
+
+.dropdownWrapper {
+  position: relative;
+  z-index: 99;
+  min-width: calc(110px + var(--spacing-04));
+}
+
+.button {
+  position: relative;
+  padding: 4px;
+  border-radius: var(--radius-round);
+  background: var(--color-grey-100);
+  z-index: 10;
+  color: var(--color-black);
+  min-width: calc(110px + var(--spacing-04));
+}
+.button:hover {
+  background: var(--color-blue-300);
+}
+
+.buttonInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px
+}
+
+.profilePic {
+  position: relative;
+  width: 24px;
+  aspect-ratio: 1/1;
+}
+.profilePicImg {
+  object-fit: cover;
+  border-radius: var(--radius-round);
+}
+
+.dropdownMenu {
+  z-index: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-width: calc(110px + var(--spacing-04));
+  padding: var(--spacing-08) var(--spacing-04) var(--spacing-04) var(--spacing-04);
+  background: var(--color-blue-500);
+  border-radius: 0 0 var(--radius-2) var(--radius-2);
+  top: 1.1rem;
+  color: var(--color-white);
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and ( max-width: 768px ) {
+  .mobile {
+    display: block;
+  }
+}
