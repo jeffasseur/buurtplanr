@@ -1,10 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
+import { gemeenteLogin } from '@/redux/features/auth-slice'
+import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
 
@@ -13,39 +18,54 @@ const baseURL: string = 'http://localhost:3002/'
 //   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
 // }
 
-const submitLogin = async (data) => {
-  if (data.email !== '' && data.password !== '') {
-    const dataString = JSON.stringify(data)
-    await fetch(`${baseURL}gemeentes/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': `${baseURL}`,
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
-      body: dataString
-    })
-      .then(async (res) => await res.json())
-      .then((data) => {
-        if (data.status === 'success') {
-          window.localStorage.setItem('token', data.token)
-          window.location.href = '/admin'
-        } else {
-          return { status: 'error', message: 'Er is iets misgegaan' }
-        }
-      })
-  } else {
-    return { status: 'error', message: 'Vul alle velden in' }
-  }
-}
-
 const AdminLogin = () => {
   const [FormData, setFormData] = useState({
     email: '',
     password: '',
     postalcode: ''
   })
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  const submitLogin = async (data) => {
+    if (data.email !== '' && data.password !== '') {
+      const dataString = JSON.stringify(data)
+      await fetch(`${baseURL}gemeentes/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': `${baseURL}`,
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        },
+        body: dataString
+      })
+        .then(async (res) => await res.json())
+        .then((data) => {
+          if (data.status === 'success') {
+            const tokenString: string = data.token
+            const dataObject: object = data.data
+            const dispatchData = {
+              isAuth: true,
+              data: dataObject,
+              token: tokenString,
+              isAdmin: true
+            }
+            dispatch(gemeenteLogin(dispatchData))
+            window.localStorage.setItem('token', data.token)
+            window.localStorage.setItem('gemeente', JSON.stringify(data.data))
+          } else {
+            return { status: 'error', message: 'Er is iets misgegaan' }
+          }
+        })
+        .then(() => {
+          window.location.href = '/admin'
+        })
+    } else {
+      return { status: 'error', message: 'Vul alle velden in' }
+    }
+  }
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.imgCover}>

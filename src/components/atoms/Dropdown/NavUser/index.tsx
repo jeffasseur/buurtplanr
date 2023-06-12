@@ -40,6 +40,10 @@ const DropdownNavUser = ({ user }) => {
             (
               <p>{user.firstname}</p>
             )}
+          {user?.name &&
+            (
+              <p>{user.name}</p>
+            )}
         </div>
       </Button>
       <div id='Dropdown' className={styles.dropdownMenu} style={{ display }}>
@@ -47,7 +51,7 @@ const DropdownNavUser = ({ user }) => {
         {
           user?.admin &&
           (
-            <Link href='/admin'>Admin</Link>
+            <Link href='/admin' className={styles.mobile}>Admin</Link>
           )
         }
         <Link href='/profile'>Profiel</Link>
