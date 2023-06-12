@@ -61,6 +61,14 @@ const ProjectColumn = ({ project }: ProjectProps) => {
                     </Button>
                   )
                 }
+                {
+                  project.fase === 'Fase 3: Stemmen' &&
+                  (
+                    <Button as='link' size='small' append='medal-star' href={`/builder/${project._id}/${userID}`}>
+                      <span>Deelnemen</span>
+                    </Button>
+                  )
+                }
               </>
             )}
           </div>

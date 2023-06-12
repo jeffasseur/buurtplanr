@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 
 import Title from '@/components/atoms/Title'
 import UserLayout from '@/components/layouts/user-layout'
+import ProfileBijdragen from '@/components/organisms/ProfileBijdragen'
 
 import styles from './styles.module.css'
 
@@ -63,7 +64,7 @@ const UserProfile = () => {
           <Image src='/img/types/PARK.png' alt='profielfoto' fill className={styles.headerBg} />
         </div>
         <div className={styles.headerWrapper}>
-          <Image src='/img/types/TOWN.png' alt='profielfoto' width={250} height={250} className={styles.headerImage} />
+          <Image src={user?.image} alt='profielfoto' width={250} height={250} className={styles.headerImage} />
           <Title as='h1' size='h1' weight='semibold' className={styles.headerTitle}>{user?.firstname} {user?.lastname}</Title>
         </div>
       </header>
@@ -75,7 +76,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className={styles.bijdragen}>
-          bijdragen van deze gebruiker
+          <ProfileBijdragen />
         </div>
       </main>
     </UserLayout>

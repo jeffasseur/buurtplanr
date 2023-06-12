@@ -1,4 +1,4 @@
-import { combineReducers, createStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { type TypedUseSelectorHook, useSelector } from 'react-redux'
 
 import authReducer from '@/redux/features/auth-slice'
@@ -7,7 +7,7 @@ const saveToLocalStorage = (state) => {
   try {
     localStorage.setItem('state', JSON.stringify(state))
   } catch (e) {
-    console.error(e)
+    return undefined
   }
 }
 
@@ -17,27 +17,20 @@ const loadFromLocalStorage = () => {
     if (state === null) return undefined
     return JSON.parse(state)
   } catch (e) {
-    console.error(e)
     return undefined
   }
 }
 
-const rootReducer = combineReducers({
-  authReducer
-})
+// const rootReducer = combineReducers({
+//   reducer: authReducer
+// })
 
 const persistedStore = loadFromLocalStorage()
 
-// export const store = configureStore({
-//   reducer: rootReducer
-// })
-
-export const configureStore = (persistedStore) => {
-  const store = createStore(rootReducer, persistedStore)
-  return store
-}
-
-export const store = configureStore(persistedStore)
+export const store = configureStore({
+  reducer: { authReducer },
+  preloadedState: persistedStore
+})
 
 store.subscribe(() => { saveToLocalStorage(store.getState()) })
 

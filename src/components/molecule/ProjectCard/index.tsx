@@ -10,7 +10,7 @@ interface ProjectProps {
   project: projectData | undefined
 }
 
-export const ProjectCard = ({ project }: ProjectProps) => {
+const ProjectCard = ({ project }: ProjectProps) => {
   const userID = useUser(state => state.userID)
 
   return (
@@ -61,6 +61,14 @@ export const ProjectCard = ({ project }: ProjectProps) => {
                     </Button>
                   )
                 }
+                {
+                  project.fase === 'Fase 3: Stemmen' &&
+                  (
+                    <Button as='link' size='small' append='medal-star' href={`/builder/${project._id}/${userID}`}>
+                      <span>Deelnemen</span>
+                    </Button>
+                  )
+                }
               </>
             )}
           </div>
@@ -68,3 +76,5 @@ export const ProjectCard = ({ project }: ProjectProps) => {
     </>
   )
 }
+
+export default ProjectCard
