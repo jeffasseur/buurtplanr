@@ -58,18 +58,27 @@ const AdminEditProjectGeneral = ({ project }) => {
       link: project.projectData.link
     }
   })
-  const handleChange = (event) => {
+  const handleChangeFase = (event) => {
     setFormData({ ...FormData, fase: event.target.value })
   }
+  // const handleChangeType = (event) => {
+  //   setFormData({ ...FormData.projectData, type: event.target.value })
+  // }
   const handleChangeType = (event) => {
-    setFormData({ ...FormData.projectData, type: event.target.value })
+    setFormData({
+      ...FormData,
+      projectData: {
+        ...FormData.projectData,
+        type: event.target.value
+      }
+    });
   }
   return (
     <div className={styles.generalContainer}>
       <fieldset className={styles.fase}>
         <Title as='h3' size='h3' weight='semibold'>Fase</Title>
         <div className={styles.faseContainer}>
-          <select name='projectFase' defaultValue={FormData.fase} id='projectFase' onChange={handleChange} className={styles.projectFase}>
+          <select name='projectFase' defaultValue={FormData.fase} id='projectFase' onChange={handleChangeFase} className={styles.projectFase}>
             <option value='Fase 0: Wachten tot opstart'>Fase 0: Wachten tot opstart</option>
             <option value='Fase 1: Informeren'>Fase 1: Informeren</option>
             <option value='ase 2: Cocreatie'>Fase 2: Cocreatie</option>
@@ -155,7 +164,7 @@ const AdminEditProjectGeneral = ({ project }) => {
       <fieldset className={styles.fase}>
         <Title as='h3' size='h3' weight='semibold'>Type</Title>
         <div className={styles.faseContainer}>
-          <select name='projectType' defaultValue={FormData.projectData.type} id='projectFase' onChange={handleChangeType} className={styles.projectFase}>
+          <select name='projectType' defaultValue={FormData.projectData.type} id='projectType' onChange={handleChangeType} className={styles.projectFase}>
             <option value='Dorp'>Dorp</option>
             <option value='Straat'>Straat</option>
             <option value='Park'>Park</option>
