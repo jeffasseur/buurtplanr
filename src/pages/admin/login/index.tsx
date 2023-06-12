@@ -13,10 +13,10 @@ import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://localhost:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
+let baseURL: string = 'http://localhost:3002/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const AdminLogin = () => {
   const [FormData, setFormData] = useState({
