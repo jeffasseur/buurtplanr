@@ -80,8 +80,9 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
           </div>
           <form className={styles.form}>
             <div className={styles.field}>
-              <label className={styles.label}>Gebruikersnaam</label>
+              <label htmlFor='username' className={styles.label}>Gebruikersnaam</label>
               <Input
+                id='username'
                 type='text'
                 placeholder={profileInfo.username}
                 icon='user'
@@ -91,8 +92,9 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>Email</label>
+              <label htmlFor='email' className={styles.label}>Email</label>
               <Input
+                id='email'
                 type='text'
                 placeholder={profileInfo.email}
                 icon='mail'
@@ -102,8 +104,9 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>Adress</label>
+              <label htmlFor='adress' className={styles.label}>Adress</label>
               <Input
+                id='adress'
                 type='text'
                 placeholder={profileInfo.adress}
                 icon='location'
@@ -113,8 +116,9 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>Postcode</label>
+              <label htmlFor='postalcode' className={styles.label}>Postcode</label>
               <Input
+                id='postalcode'
                 type='text'
                 placeholder={profileInfo.postalcode}
                 icon='location'
@@ -124,8 +128,9 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>Huisnummer</label>
+              <label htmlFor='housenummer' className={styles.label}>Huisnummer</label>
               <Input
+                id='housenummer'
                 type='text'
                 placeholder={profileInfo.housenummer}
                 icon='location'

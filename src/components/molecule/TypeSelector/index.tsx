@@ -18,7 +18,7 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
         onValueChange={onChange}
         aria-label='View density'
       >
-        <label className={styles.background}>
+        <label htmlFor='r1' className={styles.background}>
           <div className={styles['image-container']}>
             <Image
               src='/img/park.png'
@@ -32,7 +32,7 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
             </RadioGroup.Item>
           </div>
         </label>
-        <label className={styles.background}>
+        <label htmlFor='r2' className={styles.background}>
           <div className={styles['image-container']}>
             <Image
               src='/img/street.png'
@@ -46,7 +46,7 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
             </RadioGroup.Item>
           </div>
         </label>
-        <label className={styles.background}>
+        <label htmlFor='r3' className={styles.background}>
           <div className={styles['image-container']}>
             <Image
               src='/img/square.png'
