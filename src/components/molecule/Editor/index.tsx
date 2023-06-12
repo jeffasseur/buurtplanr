@@ -10,12 +10,14 @@ import styles from './styles.module.css'
 interface EditorProps {
   activePID: number | undefined
   setPID: (val: number | undefined) => void
+  productWeight: number
+  setProductWeight: (val: number) => void
   BUURTMAP: BuurtMap
   targetObject: object | null
   creationData?: productUploadData[]
 }
 
-export const Editor = ({ activePID, setPID, BUURTMAP, targetObject, creationData }: EditorProps) => {
+export const Editor = ({ activePID, setPID, productWeight, setProductWeight, BUURTMAP, targetObject, creationData }: EditorProps) => {
   const creationID = useUser(state => state.creationID)
   const projectID = useUser(state => state.projectID)
   const userID = useUser(state => state.userID)
@@ -76,6 +78,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject, creationData
             className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
             onClick={() => {
               if (activePID) BUURTMAP.removeProductById(activePID)
+              setProductWeight(productWeight - 10)
               setPID(undefined)
             }}
           >

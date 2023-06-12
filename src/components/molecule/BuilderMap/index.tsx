@@ -27,7 +27,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
   const [PID, setPID] = useState<number | undefined>(undefined)
 
   // change productweightchanges budget color && fill
-  const [productWeight, setProductWeight] = useState<number>(20)
+  const [productWeight, setProductWeight] = useState<number>(0)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelName = useDroppedModel(state => state.model)
@@ -55,6 +55,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
       creationData?.forEach(el => {
         BUURTMAP.appendProducts(el.modelName, el.latlng)
       })
+      if (creationData) setProductWeight(creationData.length * 10)
     }
   }, [BUURTMAP, creationData, map, mapData, projectData.border, projectData.location.coordinates])
 
@@ -158,6 +159,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
           BUURTMAP.placeGround(mouseCapture.current)
           updateModel(null)
           updateProductType(null)
+          setProductWeight(productWeight + 10)
           break
         default:
           BUURTMAP.appendProducts(modelName, mouseCapture.current)
@@ -177,7 +179,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
         </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
         {map && <Thermometer productWeight={productWeight} />}
-        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} />}
+        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} productWeight={productWeight} setProductWeight={setProductWeight} />}
       </div>
       <div className={styles.navcontainer}>
         {map && <Toolbar productWeight={productWeight} />}
