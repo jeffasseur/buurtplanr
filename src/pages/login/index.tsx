@@ -9,7 +9,6 @@ import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
 import { burgerLogin } from '@/redux/features/auth-slice'
-import { useAppSelector } from '@/redux/store'
 import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
