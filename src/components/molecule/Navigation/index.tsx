@@ -1,18 +1,28 @@
+'use client'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import Button from '@/components/atoms/Button'
-import DropdownNavUser from '@components/atoms/Dropdown/NavUser'
+import DropdownNavUser from '@/components/atoms/Dropdown/NavUser'
+import { useAppSelector } from '@/redux/store'
 
 import Icon from '../../atoms/Icon'
 
 import styles from './styles.module.css'
 
-const isAdmin = true
-const loggedIn = true
-
-const Navigation = ({ burger }) => {
-  const burgerSession = burger
-  console.log(burgerSession)
+const Navigation = () => {
+  const reduxUser: object = useAppSelector((state) => state.authReducer.data)
+  const isAuth: boolean = useAppSelector((state) => state.authReducer.isAuth)
+  const admin: boolean = useAppSelector((state) => state.authReducer.isAdmin)
+  const [user, setUser] = useState<object>({})
+  const [isAuthState, setIsAuthState] = useState<boolean>(false)
+  const [adminState, setAdminState] = useState<boolean>(false)
+  useEffect(() => {
+    setUser(reduxUser)
+    setIsAuthState(isAuth)
+    setAdminState(admin)
+  }, [reduxUser, isAuth, admin])
   return (
     <div className={styles.navigation}>
       <div>
@@ -25,7 +35,7 @@ const Navigation = ({ burger }) => {
           <Icon name='home' />
         </Link>
         {
-          isAdmin && loggedIn &&
+          adminState &&
           (
             <Button as='link' href='/admin' append='security-user' size='small' className={styles.desktopFlex}>
               Admin
@@ -33,7 +43,7 @@ const Navigation = ({ burger }) => {
           )
         }
         {
-          !loggedIn &&
+          !isAuthState &&
           (
             <div className={styles.accountBtns}>
               <Button as='link' href='/register' size='small'>
@@ -45,10 +55,17 @@ const Navigation = ({ burger }) => {
             </div>
           )
         }
-        <Link href='/' className={styles.desktop}>
-          <Icon name='notification' />
-        </Link>
-        <DropdownNavUser />
+        {
+          isAuthState &&
+          (
+            <Link href='/' className={styles.desktop}>
+              <Icon name='notification' />
+            </Link>
+          )
+        }
+        {
+          isAuthState && <DropdownNavUser user={user} />
+        }
       </div>
     </div>
   )

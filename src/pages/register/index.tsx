@@ -15,6 +15,7 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 
 const submitRegister = async (data) => {
   const dataString = JSON.stringify(data)
+  console.log(dataString)
   await fetch(`${baseURL}burgers/register`, {
     method: 'POST',
     headers: {
@@ -28,7 +29,7 @@ const submitRegister = async (data) => {
     .then(async (res) => await res.json())
     .then((data) => {
       if (data.status === 'success') {
-        window.localStorage.setItem('token', data.token)
+        // window.localStorage.setItem('token', data.token)
         window.location.href = '/'
       } else {
         return { status: 'error', message: 'Er is iets misgegaan' }
@@ -193,9 +194,8 @@ const Register = () => {
             <Button
               as='button'
               theme='Primary'
-              // onClick={() => { void submitRegister(FormData) }}
-              onSubmit={(e) => {
-                e.preventDefault()
+              onSubmit={() => {
+                // e.preventDefault()
                 void submitRegister(FormData)
               }}
             >

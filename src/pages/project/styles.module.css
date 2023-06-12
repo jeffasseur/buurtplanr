@@ -10,6 +10,12 @@
   gap: var(--spacing-09);
 }
 
+.title {
+  max-width: 760px;
+  text-align: center;
+  line-height: 1.2;
+}
+
 .bgImage {
   object-fit: cover;
   opacity: 0.2;

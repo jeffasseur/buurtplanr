@@ -1,9 +1,15 @@
 import '@/assets/styles/main.css'
 
+import ReduxProvider from '@/redux/provider'
+
 import type { AppProps } from 'next/app'
 
-export default function App ({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Component {...pageProps} />
+    <ReduxProvider>
+      <Component {...pageProps} />
+    </ReduxProvider>
   )
 }
+
+export default App

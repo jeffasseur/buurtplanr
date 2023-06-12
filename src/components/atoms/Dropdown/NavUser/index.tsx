@@ -6,9 +6,11 @@ import Button from '@/components/atoms/Button'
 
 import styles from './styles.module.css'
 
-const admin: boolean = false
+const logOut = () => {
+  console.log('logout')
+}
 
-const DropdownNavUser = () => {
+const DropdownNavUser = ({ user }) => {
   const [display, setDisplay] = useState('none')
   const [active, setActive] = useState('var(--color-grey-100)')
   const [color, setColor] = useState('var(--color-black)')
@@ -28,22 +30,25 @@ const DropdownNavUser = () => {
       <Button id='Dropdown' append='chevron-down' size='small' theme='Primary' className={styles.button} style={{ background: active, color }} onClick={toggleDropdown}>
         <div className={styles.buttonInfo}>
           <Image src='/img/productThumbnails/donut.webp' alt='profielfoto' width={24} height={24} />
-          Username
+          {user?.firstname &&
+            (
+              <p>{user.firstname}</p>
+            )}
         </div>
       </Button>
       <div id='Dropdown' className={styles.dropdownMenu} style={{ display }}>
         <Link href='/' className={styles.mobile}>Home</Link>
         {
-          admin &&
+          user?.admin &&
           (
             <Link href='/admin'>Admin</Link>
           )
         }
         <Link href='/profile'>Profiel</Link>
         <Link href='/profile' className={styles.mobile}>Meldingen</Link>
-        <Link href='/profile'>Projecten</Link>
-        <Link href='/profile'>Instellingen</Link>
-        <Link href='/'>Afmelden</Link>
+        <Link href='/'>Projecten</Link>
+        <Link href='/profile/settings'>Instellingen</Link>
+        <Link href='#logout' onClick={logOut}>Afmelden</Link>
       </div>
     </div>
   )

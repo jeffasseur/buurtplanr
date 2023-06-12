@@ -15,10 +15,10 @@ import Fase4 from '@/components/organisms/ProjectDetails/Fase4'
 
 import styles from './styles.module.css'
 
-let baseURL: string = '/'
-if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-}
+const baseURL: string = 'http://127.0.0.1:3002/'
+// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+// }
 
 const ProjectDetailPage = ({ project }) => {
   const fase = project.fase.split(' ')[1]
@@ -57,7 +57,7 @@ const ProjectDetailPage = ({ project }) => {
             className={styles.goBack}
           >Terug
           </Button>
-          <Title as='h1' size='h1' weight='semibold'>{project.title}</Title>
+          <Title as='h1' size='h1' weight='semibold' className={styles.title}>{project.title}</Title>
           <Tracker step={faseNumberInt} />
         </header>
         <main className={styles.main}>
@@ -88,25 +88,6 @@ interface Params extends ParsedUrlQuery {
   pid: string
 }
 
-export const getStaticProps = async (context) => {
-  const { pid } = context.params as Params
-  if (pid) {
-    const res = await fetch(`${baseURL}projects/${pid}`, {
-      method: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': `${baseURL}`
-      }
-    })
-    const data = await res.json()
-
-    if (data.status === 'success') {
-      return { props: { project: data.data } }
-    } else {
-      redirect(data, 404, '/')
-    }
-  }
-}
-
 export const getStaticPaths = async () => {
   const res = await fetch(`${baseURL}projects/`)
   const data = await res.json()
@@ -122,6 +103,25 @@ export const getStaticPaths = async () => {
   return {
     paths,
     fallback: false
+  }
+}
+
+export const getStaticProps = async (context) => {
+  // const token = localStorage.getItem('token')
+  const { pid } = context.params as Params
+  const res = await fetch(`${baseURL}projects/${pid}`, {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin': `${baseURL}`
+      // authorization: `Bearer ${token}`
+    }
+  })
+  const data = await res.json()
+
+  if (data.status === 'success') {
+    return { props: { project: data.data } }
+  } else {
+    redirect(data, 404, '/')
   }
 }
 

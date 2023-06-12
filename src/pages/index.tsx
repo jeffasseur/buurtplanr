@@ -7,18 +7,23 @@ import UserLayout from '@/components/layouts/user-layout'
 import Icon from '@components/atoms/Icon'
 import ProjectColumn from '@components/molecule/ProjectCard/Column'
 
+const baseURL: string = 'http://127.0.0.1:3002/'
+// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+// }
+
 const fetcher = async (url) => {
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': `${baseURL}`
+    }
+  })
   return await res.json()
 }
 
 const Dashboard = () => {
-  const baseURL: string = 'http://127.0.0.1:3002/'
-  // if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-  //   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-  // }
-
-  const { data, isLoading, error } = useSWR(`${baseURL}projects/`, fetcher)
+  const { data, isLoading, error } = useSWR(`${baseURL}projects`, fetcher)
   const [filter, setFilter] = useState('Informeren')
 
   return (
