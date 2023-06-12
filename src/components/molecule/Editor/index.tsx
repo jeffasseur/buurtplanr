@@ -62,6 +62,7 @@ export const Editor = ({ activePID, setPID, productWeight, setProductWeight, BUU
           </div>
           <div className={styles.actionName}>rotate left</div>
         </div>
+
         <div className={styles.action}>
           <div
             className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
@@ -73,6 +74,14 @@ export const Editor = ({ activePID, setPID, productWeight, setProductWeight, BUU
           </div>
           <div className={styles.actionName}>rotate right</div>
         </div>
+
+        <div className={styles.action}>
+          <div className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `} onClick={() => { setBool(true) }}>
+            <Icon name='move' />
+          </div>
+          <div className={styles.actionName}>move</div>
+        </div>
+
         <div className={styles.action}>
           <div
             className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
@@ -86,12 +95,7 @@ export const Editor = ({ activePID, setPID, productWeight, setProductWeight, BUU
           </div>
           <div className={styles.actionName}>remove</div>
         </div>
-        <div className={styles.action}>
-          <div className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `} onClick={() => { setBool(true) }}>
-            <Icon name='move' />
-          </div>
-          <div className={styles.actionName}>move</div>
-        </div>
+
         <div className={styles.action}>
           <div
             className={styles.actionIcon}
