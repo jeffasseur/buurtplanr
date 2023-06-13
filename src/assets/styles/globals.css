@@ -8,11 +8,22 @@
 
 }
 
+/* stylelint-disable-next-line selector-id-pattern */
+#__next {
+  min-height: 100vh;
+}
+
+html {
+  min-height: 100vh;
+}
+
 main {
   height: 100vh;
 }
 
 body {
+  height: 100vh;
+  min-height: 100vh;
   font-family: var(--font-sans);
   font-size: var(--font-size-body);
   background: var(--color-grey-50);

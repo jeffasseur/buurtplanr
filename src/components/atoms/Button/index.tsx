@@ -13,6 +13,7 @@ const buttonStyle = cva(styles.button, {
       Secondary: styles.themeSecondary,
       Tertiary: styles.themeTertiary,
       Warning: styles.themeWarning,
+      Cancel: styles.themeCancel,
       Transparent: styles.themeTransparent
     },
     size: {
@@ -109,7 +110,7 @@ const Button = forwardRef<unknown, ButtonProps>(
 
         {props.children}
 
-        {append && <Icon name={append} />}
+        {append && <Icon name={append} className={styles[`icon-${size ?? ''}`]} />}
       </button>
     )
   }

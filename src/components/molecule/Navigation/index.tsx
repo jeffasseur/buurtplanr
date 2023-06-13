@@ -25,7 +25,7 @@ const Navigation = () => {
   }, [reduxUser, isAuth, admin])
   return (
     <div className={styles.navigation}>
-      <div>
+      <div className={styles['logo-container']}>
         <Link href='/'>
           <Icon name='logo' className={styles.logo} />
         </Link>
