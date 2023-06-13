@@ -1,24 +1,12 @@
 {
   "list": [
     {
-      "name": "donut",
-      "productType": null
-    },
-    {
-      "name": "marker",
-      "productType": null
-    },
-    {
       "name": "grass",
       "productType": "ground"
     },
     {
       "name": "gravel",
       "productType": "ground"
-    },
-    {
-      "name": "tree",
-      "productType": "nature"
     },
     {
       "name": "root-decoration",
@@ -29,35 +17,71 @@
       "productType": "nature"
     },
     {
-      "name": "bench-simple",
+      "name": "kip",
+      "productType": "nature"
+    },
+    {
+      "name": "boom-palm",
+      "productType": "nature"
+    },
+    {
+      "name": "boom-standaard",
+      "productType": "nature"
+    },
+    {
+      "name": "boom-super",
+      "productType": "nature"
+    },
+    {
+      "name": "bank-modern",
       "productType": "furniture"
     },
     {
-      "name": "trashcan-handle",
+      "name": "vuilbak-2",
       "productType": "furniture"
     },
     {
-      "name": "car-charge",
+      "name": "auto-laadpaal",
       "productType": "furniture"
     },
     {
-      "name": "water-pole",
+      "name": "vuilbak",
+      "productType": "furniture"
+    },
+    {
+      "name": "buiten-tafel",
+      "productType": "furniture"
+    },
+    {
+      "name": "buiten-tafel-2",
+      "productType": "furniture"
+    },
+    {
+      "name": "buiten-bank",
+      "productType": "furniture"
+    },
+    {
+      "name": "water-paal",
       "productType": "water"
     },
     {
-      "name": "fountain",
+      "name": "fontein",
       "productType": "water"
     },
     {
-      "name": "light-modern",
+      "name": "water-refill",
+      "productType": "water"
+    },
+    {
+      "name": "licht-modern",
       "productType": "light"
     },
     {
-      "name": "light-vintage",
+      "name": "licht-vintage",
       "productType": "light"
     },
     {
-      "name": "light-park",
+      "name": "licht-park",
       "productType": "light"
     }
   ]

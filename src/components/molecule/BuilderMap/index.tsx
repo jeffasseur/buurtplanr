@@ -5,9 +5,10 @@ import * as THREE from 'three'
 
 import Toolbar from '@/components/molecule/Toolbar'
 import { useDroppedModel } from '@/components/zustand/buurtplanrContext'
-import { type ProductModel, type mapOptions, type projectData } from '@/types/BUURTTYPES'
+import { type productUploadData, type ProductModel, type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
 import Thermometer from '@components/atoms/Thermometer'
+import WebpIcon from '@components/atoms/webpIcons'
 import { Editor } from '@components/molecule/Editor'
 
 import styles from './styles.module.css'
@@ -15,13 +16,18 @@ import styles from './styles.module.css'
 interface MapProps {
   mapData: mapOptions
   projectData: projectData
+  creationData?: productUploadData[]
 }
 
-export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
+export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
+  const previewProduct = useRef<HTMLDivElement>(null)
   const mouseCapture = useRef<Vector3>()
   const [map, setMap] = useState<google.maps.Map>()
   const [PID, setPID] = useState<number | undefined>(undefined)
+
+  // change productweightchanges budget color && fill
+  const [productWeight, setProductWeight] = useState<number>(0)
   const [draggable, setDraggable] = useState<Object3D | null>(null)
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
   const modelName = useDroppedModel(state => state.model)
@@ -46,8 +52,12 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
     if (BUURTMAP?.scene) {
       BUURTMAP.boundLats = projectData.border
       BUURTMAP.joinBounds()
+      creationData?.forEach(el => {
+        BUURTMAP.appendProducts(el.modelName, el.latlng)
+      })
+      if (creationData) setProductWeight(creationData.length * 10)
     }
-  }, [BUURTMAP, map, mapData, projectData.border, projectData.location.coordinates])
+  }, [BUURTMAP, creationData, map, mapData, projectData.border, projectData.location.coordinates])
 
   if (map && BUURTMAP) {
     const updateRayMouse = (e) => {
@@ -87,11 +97,11 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
       // place obj on map after repositioning product
       BUURTMAP.dragOBJ = null
-      BUURTMAP.updateHighlight(false)
+      BUURTMAP.updateHighlight(false, false)
 
       // reset if no intersections found
       if (intersections.length === 0) {
-        BUURTMAP.updateHighlight(false)
+        BUURTMAP.updateHighlight(false, false)
         setPID(undefined)
         setDraggable(null)
         return
@@ -115,7 +125,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
           setDraggable(null)
         } else {
           BUURTMAP.dragOBJ = current
-          BUURTMAP.updateHighlight(true)
+          BUURTMAP.updateHighlight(true, false)
           setPID(current.modelID)
           setDraggable(current)
         }
@@ -123,8 +133,20 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
       BUURTMAP.threeOverlay.requestRedraw()
     })
 
-    map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
+    map.addListener('mousemove', (e) => {
       updateMouse(e, 'move')
+      const clientX: number = e.domEvent.clientX
+      const clientY: number = e.domEvent.clientY
+
+      const x: string = String(clientX + 10)
+      const y: string = String(clientY + 10)
+
+      BUURTMAP.updateHighlight(true, true)
+      if (previewProduct.current) {
+        previewProduct.current.style.display = 'flex'
+        previewProduct.current.style.left = `${x}px`
+        previewProduct.current.style.top = `${y}px`
+      }
     })
   }
 
@@ -137,11 +159,13 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
           BUURTMAP.placeGround(mouseCapture.current)
           updateModel(null)
           updateProductType(null)
+          setProductWeight(productWeight + 10)
           break
         default:
           BUURTMAP.appendProducts(modelName, mouseCapture.current)
           updateModel(null)
           updateProductType(null)
+          setProductWeight(productWeight + 10)
           break
       }
     }
@@ -149,12 +173,16 @@ export const BuilderMapBlueprint = ({ projectData, mapData }: MapProps) => {
 
   return (
     <div className={styles.container}>
+      {modelName &&
+        <div ref={previewProduct} className={styles.productPreviewContainer}>
+          <WebpIcon name={modelName} />
+        </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
-        {map && <Thermometer />}
-        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} />}
+        {map && <Thermometer productWeight={productWeight} />}
+        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} productWeight={productWeight} setProductWeight={setProductWeight} />}
       </div>
       <div className={styles.navcontainer}>
-        {map && <Toolbar />}
+        {map && <Toolbar productWeight={productWeight} />}
       </div>
     </div>
   )

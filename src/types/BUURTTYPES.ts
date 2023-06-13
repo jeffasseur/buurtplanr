@@ -1,5 +1,4 @@
 import { type LatLngTypes } from '@googlemaps/three'
-import { type Vector3 } from 'three'
 
 export interface mapOptions {
   tilt: number
@@ -64,6 +63,12 @@ export interface projectData {
     isDeleted: boolean
     whenDeleted: string
   }
+  projectData: {
+    type: string
+    file: string
+    description: string
+    link: string
+  }
   _id: string
   fase: string
   dateOfCreation: string
@@ -106,7 +111,11 @@ export interface newProjectFormData {
 }
 
 export interface productUploadData {
-  latlng: LatLngTypes | Vector3
+  latlng: {
+    x: number
+    y: number
+    z: number
+  } | THREE.Vector3
   modelName: string
 }
 
@@ -125,6 +134,7 @@ export interface ProductMesh extends THREE.Mesh {
   modelName?: string
   isHighlighter?: boolean
   bndNumber?: number
+  isGround?: boolean
 }
 
 export interface ProductModel extends THREE.Object3D {
@@ -133,6 +143,7 @@ export interface ProductModel extends THREE.Object3D {
   isDraggable?: boolean
   isHighlighter?: boolean
   bndNumber?: number
+  isGround?: boolean
 }
 
 export interface ProductGroup extends THREE.Group {
@@ -142,4 +153,5 @@ export interface ProductGroup extends THREE.Group {
   isDraggable?: boolean
   modelName?: string
   bndNumber?: number
+  isBound?: boolean
 }

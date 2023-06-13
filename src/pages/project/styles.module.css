@@ -1,5 +1,6 @@
 .header {
   position: relative;
+  object-fit: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,6 +10,18 @@
   gap: var(--spacing-09);
 }
 
+.title {
+  max-width: 760px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.bgImage {
+  object-fit: cover;
+  opacity: 0.2;
+  z-index: -2;
+}
+
 .goBack {
   position: absolute;
   top: var(--spacing-09);
@@ -16,5 +29,10 @@
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-09);
   padding: var(--spacing-08) 148px;
+  background: var(--color-gradient-variant);
+  height: 100%;
 }

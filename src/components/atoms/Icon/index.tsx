@@ -37,6 +37,9 @@ const icons = [
   'tree',
   'water',
   'shield-security',
+  'medal-star',
+  'user',
+  'sms',
   'rotate-left',
   'rotate-right'
 ] as const

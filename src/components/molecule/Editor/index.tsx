@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Icon from '@/components/atoms/Icon'
+import { type productUploadData } from '@/types/BUURTTYPES'
 import { type BuurtMap } from '@/utils/BuurtMap'
 import { useUser } from '@components/zustand/buurtplanrContext'
 
@@ -9,19 +10,27 @@ import styles from './styles.module.css'
 interface EditorProps {
   activePID: number | undefined
   setPID: (val: number | undefined) => void
+  productWeight: number
+  setProductWeight: (val: number) => void
   BUURTMAP: BuurtMap
   targetObject: object | null
+  creationData?: productUploadData[]
 }
 
-export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProps) => {
+export const Editor = ({ activePID, setPID, productWeight, setProductWeight, BUURTMAP, targetObject, creationData }: EditorProps) => {
+  const creationID = useUser(state => state.creationID)
   const projectID = useUser(state => state.projectID)
   const userID = useUser(state => state.userID)
-  let baseURL: string
-  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK && projectID && userID) {
-    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}creaties/new/${projectID}/${userID}`
-  }
   const [bool, setBool] = useState<boolean>(false)
   const [feedback, setFeedback] = useState<string | undefined>('')
+  let postURL: string
+  let putURL: string
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK && projectID && userID) {
+    postURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}creaties/new/${projectID}/${userID}`
+  }
+  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK && creationID) {
+    putURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}creaties/${creationID}`
+  }
 
   useEffect(() => {
     if (BUURTMAP.dragOBJ) { setFeedback(BUURTMAP.dragOBJ.modelName) } else { setFeedback('') }
@@ -69,6 +78,7 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
             className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
             onClick={() => {
               if (activePID) BUURTMAP.removeProductById(activePID)
+              setProductWeight(productWeight - 10)
               setPID(undefined)
             }}
           >
@@ -86,7 +96,12 @@ export const Editor = ({ activePID, setPID, BUURTMAP, targetObject }: EditorProp
           <div
             className={styles.actionIcon}
             onClick={() => {
-              BUURTMAP.sendCreation(baseURL)
+              if (creationData) {
+                BUURTMAP.sendCreation(putURL, false)
+                setFeedback('creatie geüpdatet')
+                return
+              }
+              BUURTMAP.sendCreation(postURL, true)
               setFeedback('creatie opgeslagen')
             }}
           >

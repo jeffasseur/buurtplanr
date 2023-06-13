@@ -52,6 +52,9 @@ export const NewProjectMapBlueprint = ({ mapData }: MapProps) => {
 
       const current: ProductModel = intersections[0].object
 
+      // if selected is a bound mesh then don't drag
+      if (current.parent?.type === 'Group') return
+
       // has clicked on an active obj
       if (BUURTMAP.dragOBJ === current) {
         BUURTMAP.dragOBJ = null
@@ -62,7 +65,10 @@ export const NewProjectMapBlueprint = ({ mapData }: MapProps) => {
       // retrieve latlng of markers and store them in a const for later use in formdata
       if (BUURTMAP.boundLats.length <= 0) {
         BUURTMAP.boundLats.push({ lat: e.latLng?.lat(), lng: e.latLng?.lng() })
-      } else if (current.bndNumber) BUURTMAP.boundLats[current.bndNumber] = { lat: e.latLng?.lat(), lng: e.latLng?.lng() }
+      } else if (current.bndNumber) {
+        BUURTMAP.boundLats[current.bndNumber] = { lat: e.latLng?.lat(), lng: e.latLng?.lng() }
+        BUURTMAP.joinBounds()
+      }
 
       BUURTMAP.threeOverlay.requestRedraw()
     })

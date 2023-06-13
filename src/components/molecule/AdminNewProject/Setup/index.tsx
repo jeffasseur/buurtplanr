@@ -1,3 +1,5 @@
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 
 import Input from '@/components/atoms/Input'
@@ -127,22 +129,43 @@ const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
           <div>
             <label className={styles.typePlein}>
               <span>Plein</span>
-              <Image src='/img/donut.webp' alt='type plein' width={250} height={220} />
-              {/* <input type='radio' name='type' id='plein' value='plein' /> */}
+              <div className={styles.imgContainer}>
+                <Image src='/img/types/TOWN.png' alt='type dorp' fill />
+              </div>
+              <input type='radio' name='type' id='dorp' value='dorp' />
+              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
+                <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </label>
           </div>
           <div>
             <label className={styles.typePark}>
               <span>Park</span>
-              <Image src='/img/donut.webp' alt='type park' width={250} height={220} />
-              {/* <input type='radio' name='type' id='park' value='park' /> */}
+              <div className={styles.imgContainer}>
+                <Image src='/img/types/PARK.png' alt='type park' fill />
+              </div>
+              <input type='radio' name='type' id='park' value='park' />
+              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
+                <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </label>
           </div>
           <div>
             <label className={styles.typeStraat}>
               <span>Straat</span>
-              <Image src='/img/donut.webp' alt='type straat' width={250} height={220} />
-              {/* <input type='radio' name='type' id='straat' value='straat' /> */}
+              <div className={styles.imgContainer}>
+                <Image src='/img/types/STREET.png' alt='type straat' fill />
+              </div>
+              <input type='radio' name='type' id='straat' value='straat' />
+              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
+                <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </label>
           </div>
         </div>
@@ -168,7 +191,7 @@ const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
           type='file'
           Size='small'
           onChange={
-              (event) => { newFormData.document = event.target.files[0] }
+            (event) => { newFormData.document = event.target.files[0] }
           }
         />
       </fieldset>

@@ -19,12 +19,29 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 30%;
+  width: 0%;
   background-color: var(--color-green-300);
+  transition: width 0.3s ease;
 }
 
 .thermoTitle {
   position: absolute;
   top: var(--spacing-06);
   left: 10rem;
+}
+
+.sm {
+  background-color: var(--color-green-300);
+}
+
+.md {
+  background-color: var(--color-green-300);
+}
+
+.xl {
+  background-color: var(--color-yellow-300);
+}
+
+.full {
+  background-color: var(--color-red-300);
 }

@@ -29,7 +29,7 @@ const ProjectRow = ({ project }: ProjectProps) => {
             <Button as='link' size='small' append='setting-3' theme='Warning' href={`/admin/projects/edit/${project._id}`}>
               <span>Bewerken</span>
             </Button>
-            <Button as='link' append='arrow-right' size='small' href={`/admin/project/${project._id}`}>
+            <Button as='link' append='arrow-right' size='small' href={`/project/${project._id}`}>
               <span>Project pagina</span>
             </Button>
           </div>

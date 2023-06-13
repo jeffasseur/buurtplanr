@@ -1,3 +1,11 @@
+.desktop {
+  display: block;
+}
+
+.desktopFlex {
+  display:flex
+}
+
 .navigation {
   display: flex;
   align-items: center;
@@ -35,4 +43,10 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+@media screen and ( max-width: 768px ) {
+  .desktop {
+    display: none;
+  }
 }

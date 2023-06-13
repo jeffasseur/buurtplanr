@@ -1,43 +1,21 @@
+'use client'
+
 import Image from 'next/image'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
+import { gemeenteLogin } from '@/redux/features/auth-slice'
+import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://localhost:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
-
-const submitLogin = async (data) => {
-  if (data.email !== '' && data.password !== '') {
-    const dataString = JSON.stringify(data)
-    await fetch(`${baseURL}gemeentes/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': `${baseURL}`,
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
-      body: dataString
-    })
-      .then(async (res) => await res.json())
-      .then((data) => {
-        if (data.status === 'success') {
-          window.localStorage.setItem('token', data.token)
-          window.location.href = '/admin'
-        } else {
-          return { status: 'error', message: 'Er is iets misgegaan' }
-        }
-      })
-  } else {
-    return { status: 'error', message: 'Vul alle velden in' }
-  }
+let baseURL: string = 'http://localhost:3002/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
 }
 
 const AdminLogin = () => {
@@ -46,6 +24,51 @@ const AdminLogin = () => {
     password: '',
     postalcode: ''
   })
+  const [error, setError] = useState('')
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  const submitLogin = async (data) => {
+    if (data.email !== '' && data.password !== '') {
+      const dataString = JSON.stringify(data)
+      await fetch(`${baseURL}gemeentes/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': `${baseURL}`,
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        },
+        body: dataString
+      })
+        .then(async (res) => await res.json())
+        .then((data) => {
+          if (data.status === 'success') {
+            const tokenString: string = data.token
+            const dataObject: object = data.data
+            const dispatchData = {
+              isAuth: true,
+              data: dataObject,
+              token: tokenString,
+              isAdmin: true
+            }
+            dispatch(gemeenteLogin(dispatchData))
+            window.localStorage.setItem('token', data.token)
+            window.localStorage.setItem('gemeente', JSON.stringify(data.data))
+            window.location.href = '/admin'
+          } else if (data.status === 'error' || data.status !== 'success') {
+            setError(data.message)
+            return false
+          } else {
+            setError('Er is iets misgegaan')
+            return false
+          }
+        })
+    } else {
+      return { status: 'error', message: 'Vul alle velden in' }
+    }
+  }
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.imgCover}>
@@ -64,8 +87,9 @@ const AdminLogin = () => {
                 required
                 value={FormData.email}
                 onChange={(e) => { setFormData({ ...FormData, email: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
-              <Icon name='profile-user' className={styles.icon} />
+              <Icon name='user' className={styles.icon} />
             </div>
           </fieldset>
           <fieldset className={styles.loginForm_fieldset}>
@@ -78,6 +102,7 @@ const AdminLogin = () => {
                 required
                 value={FormData.postalcode}
                 onChange={(e) => { setFormData({ ...FormData, postalcode: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='location' className={styles.icon} />
             </div>
@@ -93,10 +118,19 @@ const AdminLogin = () => {
                 required
                 value={FormData.password}
                 onChange={(e) => { setFormData({ ...FormData, password: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='shield-security' className={styles.icon} />
             </div>
           </fieldset>
+          {
+            error !== '' &&
+            (
+              <div className={styles.error}>
+                <p>{error}</p>
+              </div>
+            )
+          }
           <div>
             {
               ((FormData.email === '' && FormData.password === '' && FormData.postalcode === '') || (FormData.email === '' || FormData.password === '' || FormData.postalcode === '')) &&

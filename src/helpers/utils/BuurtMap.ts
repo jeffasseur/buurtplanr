@@ -19,6 +19,7 @@ export class BuurtMap {
   finalgndPos: THREE.Vector3 | undefined
   highlight: ProductModel | null
   boundLats: object[]
+  texture: THREE.TextureLoader
 
   constructor (map: google.maps.Map, anchorPoint: LatLngTypes) {
     this.map = map
@@ -34,6 +35,7 @@ export class BuurtMap {
     this.finalgndPos = undefined
     this.highlight = null
     this.boundLats = []
+    this.texture = new THREE.TextureLoader()
   }
 
   initThree = () => {
@@ -43,14 +45,15 @@ export class BuurtMap {
     this.loader.setDRACOLoader(dracoLoader)
   }
 
-  appendProducts = (modelName: string, mousePos: THREE.Vector3) => {
+  appendProducts = (modelName: string, mousePos: { x: number, y: number, z: number } | THREE.Vector3) => {
     this.loader.load(`/models/${modelName}.glb`, (gltf) => {
+      const position = new THREE.Vector3(mousePos.x, mousePos.y, mousePos.z)
       const product: ProductGroup = gltf.scene
       product.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
       product.modelName = modelName
       product.scale.set(1, 1, 1)
       product.rotation.x = Math.PI / 2
-      product.position.copy(mousePos)
+      product.position.copy(position)
       product.isDraggable = true
       this.scene.add(product)
     })
@@ -58,16 +61,25 @@ export class BuurtMap {
     this.threeOverlay.requestStateUpdate()
   }
 
-  updateHighlight = (visible: boolean) => {
+  updateHighlight = (visible: boolean, moving: boolean) => {
     if (!visible && this.highlight) {
       this.scene.remove(this.highlight)
       this.highlight = null
-    } else if (this.dragOBJ) {
+    }
+
+    if (moving && this.highlight && this.dragOBJ) {
+      this.highlight.position.x = this.dragOBJ.position.x
+      this.highlight.position.y = this.dragOBJ.position.y
+      this.highlight.position.z = this.dragOBJ.position.z
+      return
+    }
+
+    if (this.dragOBJ) {
       const bbox = new THREE.Box3().setFromObject(this.dragOBJ)
-      const width = bbox.max.x - bbox.min.x
+      const width = (bbox.max.x - bbox.min.x) + (Math.PI / 2)
 
       const geometry = new THREE.RingGeometry(width - 1, width - 0.5, 30, 5)
-      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.FrontSide })
+      const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.FrontSide })
       this.highlight = new THREE.Mesh(geometry, material)
       this.highlight.isHighlighter = true
       this.highlight.position.x = this.dragOBJ.position.x
@@ -77,19 +89,25 @@ export class BuurtMap {
     }
   }
 
+  checkBoundsScene = () => {
+    const toCheck = 'isBound'
+    this.scene.children.forEach((el) => {
+      if (toCheck in el) {
+        this.scene.remove(el)
+      }
+    })
+  }
+
   joinBounds = () => {
-    // Create a BufferGeometry object
+    // check if there are previous instances of the bound class in scene
+    this.checkBoundsScene()
 
-    // const geometry: THREE.BufferGeometry = new THREE.BufferGeometry()
-
-    // const indices: number[] = [0, 1, 2]
     const convertedBounds: THREE.Vector3[] = []
-
     this.boundLats.forEach((bound: LatLngTypes) => {
       const obj = this.threeOverlay.latLngAltitudeToVector3(bound)
       obj.x = parseFloat(obj.x.toFixed(8))
       obj.y = parseFloat(obj.y.toFixed(8))
-      obj.z = 2
+      obj.z = -2
       convertedBounds.push(obj)
     })
     convertedBounds.push(convertedBounds[0])
@@ -112,29 +130,56 @@ export class BuurtMap {
     planeGeometry.setIndex(indices)
     planeGeometry.computeVertexNormals()
 
-    const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
-
+    const planeMaterial = new THREE.MeshBasicMaterial({
+      color: 0x0000ff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.1
+    })
     const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
-    this.scene.add(planeMesh)
+
+    const outlineGeometry = new THREE.EdgesGeometry(planeGeometry)
+    const outlineMaterial = new THREE.LineBasicMaterial({
+      color: 0x0000ff,
+      linewidth: 100,
+      linecap: 'round',
+      linejoin: 'round'
+    })
+    const outline = new THREE.LineSegments(outlineGeometry, outlineMaterial)
+
+    const group: ProductGroup = new THREE.Group()
+    group.isBound = true
+    group.add(outline)
+    group.add(planeMesh)
+    this.scene.add(group)
   }
 
   placeGround = (mousePos: THREE.Vector3 | undefined) => {
     if (!this.initgndPos && mousePos) this.initgndPos = mousePos.clone()
-    else if (this.initgndPos && this.finalgndPos && mousePos) {
+    else if (this.initgndPos && mousePos && this.gnd) {
       this.finalgndPos = mousePos.clone()
+
       const width = Math.abs(this.finalgndPos.x - this.initgndPos.x)
       const height = Math.abs(this.finalgndPos.y - this.initgndPos.y)
+      const x1 = this.initgndPos.x
+      const y1 = this.initgndPos.y
+      const x2 = this.finalgndPos.x
+      const y2 = this.finalgndPos.y
 
       // ground geo
       const geometry = new THREE.PlaneGeometry(width, height)
-      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
-      const ground: ProductMesh = new THREE.Mesh(geometry, material)
-      ground.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
-      ground.modelName = this.gnd
-      ground.isDraggable = true
-      ground.position.x = (this.finalgndPos.x + this.initgndPos.x) / 2
-      ground.position.y = (this.finalgndPos.y + this.initgndPos.y) / 2
-      this.scene.add(ground)
+      this.texture.load(`/textures/${this.gnd}.jpg`, (texture) => {
+        // const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+        const material = new THREE.MeshBasicMaterial({ map: texture })
+        const ground: ProductMesh = new THREE.Mesh(geometry, material)
+        ground.modelID = Math.floor(Math.random() * Date.now() * Math.PI)
+        ground.modelName = this.gnd
+        ground.isDraggable = true
+        ground.isGround = true
+        ground.position.x = (x2 + x1) / 2
+        ground.position.y = (y2 + y1) / 2
+        this.scene.add(ground)
+      })
 
       // reset ground data
       this.gnd = undefined
@@ -146,7 +191,7 @@ export class BuurtMap {
   rotateProduct = (dir: string) => {
     // let currRotation: number
     const step: number = 20
-    if (this.dragOBJ) {
+    if (this.dragOBJ && !this.dragOBJ.isGround) {
       switch (dir) {
         case 'counter-clockwise':
           if (this.dragOBJ.rotation.y > (340 - step)) this.dragOBJ.rotation.y = 0
@@ -157,11 +202,25 @@ export class BuurtMap {
           this.dragOBJ.rotation.y = this.dragOBJ.rotation.y -= step
           break
       }
+    } else if (this.dragOBJ?.isGround) {
+      switch (dir) {
+        case 'counter-clockwise':
+          if (this.dragOBJ.rotation.z > (340 - step)) this.dragOBJ.rotation.z = 0
+          this.dragOBJ.rotation.z = this.dragOBJ.rotation.z += step
+          break
+        case 'clockwise':
+          if (this.dragOBJ.rotation.z < (20 - step)) this.dragOBJ.rotation.z = 360
+          this.dragOBJ.rotation.z = this.dragOBJ.rotation.z -= step
+          break
+      }
     }
   }
 
   updateProductPosition = () => {
-    if (this.dragOBJ) { this.dragOBJ.position.copy(this.mousePosition) }
+    if (this.dragOBJ?.isGround) {
+      this.dragOBJ.position.copy(this.mousePosition)
+      this.dragOBJ.position.z = -1.8
+    } else if (this.dragOBJ) { this.dragOBJ.position.copy(this.mousePosition) }
   }
 
   removeProductById = (productID: number) => {
@@ -171,25 +230,45 @@ export class BuurtMap {
     this.dragOBJ = null
   }
 
-  sendCreation = (url) => {
+  sendCreation = (url: string, isNewCreation: boolean) => {
     this.productformData = []
-    this.scene.children.forEach((product: ProductModel) => {
-      if (product.hasOwnProperty.call('modelID')) {
-        if (product.modelName) {
-          const newProduct: productUploadData = { latlng: product.position, modelName: product.modelName }
+    const toCheck = 'modelID'
+    this.scene.children.forEach((el: ProductModel) => {
+      if (toCheck in el) {
+        if (el.modelName) {
+          const newProduct: productUploadData = { latlng: el.position, modelName: el.modelName }
           this.productformData.push(newProduct)
         }
       }
     })
+    const formData = JSON.stringify({
+      creation: this.productformData
+    })
+    if (isNewCreation) {
+      fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+      })
+        .then(async (response) => await response.json())
+        .then((data) => {
+          // console.log(data)
+        })
+        .catch((err) => {
+          return err
+        })
+
+      return
+    }
 
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(this.productformData),
+      method: 'PUT',
+      body: formData,
       headers: { 'Content-type': 'application/json; charset=UTF-8' }
     })
       .then(async (response) => await response.json())
       .then((data) => {
-        return data
+        // console.log(data)
       })
       .catch((err) => {
         return err
