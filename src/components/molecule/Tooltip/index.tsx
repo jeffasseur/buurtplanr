@@ -25,12 +25,12 @@ const Tooltip = () => {
       {isFirstContent
         ? (
           <div className={styles.shift}>
-            houd <Image src='img/shift.png' alt='shift' width={60} height={36} /> + linker muis knop ingedrukt om je camera te draaien
+            klik op een <WebpIcon name='boom-standaard' className={styles.webp} /> en vervlogens op een plaats op de kaart om een nieuw bouwstuk te plaatsen
           </div>
           )
         : (
           <div className={styles.shift}>
-            klik op een <WebpIcon name='boom-standaard' className={styles.webp} /> en vervlogens op een plaats op de kaart om een nieuw bouwstuk te plaatsen
+            houd <Image src='img/shift.png' alt='shift' width={60} height={36} /> + linker muis knop ingedrukt om je camera te draaien
           </div>
           )}
     </div>
