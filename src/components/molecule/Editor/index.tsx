@@ -86,8 +86,10 @@ export const Editor = ({ activePID, setPID, productWeight, setProductWeight, BUU
           <div
             className={`${styles.actionIcon} ${BUURTMAP.dragOBJ ? 'active' : styles.disabled} `}
             onClick={() => {
-              if (activePID) BUURTMAP.removeProductById(activePID)
-              setProductWeight(productWeight - 10)
+              if (activePID) {
+                BUURTMAP.removeProductById(activePID)
+                setProductWeight(productWeight - 10)
+              }
               setPID(undefined)
             }}
           >
