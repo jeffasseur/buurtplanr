@@ -12,7 +12,6 @@ interface ProjectProps {
 
 const ProjectColumn = ({ project }: ProjectProps) => {
   const userID = useUser(state => state.userID)
-
   return (
     <>
       {project &&
@@ -36,6 +35,8 @@ const ProjectColumn = ({ project }: ProjectProps) => {
                 <Image src='/img/types/TOWN.png' alt='type dorp' className={styles.imageBorderRadius} fill />
               )
             }
+            {project.fase === 'Fase 2: Cocreatie' && (<div className={`${styles.faseBoundNotice} ${styles.faseBoundNotice__green}`}><p>breng je idee in beeld</p></div>)}
+            {project.fase === 'Fase 3: Stemmen' && (<div className={`${styles.faseBoundNotice} ${styles.faseBoundNotice__blue}`}><p>stem op het beste idee</p></div>)}
           </div>
           <div className={styles.cardHeader}>
             <h3>{project.title}</h3>
