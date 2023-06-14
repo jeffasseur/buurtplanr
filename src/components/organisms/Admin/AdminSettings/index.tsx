@@ -1,22 +1,14 @@
-import { useState } from 'react'
-
 import Algemeen from '@/components/molecule/AdminSettings/Algemeen'
-import Huisstijl from '@/components/molecule/AdminSettings/Huisstijl'
 import AdminSettingsNav from '@/components/molecule/Navigation/AdminSettingsNav'
 
 import styles from './styles.module.css'
 
-const AdminSettings = () => {
-  const [displayedComponent, setDisplayedComponent] = useState('Algemeen') // ['Algemeen', 'Huisstijl'
-  const handleComponentChange = (component: string) => {
-    setDisplayedComponent(component)
-  }
+const AdminSettings = ({ buurtplanr }) => {
   return (
     <div className={styles.adminSettings}>
-      <AdminSettingsNav handleComponentChange={handleComponentChange} />
+      <AdminSettingsNav />
       <div className={styles.settingsContainer}>
-        {displayedComponent === 'Algemeen' && <Algemeen />}
-        {displayedComponent === 'Huisstijl' && <Huisstijl />}
+        <Algemeen buurtplanr={buurtplanr} />
       </div>
     </div>
   )

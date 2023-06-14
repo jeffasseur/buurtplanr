@@ -13,30 +13,8 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
 }
 
-const submitRegister = async (data) => {
-  const dataString = JSON.stringify(data)
-  await fetch(`${baseURL}burgers/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': `${baseURL}`,
-      'Access-Control-Allow-Methods': 'POST',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    },
-    body: dataString
-  })
-    .then(async (res) => await res.json())
-    .then((data) => {
-      if (data.status === 'success') {
-        // window.localStorage.setItem('token', data.token)
-        window.location.href = '/'
-      } else {
-        return { status: 'error', message: 'Er is iets misgegaan' }
-      }
-    })
-}
-
 const Register = () => {
+  const [error, setError] = useState('')
   const [FormData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -49,6 +27,34 @@ const Register = () => {
     houseNumber: '',
     image: ''
   })
+
+  const submitRegister = async (formData) => {
+    const dataString = JSON.stringify(formData)
+    await fetch(`${baseURL}burgers/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': `${baseURL}`,
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: dataString
+    })
+      .then(async (res) => await res.json())
+      .then((data) => {
+        if (data.status === 'success') {
+          window.location.href = '/login'
+        } else if (data.status === 'error' || data.status !== 'success') {
+          setError(data.message)
+          return false
+        }
+      })
+      .catch((err) => {
+        setError(err)
+        return false
+      })
+  }
+
   return (
     <div className={styles.registerContainer}>
       <div className={styles.imgCover}>
@@ -63,6 +69,7 @@ const Register = () => {
               <div className={styles.inputIcon}>
                 <Input
                   placeholder='Voornaam'
+                  {...(error !== '' && { error: true })}
                   Size='large'
                   className={styles.input}
                   required
@@ -77,6 +84,7 @@ const Register = () => {
               <div className={styles.inputIcon}>
                 <Input
                   placeholder='Achternaam'
+                  {...(error !== '' && { error: true })}
                   Size='large'
                   className={styles.input}
                   required
@@ -92,6 +100,8 @@ const Register = () => {
             <div className={styles.inputIcon}>
               <Input
                 placeholder='Email'
+                type='email'
+                {...(error !== '' && { error: true })}
                 Size='medium'
                 className={styles.input}
                 required
@@ -106,6 +116,7 @@ const Register = () => {
             <div className={styles.inputIcon}>
               <Input
                 placeholder='Postcode'
+                {...(error !== '' && { error: true })}
                 Size='medium'
                 className={styles.input}
                 required
@@ -120,6 +131,7 @@ const Register = () => {
             <div className={styles.inputIcon}>
               <Input
                 placeholder='Stad, dorp of gemeente'
+                {...(error !== '' && { error: true })}
                 Size='medium'
                 className={styles.input}
                 required
@@ -135,6 +147,7 @@ const Register = () => {
               <div className={styles.inputIcon}>
                 <Input
                   placeholder='Straat'
+                  {...(error !== '' && { error: true })}
                   Size='medium'
                   className={styles.input}
                   required
@@ -149,6 +162,7 @@ const Register = () => {
               <div className={styles.inputIcon}>
                 <Input
                   placeholder='Huisnummer'
+                  {...(error !== '' && { error: true })}
                   Size='medium'
                   className={styles.input}
                   required
@@ -165,6 +179,7 @@ const Register = () => {
               <Input
                 type='password'
                 placeholder='**********'
+                {...(error !== '' && { error: true })}
                 Size='medium'
                 className={styles.input}
                 required
@@ -185,20 +200,28 @@ const Register = () => {
                 required
                 value={FormData.passwordConfirm}
                 onChange={(e) => { setFormData({ ...FormData, passwordConfirm: e.target.value }) }}
+                {...(error !== '' && { error: true })}
               />
               <Icon name='shield-security' className={styles.icon} />
             </div>
           </fieldset>
+          {
+            error !== '' && (
+              <div className={styles.errorWrapper}>
+                <p className={styles.error}>{error}</p>
+              </div>
+            )
+          }
           <div>
             <Button
               as='button'
               theme='Primary'
-              onSubmit={() => {
-                // e.preventDefault()
+              onClick={(e) => {
+                e.preventDefault()
                 void submitRegister(FormData)
               }}
             >
-              Aanmelden
+              Registreer
             </Button>
           </div>
         </form>

@@ -15,7 +15,7 @@ const fetcher = async (url: string) => {
   const res = await fetch(url, {
     method: 'GET',
     headers: {
-      'Access-Control-Allow-Origin': 'https://buurtplanr.com, http://buurtplanr.com, https://www.buurtplanr.com, http://www.buurtplanr.com, http://app.buurtplanr.com, https://app.buurtplanr.com, https://www.app.buurtplanr.com, http://www.buurtplanr.com, http://localhost:3000'
+      'Access-Control-Allow-Origin': `${baseURL}`
     }
   })
   return await res.json()

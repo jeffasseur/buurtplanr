@@ -59,7 +59,7 @@ const DropdownNavUser = ({ user }) => {
         <Link href='/profile'>Profiel</Link>
         <Link href='/profile' className={styles.mobile}>Meldingen</Link>
         <Link href='/'>Projecten</Link>
-        <Link href='/profile/settings'>Instellingen</Link>
+        <Link href='/profile/instellingen'>Instellingen</Link>
         <Link href='#logout' onClick={submitLogOut}>Afmelden</Link>
       </div>
     </div>

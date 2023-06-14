@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -8,7 +9,7 @@ import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
-import { burgerLogin } from '@/redux/features/auth-slice'
+import { burgerLogin, type AuthState, type Data } from '@/redux/features/auth-slice'
 import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
@@ -44,8 +45,8 @@ const Login = () => {
         .then((data) => {
           if (data.status === 'success') {
             const tokenString: string = data.token
-            const dataObject: object = data.data
-            const dispatchData = {
+            const dataObject: Data = data.data
+            const dispatchData: AuthState = {
               isAuth: true,
               data: dataObject,
               token: tokenString,
@@ -68,7 +69,8 @@ const Login = () => {
           return false
         })
     } else {
-      return { status: 'error', message: 'Vul alle velden in' }
+      setError('Vul alle velden in')
+      return false
     }
   }
 
@@ -85,6 +87,7 @@ const Login = () => {
             <div className={styles.inputIcon}>
               <Input
                 placeholder='Email'
+                type='email'
                 Size='medium'
                 className={styles.input}
                 required
@@ -143,6 +146,9 @@ const Login = () => {
                 </Button>
               )
             }
+          </div>
+          <div>
+            <Link href='/register' className={styles.register}>Nog geen account? Registreer hier</Link>
           </div>
         </div>
       </div>

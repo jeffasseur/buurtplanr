@@ -1,25 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
-import ProjectCard from '@/components/molecule/ProjectCard'
-import { useAppSelector } from '@/redux/store'
+import ProjectCard from '@/components/molecule/ProjectCard/Column'
+import ReduxCheck from '@/helpers/ReduxCheck'
 
 const baseURL: string = 'http://127.0.0.1:3002/'
 // if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 //   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
 // }
 
-const ProfileBijdragen = ({ burgerId }) => {
-  const reduxUser = useAppSelector((state) => state.authReducer.data)
-  const reduxToken: string = useAppSelector((state) => state.authReducer.token)
-  const [userId, setUserId] = useState<string>('')
-  const [token, setToken] = useState<string>('')
-  useEffect(() => {
-    setUserId(burgerId)
-    setToken(reduxToken)
-  }, [reduxUser, burgerId, reduxToken])
+const ProfileBijdragen = () => {
+  const authReducer = ReduxCheck()
+  const token: string = authReducer.token
+  const userId: string = authReducer.data._id
 
   const fetcher = async (url: string) => {
     const res = await fetch(url, {
@@ -45,7 +39,7 @@ const ProfileBijdragen = ({ burgerId }) => {
       }
       {data?.data &&
         data.data.map((creatie, index) => (
-          <ProjectCard project={creatie.project} key={index} />
+          <ProjectCard project={creatie.project} key={index} userId={userId} />
         ))}
       {error && <p>Er is iets misgegaan met het ophalen van de gegevens</p>}
     </>

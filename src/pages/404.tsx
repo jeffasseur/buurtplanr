@@ -1,17 +1,21 @@
 import styles from '@/assets/styles/pages/404.module.css'
-import Icon from '@components/atoms/Icon'
-import Navigation from '@components/molecule/Navigation'
+import Button from '@/components/atoms/Button'
+import UserLayout from '@/components/layouts/user-layout'
+import Title from '@components/atoms/Title'
 
-export default function Custom404 () {
+const Custom404 = () => {
   return (
     <>
-      <Navigation />
-      <div className={styles.errorContainer}>
-        <h1>404 - Page Not Found</h1>
-        <div className={styles.logoContainer}>
-          <Icon name='logo' className={styles.logo} />
+      <UserLayout>
+        <div className={styles.errorContainer}>
+          <Title as='h1' size='h3' weight='light'>404 - Het lijkt er op dat er iets is misgelopen</Title>
+          <div className={styles.logoContainer}>
+            <Button as='link' size='large' prepend='home' theme='Primary' href='/'>Go back home</Button>
+          </div>
         </div>
-      </div>
+      </UserLayout>
     </>
   )
 }
+
+export default Custom404

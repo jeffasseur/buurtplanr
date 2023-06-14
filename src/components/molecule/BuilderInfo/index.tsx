@@ -2,7 +2,7 @@ import * as Tabs from '@radix-ui/react-tabs'
 import { cx } from 'class-variance-authority'
 import { useState } from 'react'
 
-import Icon from '@components/atoms/Icon'
+import Icon from '@/components/atoms/Icon'
 
 import styles from './styles.module.css'
 

@@ -4,7 +4,14 @@ import Button from '@components/atoms/Button'
 
 import styles from './styles.module.css'
 
-const DeleteAccount = () => {
+interface DeleteAccountProps {
+  id: string
+}
+
+const DeleteAccount = ({ id }: DeleteAccountProps) => {
+  const submitDelete = () => {
+    console.log(id)
+  }
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
@@ -26,7 +33,7 @@ const DeleteAccount = () => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <Button size='small' theme='Warning'>
+              <Button size='small' theme='Warning' onClick={submitDelete}>
                 account verwijderen
               </Button>
             </AlertDialog.Action>

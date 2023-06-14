@@ -8,7 +8,7 @@ import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
-import { gemeenteLogin } from '@/redux/features/auth-slice'
+import { type AuthState, type Data, gemeenteLogin } from '@/redux/features/auth-slice'
 import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
@@ -45,8 +45,8 @@ const AdminLogin = () => {
         .then((data) => {
           if (data.status === 'success') {
             const tokenString: string = data.token
-            const dataObject: object = data.data
-            const dispatchData = {
+            const dataObject: Data = data.data
+            const dispatchData: AuthState = {
               isAuth: true,
               data: dataObject,
               token: tokenString,
@@ -81,6 +81,7 @@ const AdminLogin = () => {
             <label>Email</label>
             <div className={styles.inputIcon}>
               <Input
+                type='email'
                 placeholder='Email'
                 Size='medium'
                 className={styles.input}

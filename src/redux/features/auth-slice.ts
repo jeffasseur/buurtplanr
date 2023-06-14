@@ -1,15 +1,43 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-interface AuthState {
+export interface Data {
+  _id: string
+  name: string
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+  city: string
+  postalcode: string
+  street: string
+  houseNumber: string
+  image: string
+  // background: 'park' | 'street' | 'square'
+}
+
+export interface AuthState {
   isAuth: boolean
-  data: object
+  data: Data
   token: string
   isAdmin: boolean
 }
 
 const initialState: AuthState = {
   isAuth: false,
-  data: {},
+  data: {
+    _id: '',
+    name: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    city: '',
+    postalcode: '',
+    street: '',
+    houseNumber: '',
+    image: ''
+    // background: ''
+  },
   token: '',
   isAdmin: false
 }

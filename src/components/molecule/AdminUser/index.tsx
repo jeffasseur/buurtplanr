@@ -19,7 +19,7 @@ const AdminUser = ({ user }) => {
               {
                 user.image &&
                 (
-                  <Image src={user.image} alt='placeholder' width={61} height={61} />
+                  <Image src={user.image} alt='placeholder' className={styles.img} fill />
                 )
               }
               {

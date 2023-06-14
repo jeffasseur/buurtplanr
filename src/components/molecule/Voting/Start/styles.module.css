@@ -1,0 +1,9 @@
+.votingWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  padding: var(--spacing-08) 148px;
+  background: var(--color-gradient-variant);
+  height: 100%;
+  max-width: 900px;
+}

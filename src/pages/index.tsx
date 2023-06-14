@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import styles from '@/assets/styles/pages/dashboard/Dashboard.module.css'
 import { MapWrapper } from '@/components/3d/MapWrapper'
 import UserLayout from '@/components/layouts/user-layout'
+import ReduxCheck from '@/helpers/ReduxCheck'
 import Icon from '@components/atoms/Icon'
 import ProjectColumn from '@components/molecule/ProjectCard/Column'
 
@@ -23,8 +24,10 @@ const fetcher = async (url) => {
 }
 
 const Dashboard = () => {
+  const authReducer = ReduxCheck()
+  const userId = authReducer.data._id
   const { data, isLoading, error } = useSWR(`${baseURL}projects`, fetcher)
-  const [filter, setFilter] = useState('Informeren')
+  const [filter, setFilter] = useState('Fase 1: Informeren')
 
   return (
     <>
@@ -56,7 +59,7 @@ const Dashboard = () => {
             }
             {
               data?.data.map((project) => {
-                return <ProjectColumn key={project._id} project={project} />
+                return <ProjectColumn key={project._id} project={project} userId={userId} />
               })
             }
             {

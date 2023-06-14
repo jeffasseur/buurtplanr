@@ -23,14 +23,20 @@ const Occurrence = ({ occurrence }) => {
                 )
               }
               {
-                occurrence.burger &&
+                occurrence.burger?.image &&
                 (
-                  <Image src='/img/donut.webp' alt='beschrijving' width={61} height={61} />
+                  <Image src={occurrence.burger.image} alt='beschrijving' width={61} height={61} />
                 )
               }
             </div>
             <div className={styles.OccContainer_title}>
-              <h4>{occurrence.burger.firstname} {occurrence.burger.lastname}</h4>
+              {
+                !occurrence.burger &&
+                (
+                  <h4>Gebruiker verwijderd</h4>
+                )
+              }
+              <h4>{occurrence.burger?.firstname} {occurrence.burger?.lastname}</h4>
             </div>
             <div className={styles.OccContainer_date}>
               <p>{formatedDate}</p>

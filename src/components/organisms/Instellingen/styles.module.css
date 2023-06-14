@@ -29,6 +29,7 @@
 }
 
 .profile {
+  object-fit: cover;
   z-index: 1;
   border-radius: var(--radius-round);
 }
@@ -80,7 +81,7 @@
     bottom: 0;
     left: 0;
     content: '';
-    background-image: url('/img/street.png');
+    background-image: url('/img/straat.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

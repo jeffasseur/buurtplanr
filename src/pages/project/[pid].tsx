@@ -1,6 +1,5 @@
 import { type ParsedUrlQuery } from 'querystring'
 
-import { redirect } from 'next/dist/server/api-utils'
 import Image from 'next/image'
 import Router from 'next/router'
 
@@ -107,7 +106,6 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async (context) => {
-  // const token = localStorage.getItem('token')
   const { pid } = context.params as Params
   const res = await fetch(`${baseURL}projects/${pid}`, {
     method: 'GET',
@@ -117,11 +115,15 @@ export const getStaticProps = async (context) => {
     }
   })
   const data = await res.json()
-
   if (data.status === 'success') {
     return { props: { project: data.data } }
-  } else {
-    redirect(data, 404, '/')
+  } else if (data.status === 'error' || data.status !== 'success') {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false
+      }
+    }
   }
 }
 
