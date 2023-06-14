@@ -20,8 +20,8 @@
 }
 
 .webp {
-  width: var(--spacing-09);
-  height: var(--spacing-09);
+  width: var(--spacing-08);
+  height: var(--spacing-08);
   padding: var(--spacing-02);
   background-color: var(--color-grey-200);
   border-radius: var(--radius-2);

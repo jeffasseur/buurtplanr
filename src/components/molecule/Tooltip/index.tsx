@@ -30,7 +30,7 @@ const Tooltip = () => {
           )
         : (
           <div className={styles.shift}>
-            houd <Image src='/img/shift.png' alt='shift' width={60} height={36} /> + linker muis knop ingedrukt om je camera te draaien
+            houd <Image src='/img/shift.png' alt='shift' width={52} height={28} /> + linker muis knop ingedrukt om je camera te draaien
           </div>
           )}
     </div>
