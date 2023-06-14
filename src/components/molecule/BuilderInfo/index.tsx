@@ -15,7 +15,7 @@ const BuilderInfo = () => {
   }
 
   return (
-    <>
+    <div className={styles.tipCopntainer}>
       <button onClick={handleOpen} className={styles.button}>
         {!open && <span>?</span>}
         {open && <Icon className={styles.close} name='close-circle' />}
@@ -66,7 +66,7 @@ const BuilderInfo = () => {
           </Tabs.Content>
         </Tabs.Root>
       )}
-    </>
+    </div>
   )
 }
 

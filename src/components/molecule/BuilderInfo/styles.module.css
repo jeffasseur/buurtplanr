@@ -1,9 +1,21 @@
+.tipCopntainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2rem;
+  align-items: flex-end;
+  right: 0;
+  bottom: 110%;
+}
+
 .close {
   color: var(--color-black);
 }
 
-.button  {
-  position: absolute;
+.button {
+  cursor: pointer;
+  z-index: 400;
+  position: relative;
   right: 16px;
   bottom: 15%;
   display: flex;
@@ -19,7 +31,8 @@
 }
 
 .TabsRoot {
-  position: absolute;
+  z-index: 400;
+  position: relative;
   right: 0;
   bottom: 25%;
   display: flex;

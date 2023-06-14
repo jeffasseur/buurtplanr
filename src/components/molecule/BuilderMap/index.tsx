@@ -11,6 +11,7 @@ import Thermometer from '@components/atoms/Thermometer'
 import WebpIcon from '@components/atoms/webpIcons'
 import { Editor } from '@components/molecule/Editor'
 
+import BuilderInfo from '../BuilderInfo'
 import Tooltip from '../Tooltip'
 
 import styles from './styles.module.css'
@@ -185,6 +186,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
         {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} productWeight={productWeight} setProductWeight={setProductWeight} />}
       </div>
       <div className={styles.navcontainer}>
+        {map && <BuilderInfo />}
         {map && <Toolbar productWeight={productWeight} />}
       </div>
     </div>
