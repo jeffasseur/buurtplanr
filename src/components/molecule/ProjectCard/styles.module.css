@@ -89,3 +89,14 @@
   background-color: var(--color-green-500);
   box-shadow: var(--shadow-xl);
 }
+
+.trimWords {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* number of lines to show */
+  -webkit-box-orient: vertical;
+  width: 100%;
+  height: 100%;
+}
