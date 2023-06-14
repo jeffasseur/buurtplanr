@@ -1,5 +1,4 @@
 .container {
-  position: absolute;
   right: 0;
   z-index: 50;
   display: flex;
@@ -12,6 +11,7 @@
   background-color: var(--color-grey-50);
   border-radius: 0 0 0 var(--radius-2);
   box-shadow: var(--shadow-md);
+  height: fit-content;
 }
 
 .actionContainer {

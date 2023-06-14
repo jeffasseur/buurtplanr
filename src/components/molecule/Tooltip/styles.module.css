@@ -2,18 +2,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width:fit-content;
+  width: fit-content;
   padding-block: var(--spacing-02);
   padding-inline: var(--spacing-04);
   background-color: var(--color-white);
   border-radius: 0 0 var(--radius-2) var(--radius-2);
   box-shadow: var(--shadow-xs);
+  z-index: 100;
+  height: fit-content;
 }
 
 .shift {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  font-size: var(--font-size-small);
 }
 
 .webp {

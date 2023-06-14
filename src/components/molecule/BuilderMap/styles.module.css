@@ -1,6 +1,8 @@
 .map {
   width: 100vw;
   height: var(--map-size-full);
+  display: flex;
+  justify-content: space-between;
 }
 
 .container {

@@ -1,10 +1,10 @@
 .thermoContainer {
-  position: absolute;
   z-index: 100;
   width: fit-content;
   padding: var(--spacing-03);
   background-color: var(--color-grey-50);
   border-radius: 0 var(--radius-2) var(--radius-2) 0;
+  height: fit-content;
 }
 
 .thermo {
