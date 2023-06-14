@@ -19,9 +19,9 @@ const Footer = () => {
           <p className={styles.title}>
             Account
           </p>
-          <Link href='/'>Profiel</Link>
-          <Link href='/'>Je Projecten</Link>
-          <Link href='/'>Instellingen</Link>
+          <Link href='/profile'>Profiel</Link>
+          <Link href='/profile'>Je Projecten</Link>
+          <Link href='/profile/Instellingen'>Instellingen</Link>
         </div>
         <div className={styles.logo}>
           <Image src='/img/logo.svg' alt='Logo' width={216} height={40} />

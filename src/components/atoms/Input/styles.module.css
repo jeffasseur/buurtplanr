@@ -1,10 +1,24 @@
 .inputBasic {
+  position: relative;
+  width: 100%;
   padding: var(--spacing-02) var(--spacing-01);
+  font-size: var(--font-size-medium);
   background: var(--color-white);
   border-radius: var(--radius-1);
-  border: 1px solid var(--color-grey-500);
-  font-size: var(--font-size-medium);
-  width: 100%;
+  outline: 1px solid var(--color-grey-500);
+
+  &:active {
+    outline-color: var(--color-blue-300);
+  }
+
+  &:focus-within {
+    outline-width: 2px;
+    outline-color: var(--color-blue-400);
+  }
+}
+
+.error {
+  border-color: var(--color-red-400);
 }
 
 .error {
@@ -14,9 +28,26 @@
 .sizeSmall {
   max-width: 300px;
 }
+
 .sizeMedium {
   max-width: 509px;
 }
+
 .sizeLarge {
   max-width: 100%;
+}
+
+.input {
+  width: calc(100% - var(--spacing-04) - var(--spacing-02));
+  outline: none;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-02);
+  width: var(--spacing-04);
+  height: var(--spacing-04);
+  color: var(--color-green-500);
+  transform: translateY(-50%);
 }

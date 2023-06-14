@@ -6,7 +6,9 @@
   max-width: fit-content;
   font-family: var(--font-sans);
   font-weight: 600;
+  text-transform: uppercase;
   border-radius: var(--radius-2);
+
   &:hover {
     cursor: pointer;
   }
@@ -15,7 +17,7 @@
 .themePrimary {
   color: var(--color-white);
   background-color: var(--color-blue-500);
-  transition: All .3s ease-in-out;
+  transition: all .3s ease-in-out;
 
   &:hover {
     background-color: var(--color-blue-300);
@@ -34,7 +36,7 @@
 .themeSecondary {
   color: var(--color-white);
   background-color: var(--color-purple-500);
-  transition: All .3s ease-in-out;
+  transition: all .3s ease-in-out;
 
   &:hover {
     background-color: var(--color-purple-300);
@@ -53,7 +55,7 @@
 .themeTertiary {
   color: var(--color-white);
   background-color: var(--color-green-500);
-  transition: All .3s ease-in-out;
+  transition: all .3s ease-in-out;
 
   &:hover {
     background-color: var(--color-green-300);
@@ -72,7 +74,7 @@
 .themeWarning {
   color: var(--color-black);
   background-color: var(--color-yellow-500);
-  transition: All .3s ease-in-out;
+  transition: all .3s ease-in-out;
 
   &:hover {
     background-color: var(--color-yellow-300);
@@ -91,7 +93,7 @@
 .themeTransparent {
   color: var(--color-black);
   background-color: transparent;
-  transition: All .3s ease-in-out;
+  transition: all .3s ease-in-out;
 
   &:hover {
     background-color: var(--color-grey-200);
@@ -107,9 +109,29 @@
   }
 }
 
+.themeCancel {
+  color: var(--color-black);
+  background-color: var(--color-grey-500);
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-grey-300);
+  }
+
+  &:active {
+    background-color: var(--color-grey-400);
+  }
+
+  &:disabled {
+    color: var(--color-grey-500);
+    background-color: var(--color-grey-200);
+  }
+}
+
 .sizeSmall {
   padding-block: var(--spacing-02);
   padding-inline: var(--spacing-04);
+  font-size: var(--font-size-small);
 }
 
 .sizeMedium {
@@ -120,4 +142,20 @@
 .sizeLarge {
   padding-block: var(--spacing-04);
   padding-inline: var(--spacing-06);
+  font-size: var(--font-size-large);
+}
+
+.icon-small {
+  width: var(--spacing-04);
+  height: var(--spacing-04);
+}
+
+.icon-medium {
+  width: var(--spacing-04);
+  height: var(--spacing-04);
+}
+
+.icon-large {
+  width: var(--spacing-06);
+  height: var(--spacing-06);
 }
