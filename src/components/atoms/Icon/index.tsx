@@ -41,7 +41,8 @@ const icons = [
   'user',
   'sms',
   'rotate-left',
-  'rotate-right'
+  'rotate-right',
+  'close-circle'
 ] as const
 
 export type Icons = typeof icons[number]

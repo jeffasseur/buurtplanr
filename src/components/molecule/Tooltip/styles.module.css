@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:fit-content;
+  padding-block: var(--spacing-02);
+  padding-inline: var(--spacing-04);
+  background-color: var(--color-white);
+  border-radius: 0 0 var(--radius-2) var(--radius-2);
+  box-shadow: var(--shadow-xs);
+}
+
+.shift {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.webp {
+  width: var(--spacing-09);
+  height: var(--spacing-09);
+  padding: var(--spacing-02);
+  background-color: var(--color-grey-200);
+  border-radius: var(--radius-2);
+}
