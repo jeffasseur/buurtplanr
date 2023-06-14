@@ -1,7 +1,6 @@
 import { type ParsedUrlQuery } from 'querystring'
 
 import Image from 'next/image'
-import Router from 'next/router'
 import { useState } from 'react'
 
 import Button from '@/components/atoms/Button'
@@ -13,14 +12,21 @@ import VotingStart from '@/components/molecule/Voting/Start'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://127.0.0.1:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
+let baseURL: string = 'http://127.0.0.1:3002/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const ProjectVotingPage = ({ creaties }) => {
+  const creatiesCheck = () => {
+    if (!creaties) {
+      window.location.href = '/404'
+    }
+  }
+  creatiesCheck()
   const [displayedComponent, setDisplayedComponent] = useState('Start')
   const handleComponentChange = (component: string) => { setDisplayedComponent(component) }
+  const projectId: string = creaties[0].project._id
 
   return (
     <>
@@ -46,8 +52,7 @@ const ProjectVotingPage = ({ creaties }) => {
           }
           <Button
             as='link'
-            href=''
-            onClick={() => { Router.back() }}
+            href={`/project/${projectId}`}
             prepend='arrow-left'
             theme='Transparent'
             size='small'
@@ -113,22 +118,12 @@ export const getStaticProps = async (context) => {
   const data = await res.json()
   if (data.status === 'success') {
     if (data.data.length === 0) {
-      return {
-        redirect: {
-          destination: `/project/${pid}?m=geen-creaties`,
-          permanent: false
-        }
-      }
+      return false
     }
     const creaties: any[] = data.data
     return { props: { creaties } }
   } else if (data.status === 'error' || data.status !== 'success') {
-    return {
-      redirect: {
-        destination: '/404',
-        permanent: false
-      }
-    }
+    return false
   }
 }
 

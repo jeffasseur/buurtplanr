@@ -1,6 +1,8 @@
 import Image from 'next/image'
 
 import Button from '@/components/atoms/Button'
+import Title from '@/components/atoms/Title'
+import { getFormattedDateFromTimestamp } from '@/helpers/dateFormatter'
 import { type projectData } from '@/types/BUURTTYPES'
 
 import styles from './styles.module.css'
@@ -12,6 +14,9 @@ interface ProjectProps {
 
 const ProjectColumn = ({ project, userId }: ProjectProps) => {
   const userID: string = userId
+
+  const date = new Date(project?.dateOfCreation ?? '')
+  const formatedDate = getFormattedDateFromTimestamp(date)
 
   return (
     <>
@@ -38,14 +43,14 @@ const ProjectColumn = ({ project, userId }: ProjectProps) => {
             }
           </div>
           <div className={styles.cardHeader}>
-            <h3>{project.title}</h3>
+            <Title as='h4' size='h4' weight='regular' className={styles.projectTitle}>{project.title}</Title>
             <div className={styles.subCardHeader}>
-              <p className={styles.date}>23.04.2023</p>
+              <p className={styles.date}>{formatedDate}</p>
               <p className={styles.fase}>{project.fase}</p>
             </div>
           </div>
           <div className={styles.cardDescription}>
-            <p>{project.description}</p>
+            <p className={styles.trimWords}>{project.description}</p>
           </div>
           <div className={styles.btnContainer}>
             {userID && (

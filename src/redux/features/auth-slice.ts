@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-interface Data {
+export interface Data {
   _id: string
   name: string
   firstname: string
@@ -15,7 +15,7 @@ interface Data {
   // background: 'park' | 'street' | 'square'
 }
 
-interface AuthState {
+export interface AuthState {
   isAuth: boolean
   data: Data
   token: string

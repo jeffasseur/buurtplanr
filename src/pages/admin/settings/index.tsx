@@ -1,7 +1,10 @@
 import AdminLayout from '@/components/layouts/admin-layout'
 import AdminSettings from '@/components/organisms/Admin/AdminSettings'
 
-// import styles from './styles.module.css'
+let baseURL: string = 'http://127.0.0.1:3002/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const AdminSettingsPage = ({ buurtplanr }) => {
   return (
@@ -12,7 +15,7 @@ const AdminSettingsPage = ({ buurtplanr }) => {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch('http://127.0.0.1:3002/buurtplanr/')
+  const res = await fetch(`${baseURL}buurtplanr/`)
   const data = await res.json()
   const buurtplanr = data.data
   return {

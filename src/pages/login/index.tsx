@@ -9,7 +9,7 @@ import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
-import { burgerLogin } from '@/redux/features/auth-slice'
+import { burgerLogin, type AuthState, type Data } from '@/redux/features/auth-slice'
 import { type AppDispatch } from '@/redux/store'
 
 import styles from './styles.module.css'
@@ -45,8 +45,8 @@ const Login = () => {
         .then((data) => {
           if (data.status === 'success') {
             const tokenString: string = data.token
-            const dataObject: object = data.data
-            const dispatchData = {
+            const dataObject: Data = data.data
+            const dispatchData: AuthState = {
               isAuth: true,
               data: dataObject,
               token: tokenString,

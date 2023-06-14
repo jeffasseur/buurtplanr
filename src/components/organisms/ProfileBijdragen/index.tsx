@@ -39,7 +39,7 @@ const ProfileBijdragen = () => {
       }
       {data?.data &&
         data.data.map((creatie, index) => (
-          <ProjectCard project={creatie.project} key={index} />
+          <ProjectCard project={creatie.project} key={index} userId={userId} />
         ))}
       {error && <p>Er is iets misgegaan met het ophalen van de gegevens</p>}
     </>

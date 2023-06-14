@@ -4,29 +4,12 @@ import Title from '@components/atoms/Title'
 
 import styles from './styles.module.css'
 
-interface Props {
-  handleComponentChange: (component: string) => void
-}
-
-let active = 'Algemeen'
-
-const AdminSettingsNav = ({ handleComponentChange }: Props) => {
+const AdminSettingsNav = () => {
   return (
     <>
       <div className={styles.adminSettingsNav}>
-        <Link href='/admin/settings' onClick={() => { handleComponentChange('Algemeen'); active = 'Algemeen' }}>
-          {
-            active === 'Algemeen' &&
-            (
-              <Title size='h3'>Algemeen</Title>
-            )
-          }
-          {
-            active !== 'Algemeen' &&
-            (
-              <Title className={styles.inactive} size='h3'>Algemeen</Title>
-            )
-          }
+        <Link href='/admin/settings'>
+          <Title size='h3'>Algemeen</Title>
         </Link>
       </div>
     </>
