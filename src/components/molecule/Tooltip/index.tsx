@@ -25,7 +25,7 @@ const Tooltip = () => {
       {isFirstContent
         ? (
           <div className={styles.shift}>
-            klik op een <WebpIcon name='boom-standaard' className={styles.webp} /> en vervlogens op een plaats op de kaart om een nieuw bouwstuk te plaatsen
+            klik op een <WebpIcon name='boom-standaard' className={styles.webp} /> en klik vervolgens op de kaart om een nieuw bouwstuk te plaatsen
           </div>
           )
         : (
