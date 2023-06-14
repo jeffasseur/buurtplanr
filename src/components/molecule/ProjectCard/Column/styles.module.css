@@ -76,6 +76,7 @@
   padding: 0.3rem 0.5rem;
   width: fit-content;
   background-color: var(--color-blue-500);
+  box-shadow: var(--shadow-xl);
 }
 
 .faseBoundNotice__green p {
@@ -83,6 +84,7 @@
   width: fit-content;
   padding: 0.3rem 0.5rem;
   background-color: var(--color-green-500);
+  box-shadow: var(--shadow-xl);
 }
 
 @media (--md-n-above) {
