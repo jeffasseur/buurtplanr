@@ -2,63 +2,63 @@
   "list": [
     {
       "name": "grass",
-      "productType": "ground"
+      "productType": "grond"
     },
     {
       "name": "gravel",
-      "productType": "ground"
+      "productType": "grond"
     },
     {
       "name": "root-decoration",
-      "productType": "nature"
+      "productType": "natuur"
     },
     {
       "name": "root-decoration2",
-      "productType": "nature"
+      "productType": "natuur"
     },
     {
       "name": "kip",
-      "productType": "nature"
+      "productType": "natuur"
     },
     {
       "name": "boom-palm",
-      "productType": "nature"
+      "productType": "natuur"
     },
     {
       "name": "boom-standaard",
-      "productType": "nature"
+      "productType": "natuur"
     },
     {
       "name": "boom-super",
-      "productType": "nature"
+      "productType": "natuur"
     },
     {
       "name": "bank-modern",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "vuilbak-2",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "auto-laadpaal",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "vuilbak",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "buiten-tafel",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "buiten-tafel-2",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "buiten-bank",
-      "productType": "furniture"
+      "productType": "uitrusting"
     },
     {
       "name": "water-paal",
@@ -74,15 +74,15 @@
     },
     {
       "name": "licht-modern",
-      "productType": "light"
+      "productType": "licht"
     },
     {
       "name": "licht-vintage",
-      "productType": "light"
+      "productType": "licht"
     },
     {
       "name": "licht-park",
-      "productType": "light"
+      "productType": "licht"
     }
   ]
 }

@@ -11,10 +11,10 @@ interface toolProps {
 
 const Toolbar = ({ productWeight }: toolProps) => {
   const filterTypesArr = [
-    'furniture',
-    'ground',
-    'light',
-    'nature',
+    'uitrusting',
+    'grond',
+    'licht',
+    'natuur',
     'water'
   ]
 
