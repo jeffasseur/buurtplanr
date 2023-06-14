@@ -2,16 +2,25 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { cx } from 'class-variance-authority'
 import { useState } from 'react'
 
+import ReduxCheck from '@/helpers/ReduxCheck'
 import Button from '@components/atoms/Button'
 import Input from '@components/atoms/Input'
 
 import styles from './styles.module.css'
+
+const baseURL: string = 'http://127.0.0.1:3002/'
+// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+// }
 
 const ChangePassword = () => {
   const [passwordData, setPasswordData] = useState({
     oldPassword: '',
     newPassword: ''
   })
+
+  const authReducer = ReduxCheck()
+  const { token } = authReducer
 
   const updatePasswordData = (name: string, value: string) => {
     setPasswordData((prevPasswordData) => ({
@@ -20,16 +29,27 @@ const ChangePassword = () => {
     }))
   }
 
-  const onSubmitPassword = () => {
+  const onSubmitPassword = async () => {
     const updatedPasswordData = new FormData()
     updatedPasswordData.append('oldPassword', passwordData.oldPassword)
     updatedPasswordData.append('newPassword', passwordData.newPassword)
 
     const passwordDataObject = Object.fromEntries([...updatedPasswordData.entries()])
-    /* TODO: remove console.log */
-    console.log(passwordDataObject)
 
     /* TODO: add call to api to update user info */
+    const response = await fetch(`${baseURL}burgers/change-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': `${baseURL}`,
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(passwordDataObject)
+    })
+    const data = await response.json()
+    return data
   }
 
   return (

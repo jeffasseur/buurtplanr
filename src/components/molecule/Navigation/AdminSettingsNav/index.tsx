@@ -28,20 +28,6 @@ const AdminSettingsNav = ({ handleComponentChange }: Props) => {
             )
           }
         </Link>
-        <Link href='/admin/settings' onClick={() => { handleComponentChange('Huisstijl'); active = 'Huisstijl' }}>
-          {
-            active === 'Huisstijl' &&
-            (
-              <Title size='h3'>Huisstijl</Title>
-            )
-          }
-          {
-            active !== 'Huisstijl' &&
-            (
-              <Title className={styles.inactive} size='h3'>Huisstijl</Title>
-            )
-          }
-        </Link>
       </div>
     </>
   )

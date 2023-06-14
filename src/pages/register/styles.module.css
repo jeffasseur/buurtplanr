@@ -1,3 +1,7 @@
+.error {
+  color: var(--color-red-500);
+}
+
 .registerContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -68,7 +69,8 @@ const Login = () => {
           return false
         })
     } else {
-      return { status: 'error', message: 'Vul alle velden in' }
+      setError('Vul alle velden in')
+      return false
     }
   }
 
@@ -85,6 +87,7 @@ const Login = () => {
             <div className={styles.inputIcon}>
               <Input
                 placeholder='Email'
+                type='email'
                 Size='medium'
                 className={styles.input}
                 required
@@ -143,6 +146,9 @@ const Login = () => {
                 </Button>
               )
             }
+          </div>
+          <div>
+            <Link href='/register' className={styles.register}>Nog geen account? Registreer hier</Link>
           </div>
         </div>
       </div>

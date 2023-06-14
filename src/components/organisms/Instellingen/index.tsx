@@ -12,13 +12,16 @@ import styles from './styles.module.css'
 
 interface instellingenProps {
   profileInfo: {
-    username: string
+    _id: string
+    firstname: string
+    lastname: string
     email: string
-    adress: string
+    city: string
+    street: string
     postalcode: string
-    housenummer: string
+    houseNumber: string
     password: string
-    profilePicture: string
+    image: string
   }
   background: 'park' | 'street' | 'square'
 }
@@ -28,11 +31,15 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
   const className = cx([styles.banner, styles[backgroundState]])
 
   const [formData, setFormData] = useState({
-    username: profileInfo.username,
+    firstname: profileInfo.firstname,
+    lastname: profileInfo.lastname,
     email: profileInfo.email,
-    adress: profileInfo.adress,
+    city: profileInfo.city,
+    street: profileInfo.street,
     postalcode: profileInfo.postalcode,
-    housenummer: profileInfo.housenummer,
+    houseNumber: profileInfo.houseNumber,
+    password: profileInfo.password,
+    image: profileInfo.image,
     background: backgroundState
   })
 
@@ -50,16 +57,18 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
 
   const onSubmit = () => {
     const updatedFormData = new FormData()
-    updatedFormData.append('username', formData.username)
+    updatedFormData.append('firstname', formData.firstname)
+    updatedFormData.append('lastname', formData.lastname)
     updatedFormData.append('email', formData.email)
-    updatedFormData.append('adress', formData.adress)
+    updatedFormData.append('street', formData.street)
+    updatedFormData.append('city', formData.city)
     updatedFormData.append('postalcode', formData.postalcode)
-    updatedFormData.append('housenummer', formData.housenummer)
+    updatedFormData.append('houseNumber', formData.houseNumber)
     updatedFormData.append('background', formData.background)
 
-    const formDataObject = Object.fromEntries([...updatedFormData.entries()])
+    // const formDataObject = Object.fromEntries([...updatedFormData.entries()])
+
     /* TODO: remove console.log */
-    console.log(formDataObject)
 
     /* TODO: add call to api to update user info */
   }
@@ -67,27 +76,39 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
   return (
     <div className={styles.container}>
       <div className={className}>
-        <Image src={profileInfo.profilePicture} alt={profileInfo.username} width={250} height={250} className={styles.profile} />
+        <Image src={profileInfo.image} alt={profileInfo.firstname} width={250} height={250} className={styles.profile} />
       </div>
       <div className={styles.subContainer}>
         <div className={styles.content}>
           <div className={styles['button-container']}>
             <ChangePassword />
-            <DeleteAccount />
+            <DeleteAccount id={profileInfo._id} />
             <Button as='button' size='small' append='save' onClick={onSubmit}>
               wijzigigen opslaan
             </Button>
           </div>
           <form className={styles.form}>
             <div className={styles.field}>
-              <label htmlFor='username' className={styles.label}>Gebruikersnaam</label>
+              <label htmlFor='firstname' className={styles.label}>Voornaam</label>
               <Input
-                id='username'
+                id='firstname'
                 type='text'
-                placeholder={profileInfo.username}
+                placeholder={profileInfo.firstname}
                 icon='user'
                 onChange={(event) => {
-                  updateFormData('username', event.target.value)
+                  updateFormData('firstname', event.target.value)
+                }}
+              />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='lastname' className={styles.label}>Achternaam</label>
+              <Input
+                id='lastname'
+                type='text'
+                placeholder={profileInfo.lastname}
+                icon='user'
+                onChange={(event) => {
+                  updateFormData('lastname', event.target.value)
                 }}
               />
             </div>
@@ -97,21 +118,45 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
                 id='email'
                 type='text'
                 placeholder={profileInfo.email}
-                icon='mail'
+                icon='sms'
                 onChange={(event) => {
                   updateFormData('email', event.target.value)
                 }}
               />
             </div>
             <div className={styles.field}>
-              <label htmlFor='adress' className={styles.label}>Adress</label>
+              <label htmlFor='street' className={styles.label}>Straatnaam</label>
               <Input
-                id='adress'
+                id='street'
                 type='text'
-                placeholder={profileInfo.adress}
+                placeholder={profileInfo.street}
                 icon='location'
                 onChange={(event) => {
                   updateFormData('adress', event.target.value)
+                }}
+              />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='houseNumber' className={styles.label}>Huisnummer</label>
+              <Input
+                id='houseNumber'
+                type='text'
+                placeholder={profileInfo.houseNumber}
+                icon='location'
+                onChange={(event) => {
+                  updateFormData('houseNumber', event.target.value)
+                }}
+              />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='city' className={styles.label}>Dorp, stad, gemeente</label>
+              <Input
+                id='city'
+                type='text'
+                placeholder={profileInfo.city}
+                icon='location'
+                onChange={(event) => {
+                  updateFormData('city', event.target.value)
                 }}
               />
             </div>
@@ -124,18 +169,6 @@ const Instellingen = ({ profileInfo, background }: instellingenProps) => {
                 icon='location'
                 onChange={(event) => {
                   updateFormData('postalcode', event.target.value)
-                }}
-              />
-            </div>
-            <div className={styles.field}>
-              <label htmlFor='housenummer' className={styles.label}>Huisnummer</label>
-              <Input
-                id='housenummer'
-                type='text'
-                placeholder={profileInfo.housenummer}
-                icon='location'
-                onChange={(event) => {
-                  updateFormData('housenummer', event.target.value)
                 }}
               />
             </div>

@@ -1,0 +1,18 @@
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  padding: var(--spacing-06) 6rem;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-08);
+}

@@ -72,6 +72,20 @@ const AdminProjectEditNav = ({ handleComponentChange, id }: Props) => {
             )
           }
         </Link>
+        <Link href={'/admin/projects/edit/' + projectId} onClick={() => { handleComponentChange('Results'); active = 'Results' }}>
+          {
+            active === 'Results' &&
+            (
+              <Title size='h3'>Resultaten</Title>
+            )
+          }
+          {
+            active !== 'Results' &&
+            (
+              <Title className={styles.inactive} size='h3'>Resultaten</Title>
+            )
+          }
+        </Link>
       </div>
     </>
   )

@@ -64,7 +64,7 @@ const ProjectCard = ({ project }: ProjectProps) => {
                 {
                   project.fase === 'Fase 3: Stemmen' &&
                   (
-                    <Button as='link' size='small' append='medal-star' href={`/builder/${project._id}/${userID}`}>
+                    <Button as='link' size='small' append='medal-star' href={`/voting/${project._id}`}>
                       <span>Deelnemen</span>
                     </Button>
                   )

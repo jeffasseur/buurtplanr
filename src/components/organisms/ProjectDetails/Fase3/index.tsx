@@ -14,7 +14,7 @@ const ProjectDetailsFase3 = ({ project }) => {
           <Button
             as='link'
             append='medal-star'
-            href={`/builder/${pid}`}
+            href={`/voting/${pid}`}
             theme='Primary'
             size='small'
             className={styles.button}

@@ -2,16 +2,16 @@ import Image from 'next/image'
 
 import Button from '@/components/atoms/Button'
 import { type projectData } from '@/types/BUURTTYPES'
-import { useUser } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
 interface ProjectProps {
   project: projectData | undefined
+  userId: string
 }
 
-const ProjectColumn = ({ project }: ProjectProps) => {
-  const userID = useUser(state => state.userID)
+const ProjectColumn = ({ project, userId }: ProjectProps) => {
+  const userID: string = userId
 
   return (
     <>
@@ -64,7 +64,7 @@ const ProjectColumn = ({ project }: ProjectProps) => {
                 {
                   project.fase === 'Fase 3: Stemmen' &&
                   (
-                    <Button as='link' size='small' append='medal-star' href={`/builder/${project._id}/${userID}`}>
+                    <Button as='link' size='small' append='medal-star' href={`/voting/${project._id}`}>
                       <span>Deelnemen</span>
                     </Button>
                   )

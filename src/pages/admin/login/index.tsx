@@ -81,6 +81,7 @@ const AdminLogin = () => {
             <label>Email</label>
             <div className={styles.inputIcon}>
               <Input
+                type='email'
                 placeholder='Email'
                 Size='medium'
                 className={styles.input}
