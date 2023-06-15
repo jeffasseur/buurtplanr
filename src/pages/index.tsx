@@ -25,7 +25,7 @@ const fetcher = async (url) => {
 const Dashboard = () => {
   const authReducer = ReduxCheck()
   const userId = authReducer.data._id
-  const { data, isLoading, error } = useSWR(`${baseURL}projects`, fetcher)
+  const { data, isLoading, error } = useSWR(`${baseURL}projects/starting`, fetcher)
   // const [filter, setFilter] = useState('Fase 1: Informeren')
 
   return (

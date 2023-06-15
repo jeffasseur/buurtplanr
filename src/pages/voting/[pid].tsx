@@ -1,5 +1,3 @@
-// import { type ParsedUrlQuery } from 'querystring'
-
 import { type GetStaticProps } from 'next'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -13,15 +11,15 @@ import VotingStart from '@/components/molecule/Voting/Start'
 
 import styles from './styles.module.css'
 
-let baseURL: string = 'http://127.0.0.1:3002/'
-if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-}
+const baseURL: string = 'http://127.0.0.1:3002/'
+// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+// }
 
-const ProjectVotingPage = ({ creaties }) => {
+const ProjectVotingPage = ({ pid, creaties }) => {
   const [displayedComponent, setDisplayedComponent] = useState('Start')
   const handleComponentChange = (component: string) => { setDisplayedComponent(component) }
-  const projectId: string = creaties[0].project._id
+  const projectId: string = pid
 
   return (
     <>
@@ -78,56 +76,13 @@ const ProjectVotingPage = ({ creaties }) => {
   )
 }
 
-// interface Params extends ParsedUrlQuery {
-//   pid: string
-// }
-
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`${baseURL}projects/voting`)
-//   const data = await res.json()
-//   if (data.data.length > 0) {
-//     const paths: object = data.data.map(project => {
-//       return {
-//         params: {
-//           pid: project._id
-//         }
-//       }
-//     })
-
-//     return {
-//       paths,
-//       fallback: false
-//     }
-//   }
-// }
-
-// export const getStaticProps = async (context) => {
-//   const { pid } = context.params as Params
-//   const res = await fetch(`${baseURL}creaties/voting/${pid}`, {
-//     method: 'GET',
-//     headers: {
-//       'Access-Control-Allow-Origin': `${baseURL}`
-//     }
-//   })
-//   const data = await res.json()
-//   if (data.status === 'success') {
-//     if (data.data.length === 0) {
-//       return false
-//     }
-//     const creaties: any[] = data.data
-//     return { props: { creaties }, revalidate: 20 }
-//   } else if (data.status === 'error' || data.status !== 'success') {
-//     return false
-//   }
-// }
-
 export const getServerSideProps: GetStaticProps = async ({ params }) => {
   const pid = params?.pid as string
-  const project = await fetch(`${baseURL}creaties/voting/${pid}`).then(async res => await res.json())
+  const creaties = await fetch(`${baseURL}creaties/voting/${pid}`).then(async res => await res.json()).then((data) => { return data })
   return {
     props: {
       pid,
-      project: project.data
+      creaties: creaties.data
     }
   }
 }
