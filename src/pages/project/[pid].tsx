@@ -101,7 +101,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true
+    fallback: false
   }
 }
 
@@ -116,7 +116,7 @@ export const getStaticProps = async (context) => {
   })
   const data = await res.json()
   if (data.status === 'success') {
-    return { props: { project: data.data } }
+    return { props: { project: data.data }, revalidate: 60 }
   } else if (data.status === 'error' || data.status !== 'success') {
     return {
       redirect: {

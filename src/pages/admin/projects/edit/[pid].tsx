@@ -38,7 +38,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true
+    fallback: false
   }
 }
 
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   })
   const data = await res.json()
-  return { props: { project: data.data } }
+  return { props: { project: data.data }, revalidate: 60 }
 }
 
 export default EditProject

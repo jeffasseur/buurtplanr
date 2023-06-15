@@ -18,12 +18,6 @@ if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
 }
 
 const ProjectVotingPage = ({ creaties }) => {
-  const creatiesCheck = () => {
-    if (!creaties) {
-      window.location.href = '/404'
-    }
-  }
-  creatiesCheck()
   const [displayedComponent, setDisplayedComponent] = useState('Start')
   const handleComponentChange = (component: string) => { setDisplayedComponent(component) }
   const projectId: string = creaties[0].project._id
@@ -90,8 +84,6 @@ interface Params extends ParsedUrlQuery {
 export const getStaticPaths = async () => {
   const res = await fetch(`${baseURL}projects/voting`)
   const data = await res.json()
-  // Geef nog in de body mee dat hem projecten gaat die Fase 3 zijn, anders haalt die projecten op waar nog geen creaties aan zijn gekoppeld
-  // Pas backend nog aan zodat als er een req.body.fase is dat die daar mee op filtert
   if (data.data.length > 0) {
     const paths: object = data.data.map(project => {
       return {
@@ -103,7 +95,7 @@ export const getStaticPaths = async () => {
 
     return {
       paths,
-      fallback: true
+      fallback: false
     }
   }
 }
@@ -122,7 +114,7 @@ export const getStaticProps = async (context) => {
       return false
     }
     const creaties: any[] = data.data
-    return { props: { creaties } }
+    return { props: { creaties }, revalidate: 60 }
   } else if (data.status === 'error' || data.status !== 'success') {
     return false
   }
