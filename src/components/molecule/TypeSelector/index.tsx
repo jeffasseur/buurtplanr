@@ -35,7 +35,7 @@ const TypeSelector = ({ background, onChange }: TypeSelectorProps) => {
         <label htmlFor='r2' className={styles.background}>
           <div className={styles['image-container']}>
             <Image
-              src='/img/street.png'
+              src='/img/straat.png'
               alt='street'
               fill
               className={cx([styles.image, background === 'street' && styles.border])}

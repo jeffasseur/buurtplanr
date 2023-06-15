@@ -62,7 +62,7 @@ const Register = () => {
       </div>
       <div className={styles.registerWrapper}>
         <form className={styles.registerForm}>
-          <Image src='/img/logo.svg' alt='logo' width={300} height={76} />
+          <Image src='/img/Logo.svg' alt='logo' width={300} height={76} />
           <div className={styles.nameWrapper}>
             <fieldset className={styles.registerForm_fieldset}>
               <label>Voornaam</label>
