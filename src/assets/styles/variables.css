@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 14 Jun 2023 20:25:36 GMT
+ * Generated on Thu, 15 Jun 2023 12:08:02 GMT
  */
 
 :root {
@@ -15,8 +15,8 @@
   --font-size-h3: 2rem;
   --font-size-h2: 3rem;
   --font-size-h1: 4rem;
-  --font-display: var(--next-font-display), system-ui;
-  --font-sans: var(--next-font-sans), system-ui;
+  --font-display: 'Manrope', system-ui;
+  --font-sans: 'Mullish', system-ui;
   --spacing-09: 3rem;
   --spacing-08: 2rem;
   --spacing-07: 1.75rem;

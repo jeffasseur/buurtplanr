@@ -63,8 +63,7 @@ export const MapWrapper = ({ mapType, projectId, projectArray, singleProject, cr
             {mapType === 'builder' && singleProject && <BuilderMapBlueprint mapType={mapType} mapData={mapData} projectData={singleProject} creationData={creationData} />}
             {mapType === 'minimal' && votingProject && <MinimalMapBlueprint mapType={mapType} mapData={mapData} votingProject={votingProject} />}
             {mapType === 'NewProject' && <NewProjectMapBlueprint mapData={mapData} />}
-          </Wrapper>
-          )}
+          </Wrapper>)}
     </>
   )
 }

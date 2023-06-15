@@ -28,7 +28,7 @@
 }
 
 .filter {
-  width: 117px;
+  width: fit-content;
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-xs);
   text-align: center;

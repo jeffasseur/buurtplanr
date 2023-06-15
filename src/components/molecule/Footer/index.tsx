@@ -24,7 +24,7 @@ const Footer = () => {
           <Link href='/profile/Instellingen'>Instellingen</Link>
         </div>
         <div className={styles.logo}>
-          <Image src='/img/logo.svg' alt='Logo' width={216} height={40} />
+          <Image src='/img/Logo.svg' alt='Logo' width={216} height={40} />
         </div>
       </div>
     </footer>

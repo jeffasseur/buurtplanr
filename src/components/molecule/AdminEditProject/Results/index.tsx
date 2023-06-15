@@ -5,10 +5,10 @@ import Title from '@/components/atoms/Title'
 
 import styles from './styles.module.css'
 
-const baseURL: string = 'http://127.0.0.1:3002/'
-// if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-//   baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-// }
+let baseURL: string = 'http://127.0.0.1:3002/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
 
 const AdminEditProjectResults = ({ project }) => {
   const projectID: string = project._id
@@ -50,7 +50,7 @@ const AdminEditProjectResults = ({ project }) => {
                   <p className={styles.creatieName}># {index}</p>
                 </div>
                 <div className={styles.creatieButtons}>
-                  <Button as='button' size='small' theme='Warning' onClick={(e) => { console.log(creatie.id) }}>Verwijderen</Button>
+                  <Button as='button' size='small' theme='Warning'>Verwijderen</Button>
                 </div>
               </div>
             ))

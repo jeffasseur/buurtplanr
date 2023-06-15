@@ -1,17 +1,22 @@
-import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
+import { useState } from 'react'
 
 import Input from '@/components/atoms/Input'
 import Title from '@/components/atoms/Title'
+import TypeSelector from '@/components/molecule/TypeSelector'
 import Button from '@components/atoms/Button'
 import { useNewProjectForm } from '@components/zustand/buurtplanrContext'
 
 import styles from './styles.module.css'
 
-const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
-  const newFormData = { ...FormData }
+const Setup = ({ formData, setSetupProgress, updateFormStage }) => {
+  const newFormData = { ...formData }
   const resetProgress = useNewProjectForm((state) => state.resetProgress)
+  type backgroundType = 'park' | 'street' | 'square'
+  const [backgroundState, setBackgroundState] = useState<backgroundType>('park')
+
+  const handleBackgroundChange = (background: 'park' | 'street' | 'square') => {
+    setBackgroundState(background)
+  }
 
   return (
     <div className={styles.setupContainer}>
@@ -125,50 +130,7 @@ const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
       </fieldset>
       <fieldset>
         <Title size='h3' weight='semibold'>Type</Title>
-        <div className={styles.typesContainer}>
-          <div>
-            <label className={styles.typePlein}>
-              <span>Plein</span>
-              <div className={styles.imgContainer}>
-                <Image src='/img/types/TOWN.png' alt='type dorp' fill />
-              </div>
-              <input type='radio' name='type' id='dorp' value='dorp' />
-              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
-                <Checkbox.Indicator className={styles.CheckboxIndicator}>
-                  <CheckIcon />
-                </Checkbox.Indicator>
-              </Checkbox.Root>
-            </label>
-          </div>
-          <div>
-            <label className={styles.typePark}>
-              <span>Park</span>
-              <div className={styles.imgContainer}>
-                <Image src='/img/types/PARK.png' alt='type park' fill />
-              </div>
-              <input type='radio' name='type' id='park' value='park' />
-              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
-                <Checkbox.Indicator className={styles.CheckboxIndicator}>
-                  <CheckIcon />
-                </Checkbox.Indicator>
-              </Checkbox.Root>
-            </label>
-          </div>
-          <div>
-            <label className={styles.typeStraat}>
-              <span>Straat</span>
-              <div className={styles.imgContainer}>
-                <Image src='/img/types/STREET.png' alt='type straat' fill />
-              </div>
-              <input type='radio' name='type' id='straat' value='straat' />
-              <Checkbox.Root className={styles.CheckboxRoot} id='c1'>
-                <Checkbox.Indicator className={styles.CheckboxIndicator}>
-                  <CheckIcon />
-                </Checkbox.Indicator>
-              </Checkbox.Root>
-            </label>
-          </div>
-        </div>
+        <TypeSelector onChange={handleBackgroundChange} background={backgroundState} />
       </fieldset>
       <div className={styles.info}>
         <Title size='h3' weight='semibold'>Informatie</Title>
@@ -185,17 +147,6 @@ const Setup = ({ FormData, setSetupProgress, updateFormStage }) => {
           }
         />
       </fieldset>
-      <fieldset>
-        <Title size='h4' weight='regular'>Document/ Afbeelding</Title>
-        <Input
-          type='file'
-          Size='small'
-          onChange={
-            (event) => { newFormData.document = event.target.files[0] }
-          }
-        />
-      </fieldset>
-
       <div className={styles.footer}>
         <Button
           as='link'

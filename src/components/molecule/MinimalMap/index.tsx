@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { type mapOptions, type projectData } from '@/types/BUURTTYPES'
+import { type mapOptions } from '@/types/BUURTTYPES'
 import { BuurtMap } from '@/utils/BuurtMap'
 
 import styles from './styles.module.css'
@@ -15,7 +15,6 @@ export const MinimalMapBlueprint = ({ mapData, votingProject, mapType }: MapProp
   const mapContainer = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
   const [BUURTMAP, setBUURTMAP] = useState<BuurtMap>()
-  console.log(votingProject)
 
   useEffect(() => {
     if (!map) {

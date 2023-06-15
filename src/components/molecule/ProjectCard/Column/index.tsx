@@ -48,7 +48,6 @@ const ProjectColumn = ({ project, userId }: ProjectProps) => {
             <Title as='h4' size='h4' weight='regular' className={styles.projectTitle}>{project.title}</Title>
             <div className={styles.subCardHeader}>
               <p className={styles.date}>{formatedDate}</p>
-              <p className={styles.fase}>{project.fase}</p>
             </div>
           </div>
           <div className={styles.cardDescription}>

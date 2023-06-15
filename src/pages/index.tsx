@@ -5,7 +5,6 @@ import styles from '@/assets/styles/pages/dashboard/Dashboard.module.css'
 import { MapWrapper } from '@/components/3d/MapWrapper'
 import UserLayout from '@/components/layouts/user-layout'
 import ReduxCheck from '@/helpers/ReduxCheck'
-import Icon from '@components/atoms/Icon'
 import ProjectColumn from '@components/molecule/ProjectCard/Column'
 
 let baseURL: string = 'http://127.0.0.1:3002/'
@@ -44,9 +43,6 @@ const Dashboard = () => {
                 <option value='Fase 3: Stemmen'>Fase 3: Stemmen</option>
                 <option value='Fase 4: Vervolg'>Fase 4: Vervolg</option>
               </select>
-              <div className='search'>
-                <Icon name='search' />
-              </div>
             </div>
           </div>
           <div className={styles.projectList}>

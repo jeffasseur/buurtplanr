@@ -58,14 +58,6 @@ const Navigation = () => {
           )
         }
         {
-          authReducer.isAuth &&
-          (
-            <Link href='/' className={styles.desktop}>
-              <Icon name='notification' />
-            </Link>
-          )
-        }
-        {
           authReducer.isAuth && <DropdownNavUser user={authReducer.data} />
         }
       </div>

@@ -61,7 +61,7 @@ const AdminRegister = () => {
       </div>
       <div className={styles.loginWrapper}>
         <form className={styles.loginForm}>
-          <Image src='/img/logo.svg' alt='logo' width={300} height={76} />
+          <Image src='/img/Logo.svg' alt='logo' width={300} height={76} />
           <fieldset className={styles.loginForm_fieldset}>
             <label>Voor- en achternaam</label>
             <div className={styles.inputIcon}>
