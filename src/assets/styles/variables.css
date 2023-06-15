@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 15 Jun 2023 12:08:02 GMT
+ * Generated on Thu, 15 Jun 2023 14:14:07 GMT
  */
 
 :root {
@@ -41,6 +41,7 @@
   --ratio-landscape: 4/3;
   --ratio-box: 1;
   --map-height-full: 100%;
+  --map-height-loader: 70vh;
   --map-height-base: 533px;
   --gradients-gradient-variant: radial-gradient(31.87% 59.7% at 12.35% 86.21%, rgba(140, 149, 175, 0.2) 0%, rgba(255, 255, 255, 0.2) 71.06%), radial-gradient(45.24% 76.08% at 91.93% 5.76%, rgba(175, 181, 199, 0.2) 0%, rgba(255, 255, 255, 0.2) 56.21%), #FFFFFF;
   --color-red-50: #fef2f2;
