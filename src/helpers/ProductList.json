@@ -9,18 +9,6 @@
       "productType": "grond"
     },
     {
-      "name": "root-decoration",
-      "productType": "natuur"
-    },
-    {
-      "name": "root-decoration2",
-      "productType": "natuur"
-    },
-    {
-      "name": "kip",
-      "productType": "natuur"
-    },
-    {
       "name": "boom-palm",
       "productType": "natuur"
     },
@@ -34,14 +22,6 @@
     },
     {
       "name": "bank-modern",
-      "productType": "uitrusting"
-    },
-    {
-      "name": "vuilbak-2",
-      "productType": "uitrusting"
-    },
-    {
-      "name": "auto-laadpaal",
       "productType": "uitrusting"
     },
     {
@@ -69,15 +49,7 @@
       "productType": "water"
     },
     {
-      "name": "water-refill",
-      "productType": "water"
-    },
-    {
       "name": "licht-modern",
-      "productType": "licht"
-    },
-    {
-      "name": "licht-vintage",
       "productType": "licht"
     },
     {
