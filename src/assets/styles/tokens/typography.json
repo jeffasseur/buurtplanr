@@ -1,26 +1,49 @@
 {
   "font": {
-    "sans": { "value": "var(--next-font-sans), system-ui" },
-    "display": { "value": "var(--next-font-display), system-ui" },
-
+    "sans": {
+      "value": "'Mullish', system-ui"
+    },
+    "display": {
+      "value": "'Manrope', system-ui"
+    },
     "size": {
-      "h1": { "value": "4rem" },
-      "h2": { "value": "3rem" },
-      "h3": { "value": "2rem" },
-      "h4": { "value": "1.5rem" },
-      "details": { "value": "0.75rem" },
-      "body": { "value": "1rem" },
-      "small" : { "value": "0.75rem" },
-      "medium" : { "value": "1rem" },
-      "large" : { "value": "1.25rem" }
+      "h1": {
+        "value": "4rem"
+      },
+      "h2": {
+        "value": "3rem"
+      },
+      "h3": {
+        "value": "2rem"
+      },
+      "h4": {
+        "value": "1.5rem"
+      },
+      "details": {
+        "value": "0.75rem"
+      },
+      "body": {
+        "value": "1rem"
+      },
+      "small": {
+        "value": "0.75rem"
+      },
+      "medium": {
+        "value": "1rem"
+      },
+      "large": {
+        "value": "1.25rem"
+      }
     },
-
     "lineheight": {
-      "body": { "value": "1.5" }
+      "body": {
+        "value": "1.5"
+      }
     },
-
     "letterespacing": {
-      "body": { "value": "0.02em" }
+      "body": {
+        "value": "0.02em"
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ const AdminNewProject = () => {
 
   const [hyFormStage, setFormStage] = useState<number>(0)
   const FormElements = [
-    <Setup key={0} FormData={setupProgress} setSetupProgress={setSetupProgress} updateFormStage={updateFormStage} />,
+    <Setup key={0} formData={setupProgress} setSetupProgress={setSetupProgress} updateFormStage={updateFormStage} />,
     <Cocreation key={1} FormData={cocreationProgress} setFormData={updateCocreationProgress} updateFormStage={updateFormStage} />,
     <Summary key={2} FormData={formData} updateFormStage={updateFormStage} />
   ]
