@@ -1,5 +1,6 @@
-import { type ParsedUrlQuery } from 'querystring'
+// import { type ParsedUrlQuery } from 'querystring'
 
+import { type GetStaticProps } from 'next'
 import Image from 'next/image'
 import Router from 'next/router'
 
@@ -83,46 +84,57 @@ const ProjectDetailPage = ({ project }) => {
   )
 }
 
-interface Params extends ParsedUrlQuery {
-  pid: string
-}
+// interface Params extends ParsedUrlQuery {
+//   pid: string
+// }
 
-export const getStaticPaths = async () => {
-  const res = await fetch(`${baseURL}projects/`)
-  const data = await res.json()
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`${baseURL}projects/`)
+//   const data = await res.json()
 
-  const paths: object = data.data.map(project => {
-    return {
-      params: {
-        pid: project._id
-      }
-    }
-  })
+//   const paths: object = data.data.map(project => {
+//     return {
+//       params: {
+//         pid: project._id
+//       }
+//     }
+//   })
 
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
+
+// export const getStaticProps = async (context) => {
+//   const { pid } = context.params as Params
+//   const res = await fetch(`${baseURL}projects/${pid}`, {
+//     method: 'GET',
+//     headers: {
+//       'Access-Control-Allow-Origin': `${baseURL}`
+//       // authorization: `Bearer ${token}`
+//     }
+//   })
+//   const data = await res.json()
+//   if (data.status === 'success') {
+//     return { props: { project: data.data }, revalidate: 20 }
+//   } else if (data.status === 'error' || data.status !== 'success') {
+//     return {
+//       redirect: {
+//         destination: '/404',
+//         permanent: false
+//       }
+//     }
+//   }
+// }
+
+export const getServerSideProps: GetStaticProps = async ({ params }) => {
+  const pid = params?.pid as string
+  const project = await fetch(`${baseURL}projects/${pid}`).then(async res => await res.json())
   return {
-    paths,
-    fallback: false
-  }
-}
-
-export const getStaticProps = async (context) => {
-  const { pid } = context.params as Params
-  const res = await fetch(`${baseURL}projects/${pid}`, {
-    method: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': `${baseURL}`
-      // authorization: `Bearer ${token}`
-    }
-  })
-  const data = await res.json()
-  if (data.status === 'success') {
-    return { props: { project: data.data }, revalidate: 60 }
-  } else if (data.status === 'error' || data.status !== 'success') {
-    return {
-      redirect: {
-        destination: '/404',
-        permanent: false
-      }
+    props: {
+      pid,
+      project: project.data
     }
   }
 }

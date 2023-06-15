@@ -21,7 +21,7 @@ interface serve {
   userid: string
 }
 
-export default function Builder ({ pid, userid }: serve) {
+const Builder = ({ pid, userid }: serve) => {
   const updateUID = useUser(state => state.updateUID)
   const updatePID = useUser(state => state.updatePID)
   const updateCreationID = useUser(state => state.updateCreationID)
@@ -54,3 +54,5 @@ const renderMapping = (projectData, creationData, updateCreationID) => {
     return <MapWrapper mapType='builder' singleProject={projectData.data.data} creationData={undefined} />
   }
 }
+
+export default Builder
