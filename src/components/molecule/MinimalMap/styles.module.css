@@ -1,0 +1,13 @@
+.map {
+  width: 100%;
+  height: var(--map-height-full);
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+}
+
+.container {
+  height: var(--map-height-full);
+  display: grid;
+  grid-template-rows: auto 216px;
+}

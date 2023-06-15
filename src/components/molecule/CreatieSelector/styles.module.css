@@ -86,7 +86,6 @@
   transition: all 75ms;
 }
 
-
 .viewIcon:hover {
   background-color: var(--color-purple-400);
 }
@@ -97,18 +96,35 @@
   width: 100vw;
   height: 100vh;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .peak_close {
+  z-index: 100;
   position: absolute;
   right: 2rem;
   top: 2rem;
+  cursor: pointer;
+  color: var(--color-white);
 }
 
 .peak_backface {
+  z-index: 100;
   z-index: 50;
   opacity: 60%;
   width: 100%;
   height: 100%;
-  background-color: var(--color-purple-200);
+  background-color: var(--color-black);
+}
+
+.peak_overlay {
+  z-index: 100;
+  overflow: hidden;
+  border-radius: var(--border-size-3);
+  box-shadow: var(--shadow-xl);
+  position: absolute;
+  width: 80vw;
+  height: 70vh;
 }

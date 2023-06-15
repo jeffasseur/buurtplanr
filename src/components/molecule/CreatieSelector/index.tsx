@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import Title from '@/components/atoms/Title'
+import { type project } from '@/types/BUURTTYPES'
+import { MapWrapper } from '@components/3d/MapWrapper'
 import Icon from '@components/atoms/Icon'
 
 import styles from './styles.module.css'
@@ -14,7 +16,7 @@ interface CreatieSelectorProps {
 }
 
 const CreatieSelector = ({ creaties, creatie, onChange }: CreatieSelectorProps) => {
-  const [peakView, setPeakView] = useState(undefined)
+  const [peakView, setPeakView] = useState<project | undefined>(undefined)
 
   return (
     <>
@@ -50,6 +52,7 @@ const CreatieSelector = ({ creaties, creatie, onChange }: CreatieSelectorProps) 
       {peakView && (
         <div className={styles.peakContainer}>
           <div className={styles.peak_backface} />
+          <div className={styles.peak_overlay}> <MapWrapper mapType='minimal' votingProject={peakView} /> </div>
           <div className={styles.peak_close} onClick={() => { setPeakView(undefined) }}><Icon name='close-circle' /></div>
         </div>
       )}

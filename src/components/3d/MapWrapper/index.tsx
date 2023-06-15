@@ -3,6 +3,7 @@ import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { type ReactElement, useEffect, useState } from 'react'
 
 import { BuilderMapBlueprint } from '@/components/molecule/BuilderMap'
+import { MinimalMapBlueprint } from '@/components/molecule/MinimalMap'
 import { OverviewMapBlueprint } from '@/components/molecule/OverviewMap'
 import { type productUploadData, type mapOptions, type projectData } from '@/types/BUURTTYPES'
 import { Loader3d } from '@components/molecule/3dloader'
@@ -14,6 +15,7 @@ interface MapProps {
   projectArray?: projectData[]
   singleProject?: projectData
   creationData?: productUploadData[]
+  votingProject?: object
 }
 
 const render = (status: Status): ReactElement => {
@@ -30,7 +32,7 @@ const render = (status: Status): ReactElement => {
 }
 
 /* send coordinates as props to mapblueprint so that the map is reusable */
-export const MapWrapper = ({ mapType, projectId, projectArray, singleProject, creationData }: MapProps) => {
+export const MapWrapper = ({ mapType, projectId, projectArray, singleProject, creationData, votingProject }: MapProps) => {
   const libs: Libraries = ['places']
   const [mapData, setMapData] = useState<mapOptions | null>(null)
   useEffect(() => {
@@ -58,7 +60,8 @@ export const MapWrapper = ({ mapType, projectId, projectArray, singleProject, cr
         : (
           <Wrapper render={render} libraries={libs} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}>
             {mapType === 'overview' && projectArray && <OverviewMapBlueprint mapData={mapData} projectData={projectArray} />}
-            {mapType === 'builder' && singleProject && <BuilderMapBlueprint mapData={mapData} projectData={singleProject} creationData={creationData} />}
+            {mapType === 'builder' && singleProject && <BuilderMapBlueprint mapType={mapType} mapData={mapData} projectData={singleProject} creationData={creationData} />}
+            {mapType === 'minimal' && votingProject && <MinimalMapBlueprint mapType={mapType} mapData={mapData} votingProject={votingProject} />}
             {mapType === 'NewProject' && <NewProjectMapBlueprint mapData={mapData} />}
           </Wrapper>
           )}
