@@ -44,12 +44,12 @@ const VotingSelection = ({ creaties, creatie, onChange, handleComponentChange }:
       <div className={styles.selectionWrapper}>
         <Title as='h2' size='h3' weight='semibold'>Stem op het project dat jou het beste lijkt.</Title>
         <div className={styles.btnWrapper}>
-          <Button as='button' theme='Primary' size='large' append='medal-star'>Stemmen</Button>
           <Button
             as='button'
-            theme='Cancel'
+            theme='Primary'
             size='large'
             onClick={() => { void submitVote(creatieValue ?? ''); handleComponentChange('End') }}
+            disabled={creatieValue === ''}
           >Bevestigen
           </Button>
         </div>

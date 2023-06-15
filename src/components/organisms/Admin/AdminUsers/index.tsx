@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 
-import SearchBar from '@/components/atoms/SearchBar'
 import AdminUser from '@/components/molecule/AdminUser'
 
 import styles from './styles.module.css'
@@ -18,9 +17,6 @@ const AdminUsers = () => {
   const { data, isLoading, error } = useSWR(`${baseURL}burgers/`, fetcher)
   return (
     <div className={styles.adminUsers}>
-      <div className={styles.adminUser_search}>
-        <SearchBar />
-      </div>
       <div className={styles.adminUser_header}>
         <p> </p>
         <p>Gebruiker</p>

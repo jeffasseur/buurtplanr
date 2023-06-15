@@ -30,8 +30,7 @@ const submitBuurtplanr = async (data) => {
 const Algemeen = ({ buurtplanr }) => {
   const [FormData, setFormData] = useState({
     name: buurtplanr.name,
-    link: buurtplanr.link,
-    logo: buurtplanr.logo
+    link: buurtplanr.link
   })
   return (
     <div className={styles.algemeenContainer}>
@@ -56,10 +55,6 @@ const Algemeen = ({ buurtplanr }) => {
             placeholder='https://buurtplanr.com'
             onChange={(e) => { setFormData({ ...FormData, link: e.target.value }) }}
           />
-        </fieldset>
-        <fieldset className={styles.fieldset}>
-          <label className={styles.label}>Logo uploaden</label>
-          <Input type='file' Size='medium' accept='image/*' />
         </fieldset>
         <Button
           as='button'

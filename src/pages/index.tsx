@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import useSWR from 'swr'
 
 import styles from '@/assets/styles/pages/dashboard/Dashboard.module.css'
@@ -26,7 +26,7 @@ const Dashboard = () => {
   const authReducer = ReduxCheck()
   const userId = authReducer.data._id
   const { data, isLoading, error } = useSWR(`${baseURL}projects`, fetcher)
-  const [filter, setFilter] = useState('Fase 1: Informeren')
+  // const [filter, setFilter] = useState('Fase 1: Informeren')
 
   return (
     <>
@@ -35,7 +35,7 @@ const Dashboard = () => {
         <section className={styles.content}>
           <div className={styles.projectHeader}>
             <h2>Projecten</h2>
-            <div className={styles.filterContainer}>
+            {/* <div className={styles.filterContainer}>
               <select className={styles.filter} value={filter} onChange={(e) => { setFilter(e.target.value) }}>
                 <option value=''>filter op </option>
                 <option value='Fase 1: Informeren'>Fase 1: Informeren</option>
@@ -43,7 +43,7 @@ const Dashboard = () => {
                 <option value='Fase 3: Stemmen'>Fase 3: Stemmen</option>
                 <option value='Fase 4: Vervolg'>Fase 4: Vervolg</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div className={styles.projectList}>
             {

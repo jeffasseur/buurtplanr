@@ -37,11 +37,6 @@ const AdminProjects = () => {
         <div>
           <p className={styles.date}>startdatum</p>
         </div>
-        <div className={styles.searchContainer}>
-          <form action=''>
-            <input type='text' name='search' id='search' placeholder='Zoek project' />
-          </form>
-        </div>
       </div>
       <div className={styles.projectContainer}>
         <div className={styles.projectRowContainer}>
