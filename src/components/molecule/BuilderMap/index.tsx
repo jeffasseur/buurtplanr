@@ -20,9 +20,10 @@ interface MapProps {
   mapData: mapOptions
   projectData: projectData
   creationData?: productUploadData[]
+  mapType: string
 }
 
-export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapProps) => {
+export const BuilderMapBlueprint = ({ projectData, mapData, creationData, mapType }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null)
   const previewProduct = useRef<HTMLDivElement>(null)
   const mouseCapture = useRef<Vector3>()
@@ -62,7 +63,7 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
     }
   }, [BUURTMAP, creationData, map, mapData, projectData.border, projectData.location.coordinates])
 
-  if (map && BUURTMAP) {
+  if (map && BUURTMAP && mapType !== 'minimal') {
     const updateRayMouse = (e) => {
       // calculation to get raycaster right
       const bounding = mapContainer.current?.getBoundingClientRect()
@@ -181,14 +182,18 @@ export const BuilderMapBlueprint = ({ projectData, mapData, creationData }: MapP
           <WebpIcon name={modelName} />
         </div>}
       <div ref={mapContainer} onClick={clicker} id='map' className={styles.map}>
-        {map && <Thermometer productWeight={productWeight} />}
-        {map && <Tooltip />}
-        {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} productWeight={productWeight} setProductWeight={setProductWeight} />}
+        {mapType !== 'minimal' &&
+          <>
+            {map && <Thermometer productWeight={productWeight} />}
+            {map && <Tooltip />}
+            {map && BUURTMAP && <Editor setPID={setPID} activePID={PID} BUURTMAP={BUURTMAP} targetObject={draggable} creationData={creationData} productWeight={productWeight} setProductWeight={setProductWeight} />}
+          </>}
       </div>
-      <div className={styles.navcontainer}>
-        {map && <BuilderInfo />}
-        {map && <Toolbar productWeight={productWeight} />}
-      </div>
+      {mapType !== 'minimal' &&
+        <div className={styles.navcontainer}>
+          {map && <BuilderInfo />}
+          {map && <Toolbar productWeight={productWeight} />}
+        </div>}
     </div>
   )
 }

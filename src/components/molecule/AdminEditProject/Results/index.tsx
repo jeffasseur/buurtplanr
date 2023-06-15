@@ -50,7 +50,7 @@ const AdminEditProjectResults = ({ project }) => {
                   <p className={styles.creatieName}># {index}</p>
                 </div>
                 <div className={styles.creatieButtons}>
-                  <Button as='button' size='small' theme='Warning' onClick={(e) => { console.log(creatie.id) }}>Verwijderen</Button>
+                  <Button as='button' size='small' theme='Warning'>Verwijderen</Button>
                 </div>
               </div>
             ))
