@@ -5,11 +5,16 @@ import Occurrence from '@/components/molecule/Occurrence'
 
 import styles from './styles.module.css'
 
+let baseURL: string = '/'
+if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
+  baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
+}
+
 const fetcher = async (url: string) => {
   const res = await fetch(url, {
     method: 'GET',
     headers: {
-      'Access-Control-Allow-Origin': 'https://giddy-cummerbund-cod.cyclic.app/, http://localhost:3000/',
+      'Access-Control-Allow-Origin': `${baseURL}`,
       'Access-Control-Allow-Methods': 'GET'
     }
   })
@@ -17,10 +22,6 @@ const fetcher = async (url: string) => {
 }
 
 const AdminOccurrences = () => {
-  let baseURL: string = '/'
-  if (process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK) {
-    baseURL = `${process.env.NEXT_PUBLIC_BUURTPLANR_API_LINK?.toString()}`
-  }
   const { data, isLoading, error } = useSWR(`${baseURL}creaties/`, fetcher)
   return (
     <div className={styles.adminOccerrences}>
@@ -38,16 +39,18 @@ const AdminOccurrences = () => {
       </div>
       <div className={styles.occurrencesContainer}>
         {isLoading && <p>Loading...</p>}
+        {
+          (data?.status === 'error' || data?.status !== 'success') &&
+          (
+            <p>
+              {data?.message}
+            </p>
+          )
+        }
         {data?.data &&
           data.data.map((occurrence: object, index) => (
             <Occurrence occurrence={occurrence} key={index} />
           ))}
-        {
-          data?.data?.length === 0 &&
-          (
-            <p>Er zijn geen gebeurtenissen gevonden</p>
-          )
-        }
         {error && <p>Er is iets misgegaan met het ophalen van de gebeurtenissen</p>}
       </div>
     </div>
