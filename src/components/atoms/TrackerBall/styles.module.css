@@ -22,9 +22,6 @@
   aspect-ratio: 1 / 1;
   background: var(--color-white);
   border: 10px solid var(--color-blue-400);
-  &:hover {
-    cursor: pointer;
-  }
 }
 .trackerCircleNonactive {
   display: flex;
@@ -35,9 +32,6 @@
   aspect-ratio: 1 / 1;
   background: var(--color-grey-500);
   border: 10px solid var(--color-grey-500);
-  &:hover {
-    cursor: pointer;
-  }
 }
 .trackerCircleCompleted {
   display: flex;
@@ -48,9 +42,6 @@
   aspect-ratio: 1 / 1;
   background: var(--color-blue-500);
   border: 10px solid var(--color-blue-500);
-  &:hover {
-    cursor: pointer;
-  }
 }
 .trackerCircleActiveTransparent {
   display: flex;
@@ -61,9 +52,6 @@
   aspect-ratio: 1 / 1;
   border: 10px solid var(--color-blue-400);
   background: transparent;
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .trackerNumberActive {

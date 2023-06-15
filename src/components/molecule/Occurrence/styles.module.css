@@ -1,6 +1,6 @@
 .OccContainer {
   display: grid;
-  grid-template-columns: 65px 3fr 1fr 2fr 30px 1fr 1fr;
+  grid-template-columns: 65px 3fr 1fr 2fr 30px 1fr;
   align-items: center;
   column-gap: 2rem;
 }
@@ -9,6 +9,23 @@
   display: flex;
   justify-content: center;
   max-height: 29px;
+}
+
+.OccContainer_img {
+  position: relative;
+  width: 61px;
+  height: 61px;
+  object-fit: cover;
+  border-radius: var(--radius-round);
+}
+
+.image {
+  position: absolute;
+  width: 61px;
+  height: 61px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: var(--radius-round);
 }
 
 .divider {

@@ -28,19 +28,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px black;
-}
-
-.CheckboxRoot:hover {
-  background-color: var(--color-blue-500);
-}
-
-.CheckboxRoot:focus {
-  box-shadow: 0 0 0 2px black;
+  border: 1px solid var(--color-grey-500);
+  cursor: pointer;
 }
 
 .CheckboxIndicator {
   color: var(--color-blue-500);
+}
+
+.CheckboxRoot[data-state='checked'] {
+  background-color: var(--color-blue-500);
+}
+
+.CheckboxRoot[data-state='checked'] .CheckboxIndicator {
+  color: var(--color-white);
 }
 
 
@@ -112,4 +113,6 @@
 .objectContainer {
   display: flex;
   gap: var(--spacing-08);
+  overflow-x: auto;
+  padding: .5rem;
 }

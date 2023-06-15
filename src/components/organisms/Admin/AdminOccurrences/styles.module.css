@@ -11,7 +11,7 @@
 
 .adminOccurrences_header {
   display: grid;
-  grid-template-columns: 65px 3fr 1fr 2fr 30px 1fr 1fr;
+  grid-template-columns: 65px 3fr 1fr 2fr 30px 1fr;
   column-gap: 2rem;
 }
 

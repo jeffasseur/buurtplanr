@@ -1,6 +1,5 @@
 import Image from 'next/image'
 
-import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
 import { getFormattedDateFromTimestamp } from '@/helpers/dateFormatter'
 
@@ -19,13 +18,13 @@ const Occurrence = ({ occurrence }) => {
               {
                 !occurrence.burger &&
                 (
-                  <Icon name='profile-circle' />
+                  <Icon name='profile-circle' className={styles.image} />
                 )
               }
               {
                 occurrence.burger?.image &&
                 (
-                  <Image src={occurrence.burger.image} alt='beschrijving' width={61} height={61} />
+                  <Image src={occurrence.burger.image} alt='beschrijving' fill className={styles.image} />
                 )
               }
             </div>
@@ -42,16 +41,24 @@ const Occurrence = ({ occurrence }) => {
               <p>{formatedDate}</p>
             </div>
             <div className={styles.OccContainer_occurrence}>
-              <p>Creatie {occurrence.project.title}</p>
+              {
+                occurrence?.project === null &&
+                (
+                  <p>Bijhorend project is verwijderd</p>
+                )
+              }
+              {
+                occurrence?.project !== null &&
+                (
+                  <p>Creatie {occurrence.project.title}</p>
+                )
+              }
             </div>
             <div className={styles.OccContainer_divider}>
               <div className={styles.divider} />
             </div>
             <div className={styles.OccContainer_label}>
               <p>creatie</p>
-            </div>
-            <div className={styles.OccContainer_btn}>
-              <Button as='link' href='/admin/activities' theme='Primary' size='small' append='eye'>bekijk</Button>
             </div>
           </div>
         )
