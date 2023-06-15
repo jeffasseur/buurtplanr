@@ -1,14 +1,6 @@
 {
   "list": [
     {
-      "name": "grass",
-      "productType": "grond"
-    },
-    {
-      "name": "gravel",
-      "productType": "grond"
-    },
-    {
       "name": "boom-palm",
       "productType": "natuur"
     },

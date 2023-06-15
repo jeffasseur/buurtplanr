@@ -88,7 +88,7 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`${baseURL}projects/`)
+  const res = await fetch(`${baseURL}projects/voting`)
   const data = await res.json()
   // Geef nog in de body mee dat hem projecten gaat die Fase 3 zijn, anders haalt die projecten op waar nog geen creaties aan zijn gekoppeld
   // Pas backend nog aan zodat als er een req.body.fase is dat die daar mee op filtert

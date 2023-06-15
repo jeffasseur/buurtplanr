@@ -80,7 +80,7 @@ const AdminEditProjectGeneral = ({ project }) => {
           <select name='projectFase' defaultValue={FormData.fase} id='projectFase' onChange={handleChangeFase} className={styles.projectFase}>
             <option value='Fase 0: Wachten tot opstart'>Fase 0: Wachten tot opstart</option>
             <option value='Fase 1: Informeren'>Fase 1: Informeren</option>
-            <option value='ase 2: Cocreatie'>Fase 2: Cocreatie</option>
+            <option value='Fase 2: Cocreatie'>Fase 2: Cocreatie</option>
             <option value='Fase 3: Stemmen'>Fase 3: Stemmen</option>
             <option value='Fase 4: Vervolg'>Fase 4: Vervolg</option>
           </select>

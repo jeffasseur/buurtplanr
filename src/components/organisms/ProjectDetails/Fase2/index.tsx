@@ -1,9 +1,12 @@
 import Button from '@/components/atoms/Button'
 import Title from '@/components/atoms/Title'
+import ReduxCheck from '@/helpers/ReduxCheck'
 
 import styles from './styles.module.css'
 
 const ProjectDetailsFase2 = ({ project }) => {
+  const authState = ReduxCheck()
+  const userId: string = authState.data._id
   const pid: string = project._id
   return (
     <>
@@ -14,7 +17,7 @@ const ProjectDetailsFase2 = ({ project }) => {
           <Button
             as='link'
             append='builder'
-            href={`/builder/${pid}`}
+            href={`/builder/${pid}/${userId}}`}
             theme='Primary'
             size='small'
             className={styles.button}
