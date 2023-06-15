@@ -80,11 +80,11 @@ export const useNewProjectForm = create<newProjectForm>()(
 
       setupProgress: {
         budget: 0,
-        informatie: 'hnieuweraanlaeggabosl',
+        informatie: '',
         projectData: {
           type: 'straat',
           file: null,
-          link: 'https://arthuris.online'
+          link: ''
         }
       },
 
