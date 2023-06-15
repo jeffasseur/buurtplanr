@@ -9,9 +9,9 @@ interface DeleteAccountProps {
 }
 
 const DeleteAccount = ({ id }: DeleteAccountProps) => {
-  const submitDelete = () => {
-    console.log(id)
-  }
+  // const submitDelete = () => {
+  //   console.log(id)
+  // }
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
@@ -33,7 +33,7 @@ const DeleteAccount = ({ id }: DeleteAccountProps) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <Button size='small' theme='Warning' onClick={submitDelete}>
+              <Button size='small' theme='Warning'>
                 account verwijderen
               </Button>
             </AlertDialog.Action>
