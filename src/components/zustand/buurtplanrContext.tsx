@@ -130,7 +130,7 @@ export const useNewProjectForm = create<newProjectForm>()(
             projectData: {
               type: 'straat',
               file: null,
-              link: 'https://arthuris.online'
+              link: ''
             }
           },
 

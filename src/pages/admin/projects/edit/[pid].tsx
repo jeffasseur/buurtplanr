@@ -20,41 +20,6 @@ const EditProject = ({ project }) => {
   )
 }
 
-// interface Params extends ParsedUrlQuery {
-//   pid: string
-// }
-
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`${baseURL}projects/`)
-//   const data = await res.json()
-
-//   const paths: object = data.data.map(project => {
-//     return {
-//       params: {
-//         pid: project._id
-//       }
-//     }
-//   })
-
-//   return {
-//     paths,
-//     fallback: false
-//   }
-// }
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const { pid } = context.params as Params
-//   const apiUrl: string = `${baseURL}projects/${pid}`
-//   const res = await fetch(apiUrl, {
-//     method: 'GET',
-//     headers: {
-//       'Access-Control-Allow-Origin': `${baseURL}`
-//     }
-//   })
-//   const data = await res.json()
-//   return { props: { project: data.data }, revalidate: 60 }
-// }
-
 export const getServerSideProps: GetStaticProps = async ({ params }) => {
   const pid = params?.pid as string
   const project = await fetch(`${baseURL}projects/${pid}`).then(async res => await res.json())

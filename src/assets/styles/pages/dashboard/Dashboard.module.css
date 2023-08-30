@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-08);
-  padding: var(--spacing-09) var(--spacing-04);
+  padding: var(--spacing-09) var(--spacing-08);
 }
 
 .projectHeader {
@@ -21,10 +21,11 @@
 }
 
 .projectList {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 500px));
+  align-items: stretch;
   justify-content: center;
-  gap: var(--spacing-09);
+  gap: var(--spacing-08);
 }
 
 .filter {

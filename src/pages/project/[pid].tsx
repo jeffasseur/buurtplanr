@@ -1,5 +1,3 @@
-// import { type ParsedUrlQuery } from 'querystring'
-
 import { type GetStaticProps } from 'next'
 import Image from 'next/image'
 import Router from 'next/router'
@@ -24,7 +22,8 @@ const ProjectDetailPage = ({ project }) => {
   const fase = project.fase.split(' ')[1]
   const faseNumberString = fase.split(':')[0]
   const faseNumberInt = parseInt(faseNumberString)
-  const pageElements = [<Fase2 key={2} project={project} />, <Fase3 key={3} project={project} />, <Fase4 key={4} project={project} />]
+  const pageElements = [<Fase2 key={2} project={project} />, <Fase3 key={3} project={project} />, <Fase4 key={4} winner={null} />]
+
   return (
     <>
       <UserLayout>
@@ -48,8 +47,7 @@ const ProjectDetailPage = ({ project }) => {
             )
           }
           <Button
-            as='link'
-            href=''
+            as='button'
             onClick={() => { Router.back() }}
             prepend='arrow-left'
             theme='Transparent'
@@ -83,50 +81,6 @@ const ProjectDetailPage = ({ project }) => {
     </>
   )
 }
-
-// interface Params extends ParsedUrlQuery {
-//   pid: string
-// }
-
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`${baseURL}projects/`)
-//   const data = await res.json()
-
-//   const paths: object = data.data.map(project => {
-//     return {
-//       params: {
-//         pid: project._id
-//       }
-//     }
-//   })
-
-//   return {
-//     paths,
-//     fallback: false
-//   }
-// }
-
-// export const getStaticProps = async (context) => {
-//   const { pid } = context.params as Params
-//   const res = await fetch(`${baseURL}projects/${pid}`, {
-//     method: 'GET',
-//     headers: {
-//       'Access-Control-Allow-Origin': `${baseURL}`
-//       // authorization: `Bearer ${token}`
-//     }
-//   })
-//   const data = await res.json()
-//   if (data.status === 'success') {
-//     return { props: { project: data.data }, revalidate: 20 }
-//   } else if (data.status === 'error' || data.status !== 'success') {
-//     return {
-//       redirect: {
-//         destination: '/404',
-//         permanent: false
-//       }
-//     }
-//   }
-// }
 
 export const getServerSideProps: GetStaticProps = async ({ params }) => {
   const pid = params?.pid as string

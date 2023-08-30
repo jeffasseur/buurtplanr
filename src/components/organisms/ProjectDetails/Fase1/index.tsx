@@ -49,7 +49,7 @@ const ProjectDetailsFase1 = ({ project }) => {
           )
         }
         {
-          (project.projectData.link !== null) &&
+          (project.projectData.link !== null || project.projectData.link !== '') &&
           (
             <div className={styles.link}>
               <iframe src={project.projectData.link} className={styles.iframe} />
